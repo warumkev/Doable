@@ -15,6 +15,9 @@ struct ContentView: View {
     @State private var isDoneSectionExpanded = false
     @State private var pendingCompletionTodo: Todo? = nil
     @State private var isTimerSheetPresented: Bool = false
+    @State private var isFullscreenTimerPresented: Bool = false
+    @State private var timerSecondsToRun: Int = 0
+    @State private var shouldPresentFullscreenAfterSheet: Bool = false
     
     private var incompleteTodos: [Todo] {
         todos.filter { !$0.isCompleted }.sorted { $0.createdAt > $1.createdAt }
@@ -137,14 +140,40 @@ struct ContentView: View {
                     isTimerSheetPresented = false
                     pendingCompletionTodo = nil
                 },
-                onConfirm: { _ in
-                    if let t = pendingCompletionTodo {
-                        t.isCompleted = true
-                    }
+                onConfirm: { seconds in
+                    // Instead of immediately completing, present the fullscreen timer flow.
+                    // Dismiss the sheet first, then set a flag to present the fullscreen cover when the sheet is fully dismissed.
+                    timerSecondsToRun = seconds
+                    shouldPresentFullscreenAfterSheet = true
                     isTimerSheetPresented = false
-                    pendingCompletionTodo = nil
                 }
             )
+        }
+        .fullScreenCover(isPresented: $isFullscreenTimerPresented) {
+            if let todo = pendingCompletionTodo {
+                FullscreenTimerView(todo: todo, totalSeconds: timerSecondsToRun) {
+                    // completion callback from fullscreen view: mark todo completed and clear pending
+                    withAnimation {
+                        todo.isCompleted = true
+                    }
+                    pendingCompletionTodo = nil
+                    isFullscreenTimerPresented = false
+                } onCancel: {
+                    // user cancelled the fullscreen timer flow
+                    pendingCompletionTodo = nil
+                    isFullscreenTimerPresented = false
+                }
+            } else {
+                // Fallback: dismiss if no pending todo
+                EmptyView()
+            }
+        }
+        .onChange(of: isTimerSheetPresented) { newValue in
+            // When the sheet finishes dismissing and we had requested to present the fullscreen timer, do it now.
+            if !newValue && shouldPresentFullscreenAfterSheet {
+                shouldPresentFullscreenAfterSheet = false
+                isFullscreenTimerPresented = true
+            }
         }
     }
     
