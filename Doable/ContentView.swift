@@ -31,7 +31,7 @@ struct ContentView: View {
         ZStack {
             VStack(spacing: 0) {
                 // Header
-                Text("Doable")
+                Text(NSLocalizedString("Doable", value: "Doable", comment: "App title"))
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.top, 40)
@@ -40,10 +40,10 @@ struct ContentView: View {
                 if incompleteTodos.isEmpty && completedTodos.isEmpty {
                     VStack {
                         Spacer()
-                        Text("No todos yet")
+                        Text(NSLocalizedString("No todos yet", value: "No todos yet", comment: "Empty state title when there are no todos"))
                             .font(.title2)
                             .foregroundColor(.secondary)
-                        Text("Tap the + button to create your first todo")
+                        Text(NSLocalizedString("Tap the + button to create your first todo", value: "Tap the + button to create your first todo", comment: "Empty state subtitle prompting to add first todo"))
                             .font(.body)
                             .foregroundColor(.secondary)
                         Spacer()
@@ -84,7 +84,7 @@ struct ContentView: View {
                                             .font(.caption)
                                             .foregroundColor(.secondary)
                                         
-                                        Text("Done today(\(completedTodos.count))")
+                                        Text(String.localizedStringWithFormat(NSLocalizedString("Done today(%d)", value: "Done today(%d)", comment: "Header showing number of todos done today"), completedTodos.count))
                                             .font(.headline)
                                             .foregroundColor(.secondary)
                                         
@@ -168,7 +168,7 @@ struct ContentView: View {
                 EmptyView()
             }
         }
-        .onChange(of: isTimerSheetPresented) { newValue in
+        .onChange(of: isTimerSheetPresented) { _, newValue in
             // When the sheet finishes dismissing and we had requested to present the fullscreen timer, do it now.
             if !newValue && shouldPresentFullscreenAfterSheet {
                 shouldPresentFullscreenAfterSheet = false

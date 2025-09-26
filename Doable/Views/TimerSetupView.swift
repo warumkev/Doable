@@ -16,12 +16,12 @@ struct TimerSetupSheet: View {
                 .padding(.top, 8)
                 .accessibilityHidden(true)
             
-            Text("Set a timer")
+            Text(NSLocalizedString("Set a timer", value: "Set a timer", comment: "Title for the timer setup sheet"))
                 .font(.headline)
                 .padding(.top, 4)
             
             if !todoTitle.isEmpty {
-                Text("for \(todoTitle)")
+                Text(String(format: NSLocalizedString("for %@", value: "for %@", comment: "Label showing the todo title in timer sheet"), todoTitle))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -30,7 +30,7 @@ struct TimerSetupSheet: View {
                 
                 HStack(alignment: .center, spacing: 24) {
                     VStack(spacing: 4) {
-                        Picker("Minutes", selection: $minutes) {
+                        Picker(NSLocalizedString("Minutes", value: "Minutes", comment: "Picker label for minutes"), selection: $minutes) {
                             ForEach(0..<60, id: \.self) { m in
                                 Text(String(format: "%02d", m)).tag(m)
                             }
@@ -38,19 +38,19 @@ struct TimerSetupSheet: View {
                         .pickerStyle(.wheel)
                         .frame(width: 100, height: 120)
                         .clipped()
-                        Text("min")
+                        Text(NSLocalizedString("min", value: "min", comment: "Label for minutes unit"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                     
-                    Text(":")
+                    Text(NSLocalizedString("colon", value: ":", comment: "Separator between minute and seconds pickers"))
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundStyle(.secondary)
                         .accessibilityHidden(true)
                     
                     VStack(spacing: 4) {
-                        Picker("Seconds", selection: $seconds) {
+                        Picker(NSLocalizedString("Seconds", value: "Seconds", comment: "Picker label for seconds"), selection: $seconds) {
                             ForEach(0..<60, id: \.self) { s in
                                 Text(String(format: "%02d", s)).tag(s)
                             }
@@ -58,7 +58,7 @@ struct TimerSetupSheet: View {
                         .pickerStyle(.wheel)
                         .frame(width: 100, height: 120)
                         .clipped()
-                        Text("sec")
+                        Text(NSLocalizedString("sec", value: "sec", comment: "Label for seconds unit"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -82,7 +82,7 @@ struct TimerSetupSheet: View {
                 Button(role: .cancel) {
                     onCancel()
                 } label: {
-                    Text("Cancel")
+                    Text(NSLocalizedString("Cancel", value: "Cancel", comment: "Cancel button title"))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
                         .background(Color(.systemGray5))
@@ -93,7 +93,7 @@ struct TimerSetupSheet: View {
                 Button {
                     onConfirm(minutes * 60 + seconds)
                 } label: {
-                    Text("Confirm")
+                    Text(NSLocalizedString("Confirm", value: "Confirm", comment: "Confirm button title"))
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)

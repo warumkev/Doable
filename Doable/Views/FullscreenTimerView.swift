@@ -7,6 +7,7 @@ import AudioToolbox
 /// When the countdown completes it asks user to rotate back to portrait to confirm completion.
 struct FullscreenTimerView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.scenePhase) private var scenePhase
 
     let todo: Todo
     let totalSeconds: Int
@@ -20,6 +21,8 @@ struct FullscreenTimerView: View {
     @State private var timerCancellable: AnyCancellable? = nil
     @State private var didComplete: Bool = false
     @State private var didPlaySuccess: Bool = false
+    @State private var disappointed: Bool = false
+    @State private var disappointedMessage: String = DisappointmentText.randomMessage()
     
 
     init(todo: Todo, totalSeconds: Int, onComplete: @escaping () -> Void, onCancel: @escaping () -> Void) {
@@ -32,99 +35,117 @@ struct FullscreenTimerView: View {
 
     var body: some View {
         ZStack {
-            Color(.systemBackground)
-                .ignoresSafeArea()
-
-            VStack(spacing: 24) {
-                Spacer()
-
-                if !timerActive && !timerFinished {
-                    VStack(spacing: 12) {
-                        Text("Rotate your device")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                        Text("Please rotate into landscape to start the timer")
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
-
-                        Image(systemName: "iphone.landscape")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 120, height: 120)
-                            .foregroundStyle(.secondary)
+            // If disappointed, show a dedicated fullscreen disappointment view and nothing else.
+            if disappointed {
+                DisappointmentView(
+                    title: DisappointmentText.title,
+                    message: disappointedMessage,
+                    buttonTitle: DisappointmentText.okButton,
+                    onConfirm: {
+                        onCancel()
+                        dismiss()
                     }
-                } else if timerActive {
-                    VStack(spacing: 12) {
-                        Text(todo.title)
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
+                )
+                .zIndex(3)
+                .transition(.opacity)
+            } else {
+                Color(.systemBackground)
+                    .ignoresSafeArea()
 
-                        Text(timeString(from: remainingSeconds))
-                            .font(.system(size: 60, weight: .bold, design: .monospaced))
-                            .foregroundStyle(.primary)
-                            .padding(.top, 8)
+                VStack(spacing: 24) {
+                    Spacer()
 
-                        if remainingSeconds > 0 {
-                            Text("Keep in landscape to continue")
+                    if !timerActive && !timerFinished {
+                        VStack(spacing: 12) {
+                            Text(NSLocalizedString("Rotate your device", value: "Rotate your device", comment: "Prompt title instructing user to rotate into landscape"))
+                                    .font(.title2)
+                                    .fontWeight(.semibold)
+                                Text(NSLocalizedString("Please rotate into landscape to start the timer", value: "Please rotate into landscape to start the timer", comment: "Prompt subtitle explaining rotation starts the timer"))
+                                    .foregroundStyle(.secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal)
+
+                            Image(systemName: "iphone.landscape")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 120, height: 120)
                                 .foregroundStyle(.secondary)
-                                .font(.caption)
-                        } else {
-                            Text("Timer finished — rotate back to portrait to complete the task")
-                                .foregroundStyle(.secondary)
-                                .font(.caption)
+                        }
+                    } else if timerActive {
+                        VStack(spacing: 12) {
+                            Text(todo.title)
+                                .font(.title)
+                                .fontWeight(.semibold)
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal)
+
+                            Text(timeString(from: remainingSeconds))
+                                .font(.system(size: 60, weight: .bold, design: .monospaced))
+                                .foregroundStyle(.primary)
+                                .padding(.top, 8)
+
+                            if remainingSeconds > 0 {
+                                Text(NSLocalizedString("Keep in landscape to continue", value: "Keep in landscape to continue", comment: "Small hint while timer is running"))
+                                    .foregroundStyle(.secondary)
+                                    .font(.caption)
+                            } else {
+                                Text(NSLocalizedString("Timer finished — rotate back to portrait to complete the task", value: "Timer finished — rotate back to portrait to complete the task", comment: "Message shown when timer reached zero instructing to rotate back"))
+                                    .foregroundStyle(.secondary)
+                                    .font(.caption)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal)
+                            }
+                        }
+                    } else if timerFinished {
+                        VStack(spacing: 12) {
+                            Text(NSLocalizedString("Done!", value: "Done!", comment: "Timer finished title"))
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                Text(NSLocalizedString("Rotate back to portrait to mark the task as completed", value: "Rotate back to portrait to mark the task as completed", comment: "Instruction to rotate back to portrait to confirm completion"))
+                                    .foregroundStyle(.secondary)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal)
+
+                            Image(systemName: "checkmark.seal")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .foregroundStyle(.green)
                         }
                     }
-                } else if timerFinished {
-                    VStack(spacing: 12) {
-                        Text("Done!")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                        Text("Rotate back to portrait to mark the task as completed")
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
 
-                        Image(systemName: "checkmark.seal")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
-                            .foregroundStyle(.green)
-                    }
+                    Spacer()
+
+                    // Buttons removed per request. Keep spacing at bottom.
+                    Color.clear
+                        .frame(height: 24)
+                        .padding(.bottom, 24)
+                }
+                .onAppear {
+                    beginObservingOrientation()
+                    // If we are already in landscape, start immediately
+                    startTimerIfLandscape()
+                }
+                .onDisappear {
+                    stopObservingOrientation()
+                    stopTimerIfNeeded()
+                    // Do NOT call onCancel here — we want to keep the view presented so that
+                    // when the user returns from background we can show the disappointment overlay.
                 }
 
-                Spacer()
-
-                // Buttons removed per request. Keep spacing at bottom.
-                Color.clear
-                    .frame(height: 24)
-                    .padding(.bottom, 24)
-            }
-            .onAppear {
-                beginObservingOrientation()
-                // If we are already in landscape, start immediately
-                startTimerIfLandscape()
-            }
-            .onDisappear {
-                stopObservingOrientation()
-                stopTimerIfNeeded()
-                // If the view disappeared without completing the flow, call onCancel
-                if !didComplete {
-                    onCancel()
+                // Confetti overlay when finished (above content)
+                if timerFinished {
+                    ConfettiView(active: true)
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+                        .zIndex(1)
+                        .allowsHitTesting(false)
                 }
             }
-
-            // Confetti overlay when finished (above content)
-            if timerFinished {
-                ConfettiView(active: true)
-                    .ignoresSafeArea()
-                    .transition(.opacity)
-                    .zIndex(1)
-                    .allowsHitTesting(false)
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .background || newPhase == .inactive {
+                appDidLeaveWhileRunning()
             }
         }
     }
@@ -147,6 +168,8 @@ struct FullscreenTimerView: View {
     }
 
     private func handleOrientationChange() {
+        // If we're showing the disappointed fullscreen, ignore orientation changes
+        if disappointed { return }
         if !timerActive && !timerFinished {
             // start when user rotates to landscape
             if orientation.isLandscape {
@@ -175,6 +198,7 @@ struct FullscreenTimerView: View {
     // MARK: - Timer control
 
     private func startTimerIfLandscape() {
+        if disappointed { return }
         if UIDevice.current.orientation.isLandscape {
             startTimer()
         }
@@ -223,6 +247,7 @@ struct FullscreenTimerView: View {
     }
 
     private func resumeTimer() {
+        if disappointed { return }
         guard !timerActive && !timerFinished && remainingSeconds > 0 else { return }
         timerActive = true
         timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
@@ -243,6 +268,29 @@ struct FullscreenTimerView: View {
         timerCancellable?.cancel()
         timerCancellable = nil
         timerActive = false
+    }
+
+    // MARK: - App lifecycle / cancellation
+
+    private func appDidLeaveWhileRunning() {
+        // Cancel if the timer was started (either actively running, or already decremented at least once)
+        // and it hasn't finished or been completed yet.
+        let timerWasStarted = timerActive || remainingSeconds < totalSeconds
+        guard timerWasStarted && !timerFinished && !didComplete else { return }
+
+        // Stop timer work
+        stopTimerIfNeeded()
+        timerActive = false
+
+    // Pick a random funny message and show the disappointment view
+    disappointedMessage = DisappointmentText.randomMessage()
+    disappointed = true
+
+        // subtle error haptic
+        DispatchQueue.main.async {
+            let gen = UINotificationFeedbackGenerator()
+            gen.notificationOccurred(.error)
+        }
     }
 
     // MARK: - Utilities
