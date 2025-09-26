@@ -1,9 +1,9 @@
 import SwiftUI
 
 struct DisappointmentView: View {
-    let title: String
-    let message: String
-    let buttonTitle: String
+    let title: LocalizedStringKey
+    let message: LocalizedStringKey
+    let buttonTitle: LocalizedStringKey
     let onConfirm: () -> Void
 
     var body: some View {
@@ -24,8 +24,8 @@ struct DisappointmentView: View {
                     .foregroundStyle(.secondary)
                     .padding(.horizontal)
                 Spacer()
-                Button(buttonTitle) {
-                    onConfirm()
+                Button(action: { onConfirm() }) {
+                    Text(buttonTitle)
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red)

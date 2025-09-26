@@ -31,7 +31,7 @@ struct ContentView: View {
         ZStack {
             VStack(spacing: 0) {
                 // Header
-                Text(NSLocalizedString("Doable", value: "Doable", comment: "App title"))
+                Text("Doable")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.top, 40)
@@ -40,10 +40,10 @@ struct ContentView: View {
                 if incompleteTodos.isEmpty && completedTodos.isEmpty {
                     VStack {
                         Spacer()
-                        Text(NSLocalizedString("No todos yet", value: "No todos yet", comment: "Empty state title when there are no todos"))
+                        Text("No todos yet")
                             .font(.title2)
                             .foregroundColor(.secondary)
-                        Text(NSLocalizedString("Tap the + button to create your first todo", value: "Tap the + button to create your first todo", comment: "Empty state subtitle prompting to add first todo"))
+                        Text("Tap the + button to create your first todo")
                             .font(.body)
                             .foregroundColor(.secondary)
                         Spacer()
@@ -84,7 +84,7 @@ struct ContentView: View {
                                             .font(.caption)
                                             .foregroundColor(.secondary)
                                         
-                                        Text(String.localizedStringWithFormat(NSLocalizedString("Done today(%d)", value: "Done today(%d)", comment: "Header showing number of todos done today"), completedTodos.count))
+                                        Text("Done today(\(completedTodos.count))")
                                             .font(.headline)
                                             .foregroundColor(.secondary)
                                         

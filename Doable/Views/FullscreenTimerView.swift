@@ -22,7 +22,7 @@ struct FullscreenTimerView: View {
     @State private var didComplete: Bool = false
     @State private var didPlaySuccess: Bool = false
     @State private var disappointed: Bool = false
-    @State private var disappointedMessage: String = DisappointmentText.randomMessage()
+    @State private var disappointedMessageKey: LocalizedStringKey = DisappointmentText.randomMessageKey()
     
 
     init(todo: Todo, totalSeconds: Int, onComplete: @escaping () -> Void, onCancel: @escaping () -> Void) {
@@ -38,9 +38,9 @@ struct FullscreenTimerView: View {
             // If disappointed, show a dedicated fullscreen disappointment view and nothing else.
             if disappointed {
                 DisappointmentView(
-                    title: DisappointmentText.title,
-                    message: disappointedMessage,
-                    buttonTitle: DisappointmentText.okButton,
+                    title: DisappointmentText.titleKey,
+                    message: disappointedMessageKey,
+                    buttonTitle: DisappointmentText.okButtonKey,
                     onConfirm: {
                         onCancel()
                         dismiss()
@@ -57,10 +57,10 @@ struct FullscreenTimerView: View {
 
                     if !timerActive && !timerFinished {
                         VStack(spacing: 12) {
-                            Text(NSLocalizedString("Rotate your device", value: "Rotate your device", comment: "Prompt title instructing user to rotate into landscape"))
+                            Text("Rotate your device")
                                     .font(.title2)
                                     .fontWeight(.semibold)
-                                Text(NSLocalizedString("Please rotate into landscape to start the timer", value: "Please rotate into landscape to start the timer", comment: "Prompt subtitle explaining rotation starts the timer"))
+                                Text("Please rotate into landscape to start the timer")
                                     .foregroundStyle(.secondary)
                                     .multilineTextAlignment(.center)
                                     .padding(.horizontal)
@@ -85,11 +85,11 @@ struct FullscreenTimerView: View {
                                 .padding(.top, 8)
 
                             if remainingSeconds > 0 {
-                                Text(NSLocalizedString("Keep in landscape to continue", value: "Keep in landscape to continue", comment: "Small hint while timer is running"))
+                                Text("Keep in landscape to continue")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                             } else {
-                                Text(NSLocalizedString("Timer finished — rotate back to portrait to complete the task", value: "Timer finished — rotate back to portrait to complete the task", comment: "Message shown when timer reached zero instructing to rotate back"))
+                                Text("Timer finished — rotate back to portrait to complete the task")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                     .multilineTextAlignment(.center)
@@ -98,10 +98,10 @@ struct FullscreenTimerView: View {
                         }
                     } else if timerFinished {
                         VStack(spacing: 12) {
-                            Text(NSLocalizedString("Done!", value: "Done!", comment: "Timer finished title"))
+                            Text("Done!")
                                     .font(.title)
                                     .fontWeight(.semibold)
-                                Text(NSLocalizedString("Rotate back to portrait to mark the task as completed", value: "Rotate back to portrait to mark the task as completed", comment: "Instruction to rotate back to portrait to confirm completion"))
+                                Text("Rotate back to portrait to mark the task as completed")
                                     .foregroundStyle(.secondary)
                                     .multilineTextAlignment(.center)
                                     .padding(.horizontal)
@@ -282,8 +282,8 @@ struct FullscreenTimerView: View {
         stopTimerIfNeeded()
         timerActive = false
 
-    // Pick a random funny message and show the disappointment view
-    disappointedMessage = DisappointmentText.randomMessage()
+    // Pick a random funny message key and show the disappointment view
+    disappointedMessageKey = DisappointmentText.randomMessageKey()
     disappointed = true
 
         // subtle error haptic

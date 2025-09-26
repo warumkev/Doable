@@ -1,28 +1,26 @@
 import Foundation
 
 /// Centralized strings for the Disappointment / cancellation UI.
-/// Uses `NSLocalizedString` so these can be localized later via `Localizable.strings` files.
+import SwiftUI
+
+/// Centralized keys for the Disappointment / cancellation UI.
+/// This exposes `LocalizedStringKey` values so views can use SwiftUI's localization directly.
 struct DisappointmentText {
-    static var title: String {
-        NSLocalizedString("disappointment.title", value: "Timer cancelled", comment: "Title for the disappointment full screen shown when the user leaves the app during a timer")
-    }
+    // Use the english phrases as LocalizedStringKey so they map to existing Localizable.strings entries.
+    static var titleKey: LocalizedStringKey { LocalizedStringKey("Timer cancelled") }
+    static var okButtonKey: LocalizedStringKey { LocalizedStringKey("OK") }
 
-    static var okButton: String {
-        NSLocalizedString("disappointment.button.ok", value: "OK", comment: "OK button title for disappointment screen")
-    }
-
-    // Funny messages - keep these in code but routed through NSLocalizedString for future localization.
-    private static var rawMessages: [String] = [
-        NSLocalizedString("disappointment.message.1", value: "This wasn't very Doable of you.", comment: "Funny disappointment message"),
-        NSLocalizedString("disappointment.message.2", value: "You left the timer hanging. Rude.", comment: "Funny disappointment message"),
-        NSLocalizedString("disappointment.message.3", value: "The timer was getting lonely.", comment: "Funny disappointment message"),
-        NSLocalizedString("disappointment.message.4", value: "Come back! The timer misses you.", comment: "Funny disappointment message"),
-        NSLocalizedString("disappointment.message.5", value: "That was a soft commitment.", comment: "Funny disappointment message"),
-        NSLocalizedString("disappointment.message.6", value: "You ghosted the timer.", comment: "Funny disappointment message"),
-        NSLocalizedString("disappointment.message.7", value: "Not your finest moment, champ.", comment: "Funny disappointment message"),
+    private static let messageKeys: [LocalizedStringKey] = [
+        LocalizedStringKey("This wasn't very Doable of you."),
+        LocalizedStringKey("You left the timer hanging. Rude."),
+        LocalizedStringKey("The timer was getting lonely."),
+        LocalizedStringKey("Come back! The timer misses you."),
+        LocalizedStringKey("That was a soft commitment."),
+        LocalizedStringKey("You ghosted the timer."),
+        LocalizedStringKey("Not your finest moment, champ."),
     ]
 
-    static func randomMessage() -> String {
-        rawMessages.randomElement() ?? rawMessages.first!
+    static func randomMessageKey() -> LocalizedStringKey {
+        messageKeys.randomElement() ?? messageKeys.first!
     }
 }
