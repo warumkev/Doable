@@ -84,7 +84,7 @@ struct ContentView: View {
                                             .font(.caption)
                                             .foregroundColor(.secondary)
                                         
-                                        Text("Done today(\(completedTodos.count))")
+                                        Text("Done")
                                             .font(.headline)
                                             .foregroundColor(.secondary)
                                         

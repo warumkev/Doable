@@ -3,7 +3,7 @@
 "No todos yet" = "Noch keine Aufgaben";
 "Tap the + button to create your first todo" = "Tippe auf +, um deine erste Aufgabe zu erstellen";
 "Delete" = "Löschen";
-"Done today(%d)" = "Erledigt heute(%d)";
+"Done" = "Erledigt";
 "Set a timer" = "Timer einstellen";
 "for %@" = "für %@";
 ":" = ":";
