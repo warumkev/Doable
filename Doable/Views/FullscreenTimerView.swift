@@ -23,6 +23,9 @@ struct FullscreenTimerView: View {
     @State private var didPlaySuccess: Bool = false
     @State private var disappointed: Bool = false
     @State private var disappointedMessageKey: LocalizedStringKey = DisappointmentText.randomMessageKey()
+    // micro-interaction states
+    @State private var isPausedMicrostate: Bool = false
+    @State private var showDoneBloom: Bool = false
     
 
     init(todo: Todo, totalSeconds: Int, onComplete: @escaping () -> Void, onCancel: @escaping () -> Void) {
@@ -79,15 +82,24 @@ struct FullscreenTimerView: View {
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal)
 
-                            Text(timeString(from: remainingSeconds))
+                            ZStack {
+                                Text(timeString(from: remainingSeconds))
                                 .font(.system(size: 60, weight: .bold, design: .monospaced))
                                 .foregroundStyle(.primary)
                                 .padding(.top, 8)
+                            }
 
                             if remainingSeconds > 0 {
-                                Text("Keep in landscape to continue")
-                                    .foregroundStyle(.secondary)
-                                    .font(.caption)
+                                if isPausedMicrostate {
+                                    Text("Paused — rotate to resume")
+                                        .foregroundStyle(.secondary)
+                                        .font(.caption)
+                                        .transition(.opacity)
+                                } else {
+                                    Text("Keep in landscape to continue")
+                                        .foregroundStyle(.secondary)
+                                        .font(.caption)
+                                }
                             } else {
                                 Text("Timer finished — rotate back to portrait to complete the task")
                                     .foregroundStyle(.secondary)
@@ -106,11 +118,22 @@ struct FullscreenTimerView: View {
                                     .multilineTextAlignment(.center)
                                     .padding(.horizontal)
 
-                            Image(systemName: "checkmark.seal")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                                .foregroundStyle(.green)
+                            ZStack {
+                                Image(systemName: "checkmark.seal")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
+                                    .foregroundStyle(.green)
+
+                                if showDoneBloom {
+                                    Circle()
+                                        .stroke(Color.green.opacity(0.6), lineWidth: 6)
+                                        .frame(width: 160, height: 160)
+                                        .scaleEffect(showDoneBloom ? 1.0 : 0.4)
+                                        .opacity(showDoneBloom ? 1.0 : 0.0)
+                                        .animation(.easeOut(duration: 0.6), value: showDoneBloom)
+                                }
+                            }
                         }
                     }
 
@@ -208,6 +231,16 @@ struct FullscreenTimerView: View {
         guard !timerActive && !timerFinished && totalSeconds > 0 else { return }
         timerActive = true
         remainingSeconds = totalSeconds
+        // Micro-interaction: play a soft haptic to confirm start
+        // Haptic and vibration
+        let gen = UINotificationFeedbackGenerator()
+        gen.prepare()
+        gen.notificationOccurred(.success)
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        // Accessibility announcement
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            UIAccessibility.post(notification: .announcement, argument: "Timer started")
+        }
         // simple timer publisher
         timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -222,6 +255,9 @@ struct FullscreenTimerView: View {
                         // Play vibration once
                         if !didPlaySuccess {
                             playVibration()
+                            // done bloom and announcement
+                            showDoneBloom = true
+                            UIAccessibility.post(notification: .announcement, argument: "Timer finished")
                         }
                 }
             }
@@ -244,12 +280,21 @@ struct FullscreenTimerView: View {
         timerCancellable?.cancel()
         timerCancellable = nil
         timerActive = false
+        // show pause microstate
+        withAnimation(.easeInOut(duration: 0.18)) {
+            isPausedMicrostate = true
+        }
+        UIAccessibility.post(notification: .announcement, argument: "Timer paused")
     }
 
     private func resumeTimer() {
         if disappointed { return }
         guard !timerActive && !timerFinished && remainingSeconds > 0 else { return }
         timerActive = true
+        // clear pause microstate
+        withAnimation(.easeInOut(duration: 0.18)) {
+            isPausedMicrostate = false
+        }
         timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
@@ -262,6 +307,8 @@ struct FullscreenTimerView: View {
                     stopTimerIfNeeded()
                 }
             }
+        // announce resume
+        UIAccessibility.post(notification: .announcement, argument: "Timer resumed")
     }
 
     private func stopTimerIfNeeded() {

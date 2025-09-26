@@ -32,3 +32,12 @@
 "OK" = "OK";
 "Done today(%d)" = "Done today(%d)";
 "for %@" = "for %@";
+"accessibility.added_todo" = "Added todo";
+"accessibility.timer.started" = "Timer started";
+"accessibility.timer.paused" = "Timer paused";
+"accessibility.timer.resumed" = "Timer resumed";
+"accessibility.timer.finished" = "Timer finished";
+
+"snackbar.deleted" = "Deleted \"%@\"";
+"snackbar.completed" = "Completed \"%@\"";
+"snackbar.undo" = "Undo";

@@ -10,6 +10,7 @@ import SwiftUI
 struct TodoView: View {
     @Bindable var todo: Todo
     @FocusState private var isTextFieldFocused: Bool
+    @State private var highlightNew: Bool = false
     var onRequestComplete: (() -> Void)? = nil
     
     var body: some View {
@@ -34,10 +35,24 @@ struct TodoView: View {
                 .strikethrough(todo.isCompleted)
                 .foregroundColor(todo.isCompleted ? .secondary : .primary)
                 .focused($isTextFieldFocused)
+                .overlay(
+                    // soft glow when new
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(Color.accentColor.opacity(highlightNew ? 0.9 : 0.0), lineWidth: 2)
+                        .blur(radius: highlightNew ? 6 : 0)
+                        .animation(.easeOut(duration: 0.9), value: highlightNew)
+                )
                 .onAppear {
                     if todo.title.isEmpty {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        // autofocus and show a brief flourish
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
                             isTextFieldFocused = true
+                            highlightNew = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                withAnimation(.easeOut(duration: 0.6)) {
+                                    highlightNew = false
+                                }
+                            }
                         }
                     }
                 }
