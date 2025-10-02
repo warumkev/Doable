@@ -238,30 +238,73 @@ struct FullscreenTimerView: View {
                     } else if timerFinished {
                         // Finished: show celebratory state while waiting for portrait rotation to confirm
                         VStack(spacing: 12) {
-                            Text("Done!")
-                                .font(.title)
-                                .fontWeight(.semibold)
-                            Text("Rotate back to portrait to mark the task as completed")
-                                .foregroundStyle(.secondary)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal)
-
-                            ZStack {
-                                Image(systemName: "checkmark.seal")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
-                                    .foregroundStyle(.green)
-
-                                if showDoneBloom {
-                                    Circle()
-                                        .stroke(Color.green.opacity(0.6), lineWidth: 6)
-                                        .frame(width: 160, height: 160)
-                                        .scaleEffect(showDoneBloom ? 1.0 : 0.4)
-                                        .opacity(showDoneBloom ? 1.0 : 0.0)
-                                        .animation(.easeOut(duration: 0.6), value: showDoneBloom)
+                            HStack(alignment: .center, spacing: 40) {
+                                // Left column: Task info and confirm
+                                VStack(alignment: .leading, spacing: 20) {
+                                    Text(todo.title)
+                                        .font(.title3)
+                                        .foregroundStyle(.secondary)
+                                    Text("Completed")
+                                        .font(.system(size: 48, weight: .bold, design: .rounded))
+                                        .foregroundStyle(.green)
+                                    Text("Rotate back to portrait or tap Confirm to mark the task as completed")
+                                        .foregroundStyle(.secondary)
+                                    Button(action: {
+                                        // Confirm completion (rotate to portrait also triggers)
+                                        didComplete = true
+                                        onComplete()
+                                        dismiss()
+                                    }) {
+                                        Text("Confirm")
+                                            .font(.title2)
+                                            .foregroundColor(.white)
+                                            .padding(.horizontal, 48)
+                                            .padding(.vertical, 16)
+                                            .background(Color.green)
+                                            .cornerRadius(18)
+                                    }
+                                    .padding(.top, 8)
                                 }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                                // Right column: Circular ring, checkmark, bloom, confetti
+                                ZStack {
+                                    // Background circle
+                                    Circle()
+                                        .fill(Color(.systemGray6))
+                                        .frame(width: 200, height: 200)
+
+                                    // Filled progress ring in green
+                                    Circle()
+                                        .trim(from: 0, to: 1)
+                                        .stroke(Color.green, style: StrokeStyle(lineWidth: 18, lineCap: .round))
+                                        .rotationEffect(.degrees(-90))
+                                        .frame(width: 200, height: 200)
+                                        .animation(.linear(duration: 0.8), value: timerFinished)
+
+                                    // Centered checkmark
+                                    Circle()
+                                        .fill(Color.green)
+                                        .frame(width: 90, height: 90)
+                                    Image(systemName: "checkmark")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 48, height: 48)
+                                        .foregroundColor(.white)
+
+                                    // Bloom animation
+                                    if showDoneBloom {
+                                        Circle()
+                                            .stroke(Color.green.opacity(0.6), lineWidth: 8)
+                                            .frame(width: 160, height: 160)
+                                            .scaleEffect(showDoneBloom ? 1.0 : 0.4)
+                                            .opacity(showDoneBloom ? 1.0 : 0.0)
+                                            .animation(.easeOut(duration: 0.6), value: showDoneBloom)
+                                    }
+                                }
+                                .frame(width: 200, height: 200)
                             }
+                            .padding(.horizontal, 32)
                         }
                     }
 
