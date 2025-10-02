@@ -120,3 +120,21 @@
 
 /* Fatal errors */
 "fatal.modelcontainer_creation_failed" = "ModelContainer konnte nicht erstellt werden.";
+
+/* Default todo name suggestions */
+"todo.default.1" = "Baue ein Imperium";
+"todo.default.2" = "Tagebuch";
+"todo.default.3" = "Erobere die Welt";
+"todo.default.4" = "Nachricht senden";
+"todo.default.5" = "Dehnen";
+"todo.default.6" = "Schreibtisch";
+"todo.default.7" = "Eine Seite lesen";
+"todo.default.8" = "Wasser trinken";
+"todo.default.9" = "20 Sit‑ups (Schick uns das Video!)";
+"todo.default.10" = "Schick die Nachricht (du weißt welche)";
+"todo.default.11" = "Frag sie nach einem Date";
+"todo.default.12" = "Eine Schublade ausmisten";
+"todo.default.13" = "2 Minuten meditieren";
+"todo.default.14" = "Rechnung bezahlen";
+"todo.default.15" = "Auf die E‑Mail antworten";
+"todo.default.16" = "Kurz spazieren gehen";

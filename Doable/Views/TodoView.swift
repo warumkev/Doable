@@ -12,6 +12,7 @@ struct TodoView: View {
     @Bindable var todo: Todo
     @FocusState private var isTextFieldFocused: Bool
     @State private var highlightNew: Bool = false
+    @State private var suggestedNameKey: LocalizedStringKey = LocalizedStringKey("todo.placeholder")
     var onRequestComplete: (() -> Void)? = nil
     @Environment(\.modelContext) private var modelContext
     
@@ -32,7 +33,7 @@ struct TodoView: View {
             }
             .buttonStyle(PlainButtonStyle())
             
-            TextField(LocalizedStringKey("todo.placeholder"), text: $todo.title)
+            TextField(suggestedNameKey, text: $todo.title)
                 .textFieldStyle(PlainTextFieldStyle())
                 .strikethrough(todo.isCompleted)
                 .foregroundColor(todo.isCompleted ? .secondary : .primary)
@@ -46,7 +47,8 @@ struct TodoView: View {
                 )
                 .onAppear {
                     if todo.title.isEmpty {
-                        // autofocus and show a brief flourish
+                        // pick a friendly suggested placeholder and autofocus
+                        suggestedNameKey = NewTodoNames.randomNameKey()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
                             isTextFieldFocused = true
                             highlightNew = true
