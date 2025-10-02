@@ -102,3 +102,46 @@
 "todo.default.15" = "Reply to that email";
 "todo.default.16" = "Take a quick walk";
 
+/* Menu */
+"menu.statistics" = "Statistics";
+"menu.settings" = "Settings";
+
+/* Settings */
+"settings.general" = "General";
+"settings.theme" = "Theme";
+"settings.theme.system" = "System";
+"settings.theme.light" = "Light";
+"settings.theme.dark" = "Dark";
+
+"settings.notifications" = "Notifications";
+"settings.haptics" = "Haptics";
+"settings.sound" = "Sound";
+
+"settings.timer_defaults" = "Timer defaults";
+"settings.default_timer_minutes" = "Default timer";
+"settings.default_timer_minutes_format" = "%d min";
+
+"settings.todos" = "Todos";
+"settings.prefill_suggestions" = "Prefill todo suggestions";
+"settings.prefill_suggestions_desc" = "When enabled, suggested todo names will be inserted into new todos instead of shown as placeholders.";
+
+"settings.data" = "Data";
+"settings.export" = "Export data";
+"settings.import" = "Import data";
+"settings.reset_data" = "Reset all data";
+
+"settings.about" = "About";
+"settings.version" = "Version";
+"settings.send_feedback" = "Send feedback";
+"settings.privacy" = "Privacy policy";
+"settings.export_success" = "Export successful";
+"settings.export_failure" = "Export failed";
+"settings.import_success" = "Import successful";
+"settings.import_failure" = "Import failed";
+"settings.reset_confirm_title" = "Reset all data?";
+"settings.reset_confirm_message" = "This will permanently delete all todos on this device. This action is irreversable.";
+"settings.reset_confirm_cancel" = "Cancel";
+"settings.reset_confirm_confirm" = "Reset";
+"settings.reset_success" = "All data reset";
+"settings.import_permission_help" = "Unable to access the selected file. If the file is in iCloud Drive, grant Files/iCloud access or copy the file to On My iPhone before importing.";
+

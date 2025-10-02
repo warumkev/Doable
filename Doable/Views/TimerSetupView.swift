@@ -7,6 +7,9 @@ struct TimerSetupSheet: View {
     
     @State private var minutes: Int = 0
     @State private var seconds: Int = 0
+
+    // Read the user's preferred default timer minutes from settings
+    @AppStorage("settings.defaultTimerMinutes") private var defaultTimerMinutes: Int = 5
     
     var body: some View {
         VStack(spacing: 16) {
@@ -21,7 +24,7 @@ struct TimerSetupSheet: View {
                 .padding(.top, 4)
             
             if !todoTitle.isEmpty {
-                Text(LocalizedStringKey("timer_setup.for_todo"))
+                Text(String(format: NSLocalizedString("timer_setup.for_todo", comment: "for <todo title>"), todoTitle))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -108,6 +111,13 @@ struct TimerSetupSheet: View {
         .presentationDetents([.fraction(0.5)])
         .presentationDragIndicator(.visible)
         .accessibilityElement(children: .contain)
+        .onAppear {
+            // Initialize pickers to the user's preferred default (only if still at zero)
+            if minutes == 0 && seconds == 0 {
+                minutes = max(0, defaultTimerMinutes)
+                seconds = 0
+            }
+        }
     }
 }
 

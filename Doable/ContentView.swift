@@ -314,11 +314,11 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isStatisticsPresented) {
             // Present the Statistics view
-            StatisticsView()
+            StatisticsView(todos: todos)
         }
         .sheet(isPresented: $isSettingsPresented) {
             // Present the Settings view
-            SettingsView()
+            SettingsView(todos: todos)
         }
         .onChange(of: isTimerSheetPresented) { _, newValue in
             // When the sheet finishes dismissing and we had requested to present the fullscreen timer, do it now.
@@ -368,7 +368,8 @@ struct ContentView: View {
         withAnimation {
             lastCompletedTodo = todo
             lastAction = .completed
-            // todo.isCompleted is already updated by caller
+            // Record completion timestamp
+            todo.completedAt = Date()
         }
         showSnackbar(message: String(format: NSLocalizedString("snackbar.completed", comment: "Completed message with title"), todo.title))
     }
@@ -388,6 +389,7 @@ struct ContentView: View {
             if let t = lastCompletedTodo {
                 withAnimation {
                     t.isCompleted = false
+                    t.completedAt = nil
                 }
             }
         default:

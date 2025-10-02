@@ -138,3 +138,46 @@
 "todo.default.14" = "Rechnung bezahlen";
 "todo.default.15" = "Auf die E‑Mail antworten";
 "todo.default.16" = "Kurz spazieren gehen";
+
+/* Menu */
+"menu.statistics" = "Statistiken";
+"menu.settings" = "Einstellungen";
+
+/* Settings */
+"settings.general" = "Allgemein";
+"settings.theme" = "Design";
+"settings.theme.system" = "System";
+"settings.theme.light" = "Hell";
+"settings.theme.dark" = "Dunkel";
+
+"settings.notifications" = "Benachrichtigungen";
+"settings.haptics" = "Haptik";
+"settings.sound" = "Ton";
+
+"settings.timer_defaults" = "Timer-Standard";
+"settings.default_timer_minutes" = "Standard-Timer";
+"settings.default_timer_minutes_format" = "%d Min";
+
+"settings.todos" = "Aufgaben";
+"settings.prefill_suggestions" = "Vorschläge vorausfüllen";
+"settings.prefill_suggestions_desc" = "Wenn aktiviert, werden vorgeschlagene Aufgabennamen beim Erstellen eingefügt anstatt als Platzhalter angezeigt.";
+
+"settings.data" = "Daten";
+"settings.export" = "Daten exportieren";
+"settings.import" = "Daten importieren";
+"settings.reset_data" = "Alle Daten zurücksetzen";
+
+"settings.about" = "Info";
+"settings.version" = "Version";
+"settings.send_feedback" = "Feedback senden";
+"settings.privacy" = "Datenschutz";
+"settings.export_success" = "Export erfolgreich";
+"settings.export_failure" = "Export fehlgeschlagen";
+"settings.import_success" = "Import erfolgreich";
+"settings.import_failure" = "Import fehlgeschlagen";
+"settings.reset_confirm_title" = "Alle Daten zurücksetzen?";
+"settings.reset_confirm_message" = "Dies löscht dauerhaft alle Aufgaben auf diesem Gerät. Diese Aktion kann nicht rückgängig gemacht werden.";
+"settings.reset_confirm_cancel" = "Abbrechen";
+"settings.reset_confirm_confirm" = "Zurücksetzen";
+"settings.reset_success" = "Alle Daten zurückgesetzt";
+"settings.import_permission_help" = "Konnte auf die ausgewählte Datei nicht zugreifen. Wenn die Datei in iCloud Drive liegt, erteile der Dateien‑App iCloud‑Zugriff oder kopiere die Datei nach 'Auf meinem iPhone', bevor du sie importierst.";

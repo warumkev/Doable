@@ -50,6 +50,10 @@ struct FullscreenTimerView: View {
     @State private var didPlaySuccess: Bool = false
     @State private var didComplete: Bool = false
 
+    // Respect user preferences for haptics and sounds
+    @AppStorage("settings.hapticsEnabled") private var hapticsEnabled: Bool = true
+    @AppStorage("settings.soundEnabled") private var soundEnabled: Bool = true
+
     // Selected random disappointment message key for the overlay
     @State private var disappointedMessageKey: LocalizedStringKey = DisappointmentText.randomMessageKey()
 
@@ -108,13 +112,13 @@ struct FullscreenTimerView: View {
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                 if portraitGraceRemaining > 0 {
-                                    Text(LocalizedStringKey("timer.paused.resume_in_seconds"), tableName: nil)
+                                    Text(String(format: NSLocalizedString("timer.paused.resume_in_seconds", comment: "Resume in %ds"), portraitGraceRemaining))
                                         .environment(\.locale, .current)
                                         .foregroundStyle(.secondary)
                                         .font(.caption2)
                                         .monospacedDigit()
                                         .padding(.top, 2)
-                                        .accessibilityLabel(Text(LocalizedStringKey("accessibility.timer.resume_in_seconds")))
+                                        .accessibilityLabel(Text(String(format: NSLocalizedString("accessibility.timer.resume_in_seconds", comment: "Resume timer in %d seconds"), portraitGraceRemaining)))
                                 }
                             } else {
                                 Text(LocalizedStringKey("timer.finished.rotate_to_confirm"))
@@ -219,7 +223,7 @@ struct FullscreenTimerView: View {
                                         .transition(.opacity)
                                     // Show the portrait-grace countdown while paused
                                     if portraitGraceRemaining > 0 {
-                                        Text(LocalizedStringKey("timer.paused.resume_in_seconds"), tableName: nil)
+                                        Text(String(format: NSLocalizedString("timer.paused.resume_in_seconds", comment: "Resume in %ds"), portraitGraceRemaining))
                                             .environment(\.locale, .current)
                                             .foregroundStyle(.secondary)
                                             .font(.caption2)
@@ -468,11 +472,13 @@ struct FullscreenTimerView: View {
         timerActive = true
         remainingSeconds = totalSeconds
         // Micro-interaction: play a soft haptic to confirm start
-        // Haptic and vibration
-        let gen = UINotificationFeedbackGenerator()
-        gen.prepare()
-        gen.notificationOccurred(.success)
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        // Haptic and vibration (respect user settings)
+        if hapticsEnabled {
+            let gen = UINotificationFeedbackGenerator()
+            gen.prepare()
+            gen.notificationOccurred(.success)
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        }
         // Accessibility announcement
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             let s = NSLocalizedString("accessibility.timer.started", comment: "Timer started")
@@ -505,13 +511,15 @@ struct FullscreenTimerView: View {
 
     private func playVibration() {
         didPlaySuccess = true
-        // Haptic feedback (friendly notification)
-        let generator = UINotificationFeedbackGenerator()
-        generator.prepare()
-        generator.notificationOccurred(.success)
+        // Haptic feedback (friendly notification) — respect user setting
+        if hapticsEnabled {
+            let generator = UINotificationFeedbackGenerator()
+            generator.prepare()
+            generator.notificationOccurred(.success)
 
-        // Trigger a system vibration fallback
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+            // Trigger a system vibration fallback
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        }
     }
 
     private func pauseTimer() {
@@ -580,9 +588,11 @@ struct FullscreenTimerView: View {
     disappointed = true
 
         // subtle error haptic
-        DispatchQueue.main.async {
-            let gen = UINotificationFeedbackGenerator()
-            gen.notificationOccurred(.error)
+        if hapticsEnabled {
+            DispatchQueue.main.async {
+                let gen = UINotificationFeedbackGenerator()
+                gen.notificationOccurred(.error)
+            }
         }
     }
 

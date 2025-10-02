@@ -18,10 +18,13 @@ final class Todo {
     var title: String
     var isCompleted: Bool
     var createdAt: Date
+    // Optional timestamp for when the todo was completed
+    var completedAt: Date?
 
     init(title: String) {
         self.title = title
         self.isCompleted = false
         self.createdAt = Date()
+        self.completedAt = nil
     }
 }

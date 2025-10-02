@@ -15,6 +15,7 @@ struct TodoView: View {
     @State private var suggestedNameKey: LocalizedStringKey = LocalizedStringKey("todo.placeholder")
     var onRequestComplete: (() -> Void)? = nil
     @Environment(\.modelContext) private var modelContext
+    @AppStorage("settings.prefillSuggestions") private var prefillSuggestions: Bool = false
     
     var body: some View {
         HStack {
@@ -48,7 +49,22 @@ struct TodoView: View {
                 .onAppear {
                     if todo.title.isEmpty {
                         // pick a friendly suggested placeholder and autofocus
-                        suggestedNameKey = NewTodoNames.randomNameKey()
+                        let key = NewTodoNames.randomNameKey()
+                        suggestedNameKey = key
+                        if prefillSuggestions {
+                            // Resolve the LocalizedStringKey to a String and prefill the todo title
+                            // NSLocalizedString expects the raw key string, so convert accordingly.
+                            // LocalizedStringKey("todo.default.X")'s description may include the key; but use the key directly.
+                            // We expect NewTodoNames.randomNameKey() returns LocalizedStringKey("todo.default.N").
+                            let mirror = Mirror(reflecting: key)
+                            if let anyKey = mirror.children.first(where: { $0.label == "key" })?.value as? String {
+                                let localized = NSLocalizedString(anyKey, comment: "")
+                                todo.title = localized
+                            } else {
+                                // Fallback: try using string interpolation
+                                todo.title = String(describing: key)
+                            }
+                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
                             isTextFieldFocused = true
                             highlightNew = true

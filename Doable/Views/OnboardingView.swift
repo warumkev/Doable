@@ -49,10 +49,10 @@ struct OnboardingView: View {
 
 					VStack(spacing: 20) {
 						Spacer()
-						Text(LocalizedStringKey("onboarding.progress"), tableName: nil)
+						Text(String(format: NSLocalizedString("onboarding.progress", comment: "Progress indicator"), index + 1, slides.count))
 							.environment(\.locale, .current)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+							.font(.caption)
+							.foregroundStyle(.secondary)
 						Text(slide.titleKey)
 							.font(.title)
 							.fontWeight(.semibold)
