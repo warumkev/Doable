@@ -43,14 +43,26 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                .onChange(of: theme) { newTheme in
+                .onChange(of: theme) { _, newTheme in
+                    func applyStyle(_ style: UIUserInterfaceStyle) {
+                        // Find a window from connected scenes in a way that avoids the deprecated API
+                        for scene in UIApplication.shared.connectedScenes {
+                            if let ws = scene as? UIWindowScene {
+                                if let win = ws.windows.first {
+                                    win.overrideUserInterfaceStyle = style
+                                    break
+                                }
+                            }
+                        }
+                    }
+
                     switch newTheme {
                     case "light":
-                        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .light
+                        applyStyle(.light)
                     case "dark":
-                        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .dark
+                        applyStyle(.dark)
                     default:
-                        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = .unspecified
+                        applyStyle(.unspecified)
                     }
                 }
 

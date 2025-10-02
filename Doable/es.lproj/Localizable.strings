@@ -1,0 +1,8 @@
+/* Spanish localizations */
+"statistics.title" = "Estadísticas";
+"statistics.coming_soon" = "Próximamente — aquí se mostrarán Momentum, rachas e historial.";
+"statistics.summary" = "Resumen";
+"statistics.total" = "Total";
+"statistics.this_month" = "Este mes";
+"statistics.current_streak" = "Racha actual";
+"statistics.longest_streak" = "Racha más larga";

@@ -68,6 +68,11 @@
 "settings.coming_soon" = "Coming soon — this will show settings.";
 "statistics.title" = "Statistics";
 "statistics.coming_soon" = "Coming soon — this will show Momentum, streaks and history.";
+"statistics.summary" = "Summary";
+"statistics.total" = "Total";
+"statistics.this_month" = "This month";
+"statistics.current_streak" = "Current streak";
+"statistics.longest_streak" = "Longest streak";
 
 /* Disappointment */
 "disappointment.title" = "Timer cancelled";

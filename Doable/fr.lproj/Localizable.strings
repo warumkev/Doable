@@ -1,0 +1,8 @@
+/* French localizations */
+"statistics.title" = "Statistiques";
+"statistics.coming_soon" = "Bientôt — ici apparaîtront Momentum, les séries et l'historique.";
+"statistics.summary" = "Résumé";
+"statistics.total" = "Total";
+"statistics.this_month" = "Ce mois-ci";
+"statistics.current_streak" = "Série actuelle";
+"statistics.longest_streak" = "Plus longue série";

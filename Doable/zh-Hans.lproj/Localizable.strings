@@ -1,0 +1,8 @@
+/* Simplified Chinese localizations */
+"statistics.title" = "统计";
+"statistics.coming_soon" = "敬请期待 — 这里将显示动量、连胜和历史记录。";
+"statistics.summary" = "摘要";
+"statistics.total" = "总数";
+"statistics.this_month" = "本月";
+"statistics.current_streak" = "当前连胜";
+"statistics.longest_streak" = "最长连胜";

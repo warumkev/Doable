@@ -1,5 +1,6 @@
 import SwiftUI
 import Foundation
+import UIKit
 
 struct StatisticsView: View {
     // Todos provided by parent (avoids private synthesized initializers from @Query)
@@ -10,22 +11,32 @@ struct StatisticsView: View {
 
     private let calendar = Calendar.current
 
+    // (no explicit share state needed for basic system share)
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
-                Text(LocalizedStringKey("statistics.title"))
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
 
                 monthHeader
 
                 calendarGrid
+
+                Divider()
+                // Summary statistics row
+                summaryStats
 
                 Spacer()
             }
             .padding()
             .navigationTitle(LocalizedStringKey("statistics.title"))
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { shareSystemImage() }) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                }
+            }
         }
     }
 
@@ -94,6 +105,90 @@ struct StatisticsView: View {
         }
     }
 
+    // MARK: - Summary stats
+    private var summaryStats: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(LocalizedStringKey("statistics.summary"))
+                .font(.title2)
+                .fontWeight(.semibold)
+                .padding(.bottom, 4)
+            statBlock(title: NSLocalizedString("statistics.total", comment: "Total"), value: String(totalCompletions))
+            statBlock(title: NSLocalizedString("statistics.this_month", comment: "This month"), value: String(completionsThisMonth))
+            statBlock(title: NSLocalizedString("statistics.current_streak", comment: "Streak"), value: String(currentStreak))
+            statBlock(title: NSLocalizedString("statistics.longest_streak", comment: "Longest"), value: String(longestStreak))
+        }
+        .padding(.vertical)
+    }
+
+    private func statBlock(title: String, value: String) -> some View {
+        HStack {
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.secondary)
+            Spacer()
+            Text(value)
+                .font(.headline)
+        }
+        .padding(.horizontal)
+    }
+
+    // Computed stats
+    private var totalCompletions: Int {
+        todos.reduce(0) { $0 + (($1.isCompleted && $1.completedAt != nil) ? 1 : 0) }
+    }
+
+    private var completionsThisMonth: Int {
+        let comps = completionsByDay()
+        let start = calendar.date(from: calendar.dateComponents([.year, .month], from: displayDate)) ?? displayDate
+        let end = calendar.date(byAdding: .month, value: 1, to: start) ?? displayDate
+        return comps.filter { $0.key >= calendar.startOfDay(for: start) && $0.key < calendar.startOfDay(for: end) }
+            .reduce(0) { $0 + $1.value }
+    }
+
+    private var currentStreak: Int {
+        // Count consecutive days up to today with at least one completion
+        let comps = completionsByDay()
+        var streak = 0
+        var day = calendar.startOfDay(for: Date())
+        while true {
+            if comps[day] ?? 0 > 0 {
+                streak += 1
+                guard let prev = calendar.date(byAdding: .day, value: -1, to: day) else { break }
+                day = prev
+            } else {
+                break
+            }
+        }
+        return streak
+    }
+
+    private var longestStreak: Int {
+        // Scan through sorted days to find the longest consecutive run
+        let comps = completionsByDay()
+        let days = comps.keys.sorted()
+        var longest = 0
+        var current = 0
+        var lastDay: Date? = nil
+        for d in days {
+            if let ld = lastDay, calendar.date(byAdding: .day, value: 1, to: ld) == d {
+                current += 1
+            } else {
+                current = 1
+            }
+            longest = max(longest, current)
+            lastDay = d
+        }
+        return longest
+    }
+
+    private var averagePerWeek: Double {
+        let comps = completionsByDay()
+        guard let first = comps.keys.min(), let last = comps.keys.max() else { return 0 }
+        let weeks = max(1, calendar.dateComponents([.weekOfYear], from: first, to: last).weekOfYear ?? 0)
+        let total = comps.reduce(0) { $0 + $1.value }
+        return Double(total) / Double(weeks)
+    }
+
     // Helpers
     private func startOfDay(_ date: Date) -> Date {
         return calendar.startOfDay(for: date)
@@ -119,7 +214,7 @@ struct StatisticsView: View {
 
     private func makeDaysForMonth(date: Date) -> [Date] {
         var days: [Date] = []
-        guard let range = calendar.range(of: .day, in: .month, for: date),
+                guard calendar.range(of: .day, in: .month, for: date) != nil,
               let firstOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: date)) else {
             return days
         }
@@ -147,6 +242,128 @@ struct StatisticsView: View {
             }
         }
         return map
+    }
+
+    // MARK: - Sharing helpers
+
+    private func snapshotStatsView() -> UIImage? {
+        // Render a polished share card at 9:16 aspect ratio (portrait story size)
+        let width: CGFloat = 1080
+        let height: CGFloat = 1920 // 9:16 -> width:height = 9:16, 1080 x 1920
+
+        let controller = UIHostingController(rootView: shareCard
+            .frame(width: width, height: height)
+            .background(LinearGradient(colors: [Color(.systemBackground), Color(.secondarySystemBackground)], startPoint: .top, endPoint: .bottom))
+        )
+
+        let view = controller.view!
+        view.bounds = CGRect(x: 0, y: 0, width: width, height: height)
+        view.backgroundColor = UIColor.systemBackground
+        // Ensure layout
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = UIScreen.main.scale
+        let renderer = UIGraphicsImageRenderer(size: view.bounds.size, format: format)
+        return renderer.image { _ in
+            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        }
+    }
+
+    // A polished card used for sharing: logo, calendar, summary stacked vertically
+    private var shareCard: some View {
+        VStack(spacing: 18) {
+            // Logo
+            Image("doableLogo")
+                .resizable()
+                .renderingMode(.template)
+                .scaledToFit()
+                .frame(height: 140)
+                .foregroundColor(.accentColor)
+                .padding(.top, 40)
+
+            // Calendar area: encapsulate calendarGrid into a card-like view
+            calendarGrid
+                .padding(16)
+                .background(RoundedRectangle(cornerRadius: 16).fill(Color(.systemBackground).opacity(0.9)))
+                .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 4)
+                .padding(.horizontal, 24)
+
+            // Summary at bottom
+            VStack(spacing: 8) {
+                Text(LocalizedStringKey("statistics.summary"))
+                    .font(.title)
+                    .fontWeight(.bold)
+                HStack(spacing: 12) {
+                    statBlock(title: NSLocalizedString("statistics.total", comment: "Total"), value: String(totalCompletions))
+                    Divider()
+                    statBlock(title: NSLocalizedString("statistics.this_month", comment: "This month"), value: String(completionsThisMonth))
+                }
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemBackground).opacity(0.95)))
+                .padding(.horizontal, 24)
+                Spacer()
+            }
+            .padding(.bottom, 40)
+        }
+        .foregroundColor(Color.primary)
+    }
+
+    private func shareSystemImage() {
+        guard let image = snapshotStatsView() else { return }
+        let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        DispatchQueue.main.async {
+            if let top = topViewController() {
+                top.present(av, animated: true)
+            } else if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                      let root = scene.windows.first?.rootViewController {
+                root.present(av, animated: true)
+            }
+        }
+    }
+
+    private func topViewController() -> UIViewController? {
+        for scene in UIApplication.shared.connectedScenes {
+            if let ws = scene as? UIWindowScene {
+                for window in ws.windows where window.isKeyWindow {
+                    var vc = window.rootViewController
+                    while let presented = vc?.presentedViewController {
+                        vc = presented
+                    }
+                    if let v = vc { return v }
+                }
+            }
+        }
+        return nil
+    }
+
+    private func shareToInstagramStory() {
+        guard let image = snapshotStatsView(), let png = image.pngData() else { return }
+        let pasteboardItems: [String: Any] = ["com.instagram.sharedSticker.backgroundImage": png]
+        let pasteboardOptions = [UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)]
+        UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+
+        if let url = URL(string: "instagram-stories://share") , UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            // fallback to system share
+            shareSystemImage()
+        }
+    }
+
+    private func shareToSnapchatStory() {
+        guard let image = snapshotStatsView(), let png = image.pngData() else { return }
+        // Snapchat uses pasteboard key com.snapchat.sharedSticker.stickerImage
+        let pasteboardItems: [String: Any] = ["com.snapchat.sharedSticker.stickerImage": png]
+        let pasteboardOptions = [UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)]
+        UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+
+        if let url = URL(string: "snapchat://add_sticker") , UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            shareSystemImage()
+        }
     }
 }
 

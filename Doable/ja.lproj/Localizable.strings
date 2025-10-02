@@ -1,0 +1,160 @@
+
+/* Japanese localizations (complete) */
+
+/* App */
+"app.title" = "Doable";
+
+/* Empty state */
+"empty.no_todos" = "まだタスクがありません";
+"empty.tap_plus_to_create" = "＋をタップして最初のタスクを作成してください";
+
+/* Actions */
+"actions.delete" = "削除";
+
+/* Snackbar */
+"snackbar.deleted" = "削除しました \"%@\"";
+"snackbar.completed" = "完了しました \"%@\"";
+"snackbar.undo" = "元に戻す";
+
+/* Accessibility */
+"accessibility.added_todo" = "タスクを追加しました";
+"accessibility.timer.started" = "タイマー開始";
+"accessibility.timer.paused" = "タイマー一時停止";
+"accessibility.timer.resumed" = "タイマー再開";
+"accessibility.timer.finished" = "タイマー終了";
+"accessibility.timer.resume_in_seconds" = "%d秒で再開";
+
+/* Onboarding */
+"onboarding.chooseTodo.title" = "タスクを選ぶ";
+"onboarding.chooseTodo.desc" = "終わらせたい小さな作業を一つ選んでください。";
+"onboarding.setTimer.title" = "タイマーを設定";
+"onboarding.setTimer.desc" = "短いタイマーで集中しましょう — 実際に物事を終わらせるのに役立ちます。";
+"onboarding.keepRunning.title" = "タイマーを継続";
+"onboarding.keepRunning.desc" = "タイマーが動き続けるように横向きのままにしてください。";
+"onboarding.final.title" = "トラッキングなし — ローカルのみ";
+"onboarding.final.desc" = "タスクはこのデバイスに保存されます。アカウントやトラッキングはありません。さあ始めましょう！";
+"onboarding.next" = "次へ";
+"onboarding.letsgo" = "始めよう";
+"onboarding.skip" = "スキップ";
+"onboarding.progress" = "%d/%d";
+
+/* Fullscreen timer */
+"timer.paused.rotate_to_resume" = "一時停止 — 回転して再開";
+"timer.paused.resume_in_seconds" = "%dsで再開";
+"timer.finished.rotate_to_confirm" = "タイマー終了 — 縦向きに戻してタスクを完了してください";
+"timer.instructions.rotate_device" = "デバイスを回転させてください";
+"timer.instructions.rotate_to_landscape" = "タイマーを開始するには横向きにしてください";
+"timer.controls.stop" = "停止";
+
+/* Timer setup */
+"timer_setup.title" = "タイマー設定";
+"timer_setup.for_todo" = "%@ 用";
+"timer_setup.min" = "分";
+"timer_setup.sec" = "秒";
+"timer_setup.colon" = ":";
+"timer_setup.cancel" = "キャンセル";
+"timer_setup.confirm" = "確認";
+"timer_setup.minutes_label" = "分";
+"timer_setup.seconds_label" = "秒";
+"timer_setup.confirm_quick_complete" = "タイマーなしで完了";
+"timer_setup.confirm_quick_complete_confirm" = "もう一度タップして確認";
+
+/* Finished/confirm */
+"finished.completed" = "完了";
+"finished.rotate_or_confirm" = "縦に戻すか「確認」をタップしてタスクを完了としてマークしてください";
+"finished.confirm" = "確認";
+
+/* Settings / Statistics */
+"settings.title" = "設定";
+"settings.coming_soon" = "近日公開 — ここに設定が表示されます。";
+"statistics.title" = "統計";
+"statistics.coming_soon" = "近日公開 — ここにモメンタム、連続記録、履歴が表示されます。";
+"statistics.summary" = "概要";
+"statistics.total" = "合計";
+"statistics.this_month" = "今月";
+"statistics.current_streak" = "現在の連続";
+"statistics.longest_streak" = "最長連続";
+
+/* Disappointment */
+"disappointment.title" = "タイマーがキャンセルされました";
+"disappointment.ok" = "OK";
+"disappointment.msg.1" = "それはあまり Doable ではありませんでした。";
+"disappointment.msg.2" = "タイマーを放置しましたね。失礼です。";
+"disappointment.msg.3" = "タイマーが寂しかったようです。";
+"disappointment.msg.4" = "戻ってきて！タイマーがあなたを恋しく思っています。";
+"disappointment.msg.5" = "それは弱い約束でした。";
+"disappointment.msg.6" = "タイマーを放置しました。";
+"disappointment.msg.7" = "最高の瞬間ではありませんでした。";
+
+/* Todo */
+"todo.placeholder" = "タスクを入力";
+
+/* Fatal errors */
+"fatal.modelcontainer_creation_failed" = "ModelContainer を作成できませんでした。";
+
+/* Default todo name suggestions */
+"todo.default.1" = "帝国を築く";
+"todo.default.2" = "日記を書く";
+"todo.default.3" = "大胆な冒険をする";
+"todo.default.4" = "そのメッセージを送る";
+"todo.default.5" = "ストレッチ";
+"todo.default.6" = "机を片付ける";
+"todo.default.7" = "1ページ読む";
+"todo.default.8" = "水を飲む";
+"todo.default.9" = "腹筋20回（ビデオを送ってね！）";
+"todo.default.10" = "あのメッセージを送る（どれかは分かってるでしょ）";
+"todo.default.11" = "誘ってみる";
+"todo.default.12" = "引き出しを一つ整理する";
+"todo.default.13" = "2分間瞑想する";
+"todo.default.14" = "請求書を支払う";
+"todo.default.15" = "あのメールに返信する";
+"todo.default.16" = "さっと散歩する";
+
+/* Menu */
+"menu.statistics" = "統計";
+"menu.settings" = "設定";
+
+/* Settings */
+"settings.general" = "一般";
+"settings.theme" = "テーマ";
+"settings.theme.system" = "システム";
+"settings.theme.light" = "ライト";
+"settings.theme.dark" = "ダーク";
+
+"settings.notifications" = "通知";
+"settings.haptics" = "触覚フィードバック";
+"settings.sound" = "サウンド";
+
+"settings.timer_defaults" = "タイマーのデフォルト";
+"settings.default_timer_minutes" = "デフォルトタイマー";
+"settings.default_timer_minutes_format" = "%d分";
+
+"settings.todos" = "タスク";
+"settings.prefill_suggestions" = "提案を自動入力";
+"settings.prefill_suggestions_desc" = "有効にすると、新しいタスクに推奨名がプレースホルダではなく挿入されます。";
+
+"settings.data" = "データ";
+"settings.export" = "データをエクスポート";
+"settings.import" = "データをインポート";
+"settings.reset_data" = "すべてのデータをリセット";
+
+"settings.about" = "情報";
+"settings.version" = "バージョン";
+"settings.send_feedback" = "フィードバックを送る";
+"settings.privacy" = "プライバシー";
+"settings.export_success" = "エクスポート成功";
+"settings.export_failure" = "エクスポート失敗";
+"settings.import_success" = "インポート成功";
+"settings.import_failure" = "インポート失敗";
+"settings.reset_confirm_title" = "すべてのデータをリセットしますか？";
+"settings.reset_confirm_message" = "これはこのデバイス上のすべてのタスクを永久に削除します。この操作は取り消せません。";
+"settings.reset_confirm_cancel" = "キャンセル";
+"settings.reset_confirm_confirm" = "リセット";
+"settings.reset_success" = "すべてのデータをリセットしました";
+"settings.import_permission_help" = "選択したファイルにアクセスできません。ファイルが iCloud Drive にある場合は、ファイルのアクセス権を付与するか、ファイルを「iPhone 上」にコピーしてからインポートしてください。";
+
+/* Privacy */
+"privacy.intro" = "Doable はローカルファーストなアプリです。タスクとタイマーのデータは、エクスポートやインポートを行わない限りあなたのデバイスに残ります。";
+"privacy.data_storage" = "データ保存: タスクは SwiftData を使ってローカルに保存されます。タスクをサーバーにアップロードすることはありません。";
+"privacy.tracking" = "トラッキング: Doable は分析やトラッキングを使用しません。アカウントも広告もサードパーティのトラッカーもありません。";
+"privacy.contact" = "お問い合わせ: プライバシーに関する質問は kevintamme@icloud.com へ。";

@@ -100,6 +100,11 @@
 
 "statistics.title" = "Statistiken";
 "statistics.coming_soon" = "Demnächst — hier werden Fortschritt, Streaks und die Historie angezeigt.";
+"statistics.summary" = "Zusammenfassung";
+"statistics.total" = "Insgesamt";
+"statistics.this_month" = "Diesen Monat";
+"statistics.current_streak" = "Aktuelle Serie";
+"statistics.longest_streak" = "Längste Serie";
 
 /* Disappointment */
 "disappointment.title" = "Timer abgebrochen";

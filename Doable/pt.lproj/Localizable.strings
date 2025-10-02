@@ -1,0 +1,8 @@
+/* Portuguese (Brazil) localizations */
+"statistics.title" = "Estatísticas";
+"statistics.coming_soon" = "Em breve — aqui aparecerão Momentum, sequências e histórico.";
+"statistics.summary" = "Resumo";
+"statistics.total" = "Total";
+"statistics.this_month" = "Este mês";
+"statistics.current_streak" = "Sequência atual";
+"statistics.longest_streak" = "Maior sequência";
