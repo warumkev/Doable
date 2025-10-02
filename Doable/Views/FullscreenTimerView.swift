@@ -143,20 +143,74 @@ struct FullscreenTimerView: View {
                     } else if timerActive {
                         // Active countdown
                         VStack(spacing: 12) {
-                            Text(todo.title)
-                                .font(.title)
-                                .fontWeight(.semibold)
-                                .multilineTextAlignment(.center)
-                                .padding(.horizontal)
+                            VStack {
+                                HStack(spacing: 40) {
+                                    // Left: Timer label and time
+                                    VStack(alignment: .leading, spacing: 16) {
+                                        Text(todo.title)
+                                            .font(.title3)
+                                            .foregroundStyle(.secondary)
+                                        Text(timeString(from: remainingSeconds))
+                                            .font(.system(size: 80, weight: .bold, design: .monospaced))
+                                            .foregroundStyle(.primary)
+                                        Button(action: {
+                                            // Stop timer and cancel
+                                            stopTimerIfNeeded()
+                                            disappointedMessageKey = DisappointmentText.randomMessageKey()
+                                            disappointed = true
+                                        }) {
+                                            Text("Stop")
+                                                .font(.title2)
+                                                .foregroundColor(.white)
+                                                .padding(.horizontal, 48)
+                                                .padding(.vertical, 16)
+                                                .background(Color(.systemGray3))
+                                                .cornerRadius(18)
+                                        }
+                                        .padding(.top, 16)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
 
-                            ZStack {
-                                Text(timeString(from: remainingSeconds))
-                                    .font(.system(size: 60, weight: .bold, design: .monospaced))
-                                    .foregroundStyle(.primary)
-                                    .padding(.top, 8)
+                                    // Right: Circular progress and pause icon
+                                    ZStack {
+                                        // Background circle
+                                        Circle()
+                                            .fill(Color(.systemGray6))
+                                            .frame(width: 200, height: 200)
+
+                                        // Remaining progress ring (animates smoothly)
+                                        Circle()
+                                            .trim(
+                                                from: 0,
+                                                to: totalSeconds > 0
+                                                    ? CGFloat(max(0.0, min(1.0, Double(max(0, remainingSeconds)) / Double(totalSeconds))))
+                                                    : 0
+                                            )
+                                            .stroke(Color(.gray), style: StrokeStyle(lineWidth: 18, lineCap: .round))
+                                            .rotationEffect(.degrees(-90))
+                                            .frame(width: 200, height: 200)
+                                            .animation(.linear(duration: 1), value: remainingSeconds - 1)
+
+                                        // Pause icon
+                                        Circle()
+                                            .fill(Color(.black))
+                                            .frame(width: 90, height: 90)
+                                        HStack(spacing: 16) {
+                                            Image(systemName: "music.note")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 48, height: 48)
+                                                .foregroundColor(.white)
+                                        }
+                                    }
+                                    .frame(width: 200, height: 200)
+                                }
+                                .padding(.horizontal, 32)
                             }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .alignmentGuide(HorizontalAlignment.center) { d in d[HorizontalAlignment.center] }
 
-                            if remainingSeconds > 0 {
+                            if remainingSeconds >= 0 {
                                 if isPausedMicrostate {
                                     Text("Paused — rotate to resume")
                                         .foregroundStyle(.secondary)
@@ -172,10 +226,6 @@ struct FullscreenTimerView: View {
                                             .padding(.top, 2)
                                             .accessibilityLabel(Text(verbatim: "Resume timer in \(portraitGraceRemaining) seconds"))
                                     }
-                                } else {
-                                    Text("Keep in landscape to continue")
-                                        .foregroundStyle(.secondary)
-                                        .font(.caption)
                                 }
                             } else {
                                     Text("Timer finished — rotate back to portrait to complete the task")
@@ -386,10 +436,10 @@ struct FullscreenTimerView: View {
         timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .sink { _ in
-                if remainingSeconds > 0 {
+                if remainingSeconds >= 0 {
                     remainingSeconds -= 1
                 }
-                if remainingSeconds <= 0 {
+                if remainingSeconds < 0 {
                     timerFinished = true
                     timerActive = false
                     stopTimerIfNeeded()
@@ -500,7 +550,7 @@ struct FullscreenTimerView: View {
 #Preview {
     // Create a lightweight preview with a dummy Todo
     let t = Todo(title: "Preview Task")
-    FullscreenTimerView(todo: t, totalSeconds: 10, onComplete: {}, onCancel: {})
+    FullscreenTimerView(todo: t, totalSeconds: 3600, onComplete: {}, onCancel: {})
 }
 
 // MARK: - Confetti UIViewRepresentable
