@@ -16,12 +16,12 @@ struct TimerSetupSheet: View {
                 .padding(.top, 8)
                 .accessibilityHidden(true)
             
-            Text("Set a timer")
+            Text(LocalizedStringKey("timer_setup.title"))
                 .font(.headline)
                 .padding(.top, 4)
             
             if !todoTitle.isEmpty {
-                Text("for \(todoTitle)")
+                Text(LocalizedStringKey("timer_setup.for_todo"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -30,7 +30,7 @@ struct TimerSetupSheet: View {
                 
                 HStack(alignment: .center, spacing: 24) {
                     VStack(spacing: 4) {
-                        Picker("Minutes", selection: $minutes) {
+                        Picker(LocalizedStringKey("timer_setup.minutes_label"), selection: $minutes) {
                             ForEach(0..<60, id: \.self) { m in
                                 Text(String(format: "%02d", m)).tag(m)
                             }
@@ -38,19 +38,19 @@ struct TimerSetupSheet: View {
                         .pickerStyle(.wheel)
                         .frame(width: 100, height: 120)
                         .clipped()
-                        Text("min")
+                        Text(LocalizedStringKey("timer_setup.min"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                     
-                    Text(":")
+                    Text(LocalizedStringKey("timer_setup.colon"))
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundStyle(.secondary)
                         .accessibilityHidden(true)
                     
                     VStack(spacing: 4) {
-                        Picker("Seconds", selection: $seconds) {
+                        Picker(LocalizedStringKey("timer_setup.seconds_label"), selection: $seconds) {
                             ForEach(0..<60, id: \.self) { s in
                                 Text(String(format: "%02d", s)).tag(s)
                             }
@@ -58,7 +58,7 @@ struct TimerSetupSheet: View {
                         .pickerStyle(.wheel)
                         .frame(width: 100, height: 120)
                         .clipped()
-                        Text("sec")
+                        Text(LocalizedStringKey("timer_setup.sec"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -82,7 +82,7 @@ struct TimerSetupSheet: View {
                 Button(role: .cancel) {
                     onCancel()
                 } label: {
-                    Text("Cancel")
+                    Text(LocalizedStringKey("timer_setup.cancel"))
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
                         .background(Color.secondary.opacity(0.12))
@@ -93,7 +93,7 @@ struct TimerSetupSheet: View {
                 Button {
                     onConfirm(minutes * 60 + seconds)
                 } label: {
-                    Text("Confirm")
+                    Text(LocalizedStringKey("timer_setup.confirm"))
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)

@@ -6,19 +6,19 @@ import SwiftUI
 /// can use them directly without converting at call sites.
 struct DisappointmentText {
     // Title shown in the disappointment overlay
-    static var titleKey: LocalizedStringKey { LocalizedStringKey("Timer cancelled") }
+    static var titleKey: LocalizedStringKey { LocalizedStringKey("disappointment.title") }
     // Label for the acknowledgement button
-    static var okButtonKey: LocalizedStringKey { LocalizedStringKey("OK") }
+    static var okButtonKey: LocalizedStringKey { LocalizedStringKey("disappointment.ok") }
 
     // Variety of playful messages that are selected at random to make the cancellation UX lighter.
     private static let messageKeys: [LocalizedStringKey] = [
-        LocalizedStringKey("This wasn't very Doable of you."),
-        LocalizedStringKey("You left the timer hanging. Rude."),
-        LocalizedStringKey("The timer was getting lonely."),
-        LocalizedStringKey("Come back! The timer misses you."),
-        LocalizedStringKey("That was a soft commitment."),
-        LocalizedStringKey("You ghosted the timer."),
-        LocalizedStringKey("Not your finest moment, champ."),
+        LocalizedStringKey("disappointment.msg.1"),
+        LocalizedStringKey("disappointment.msg.2"),
+        LocalizedStringKey("disappointment.msg.3"),
+        LocalizedStringKey("disappointment.msg.4"),
+        LocalizedStringKey("disappointment.msg.5"),
+        LocalizedStringKey("disappointment.msg.6"),
+        LocalizedStringKey("disappointment.msg.7"),
     ]
 
     // Pick a random message to display when the timer is cancelled.

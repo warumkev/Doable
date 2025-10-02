@@ -88,7 +88,7 @@ struct ContentView: View {
                                 .transition(.opacity) */
                         }
                     }
-                    Text("Doable")
+                    Text(LocalizedStringKey("app.title"))
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     HStack(spacing: 14) {
@@ -129,10 +129,10 @@ struct ContentView: View {
                 if incompleteTodos.isEmpty && completedTodos.isEmpty {
                     VStack {
                         Spacer()
-                        Text("No todos yet")
+                        Text(LocalizedStringKey("empty.no_todos"))
                             .font(.title2)
                             .foregroundColor(.secondary)
-                        Text("Tap the + button to create your first todo")
+                        Text(LocalizedStringKey("empty.tap_plus_to_create"))
                             .font(.body)
                             .foregroundColor(.secondary)
                         Spacer()
@@ -150,7 +150,7 @@ struct ContentView: View {
                                         isTimerSheetPresented = true
                                     })
                                     .contextMenu {
-                                        Button("Delete", role: .destructive) {
+                                        Button(LocalizedStringKey("actions.delete"), role: .destructive) {
                                             performDelete(todo)
                                         }
                                     }
@@ -174,7 +174,7 @@ struct ContentView: View {
                                             .font(.caption)
                                             .foregroundColor(.secondary)
 
-                                        Text("Done")
+                                        Text(LocalizedStringKey("section.done"))
                                             .font(.headline)
                                             .foregroundColor(.secondary)
 

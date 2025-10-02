@@ -27,7 +27,7 @@ struct DoableApp: App {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
             // Fail fast during development if the container can't be created.
-            fatalError("Could not create ModelContainer: \(error)")
+            fatalError(NSLocalizedString("fatal.modelcontainer_creation_failed", comment: "Could not create ModelContainer: %@"))
         }
     }()
 

@@ -1,61 +1,86 @@
-/* English localizations */
-"Doable" = "Doable";
-"No todos yet" = "No todos yet";
-"Tap the + button to create your first todo" = "Tap the + button to create your first todo";
-"Delete" = "Delete";
-"Done" = "Done";
-"Set a timer" = "Set a timer";
-"for %@" = "for %@";
-":" = ":";
-"colon" = ":";
-"Minutes" = "Minutes";
-"Seconds" = "Seconds";
-"min" = "min";
-"sec" = "sec";
-"Cancel" = "Cancel";
-"Confirm" = "Confirm";
-"Enter todo" = "Enter todo";
-"Rotate your device" = "Rotate your device";
-"Please rotate into landscape to start the timer" = "Please rotate into landscape to start the timer";
-"Keep in landscape to continue" = "Keep in landscape to continue";
-"Timer finished — rotate back to portrait to complete the task" = "Timer finished — rotate back to portrait to complete the task";
-"Done!" = "Done!";
-"Rotate back to portrait to mark the task as completed" = "Rotate back to portrait to mark the task as completed";
-"Timer cancelled" = "Timer cancelled";
-"This wasn't very Doable of you." = "This wasn't very Doable of you.";
-"You left the timer hanging. Rude." = "You left the timer hanging. Rude.";
-"The timer was getting lonely." = "The timer was getting lonely.";
-"Come back! The timer misses you." = "Come back! The timer misses you.";
-"That was a soft commitment." = "That was a soft commitment.";
-"You ghosted the timer." = "You ghosted the timer.";
-"Not your finest moment, champ." = "Not your finest moment, champ.";
-"OK" = "OK";
-"Done today(%d)" = "Done today(%d)";
-"for %@" = "for %@";
+/* English localizations (dotted keys only). Keep keys in abc.def.xyz style. */
+
+/* App */
+"app.title" = "Doable";
+
+/* Empty state */
+"empty.no_todos" = "No todos yet";
+"empty.tap_plus_to_create" = "Tap the + button to create your first todo";
+
+/* Actions */
+"actions.delete" = "Delete";
+
+/* Snackbar */
+"snackbar.deleted" = "Deleted \"%@\"";
+"snackbar.completed" = "Completed \"%@\"";
+"snackbar.undo" = "Undo";
+
+/* Accessibility */
 "accessibility.added_todo" = "Added todo";
 "accessibility.timer.started" = "Timer started";
 "accessibility.timer.paused" = "Timer paused";
 "accessibility.timer.resumed" = "Timer resumed";
 "accessibility.timer.finished" = "Timer finished";
-
-"snackbar.deleted" = "Deleted \"%@\"";
-"snackbar.completed" = "Completed \"%@\"";
-"snackbar.undo" = "Undo";
+"accessibility.timer.resume_in_seconds" = "Resume timer in %d seconds";
 
 /* Onboarding */
 "onboarding.chooseTodo.title" = "Choose a todo";
 "onboarding.chooseTodo.desc" = "Pick one small thing you want to finish.";
-
 "onboarding.setTimer.title" = "Set a timer";
 "onboarding.setTimer.desc" = "Use a short timer to focus — it helps you actually get things done.";
-
-
 "onboarding.keepRunning.title" = "Keep the timer running";
 "onboarding.keepRunning.desc" = "Stay in landscape so the timer can keep counting down.";
-
 "onboarding.final.title" = "No tracking — local only";
 "onboarding.final.desc" = "Your todos stay on this device. No accounts, no tracking. Let's go!";
-
 "onboarding.next" = "Next";
 "onboarding.letsgo" = "Let's go";
 "onboarding.skip" = "Skip";
+"onboarding.progress" = "%d/%d";
+
+/* Fullscreen timer */
+"timer.paused.rotate_to_resume" = "Paused — rotate to resume";
+"timer.paused.resume_in_seconds" = "Resume in %ds";
+"timer.finished.rotate_to_confirm" = "Timer finished — rotate back to portrait to complete the task";
+"timer.instructions.rotate_device" = "Rotate your device";
+"timer.instructions.rotate_to_landscape" = "Please rotate into landscape to start the timer";
+"timer.controls.stop" = "Stop";
+
+/* Timer setup */
+"timer_setup.title" = "Set a timer";
+"timer_setup.for_todo" = "for %@";
+"timer_setup.min" = "min";
+"timer_setup.sec" = "sec";
+"timer_setup.colon" = ":";
+"timer_setup.cancel" = "Cancel";
+"timer_setup.confirm" = "Confirm";
+"timer_setup.minutes_label" = "Minutes";
+"timer_setup.seconds_label" = "Seconds";
+
+/* Finished/confirm */
+"finished.completed" = "Completed";
+"finished.rotate_or_confirm" = "Rotate back to portrait or tap Confirm to mark the task as completed";
+"finished.confirm" = "Confirm";
+
+/* Settings / Statistics */
+"settings.title" = "Settings";
+"settings.coming_soon" = "Coming soon — this will show settings.";
+"statistics.title" = "Statistics";
+"statistics.coming_soon" = "Coming soon — this will show Momentum, streaks and history.";
+
+/* Disappointment */
+"disappointment.title" = "Timer cancelled";
+"disappointment.ok" = "OK";
+"disappointment.msg.1" = "This wasn't very Doable of you.";
+"disappointment.msg.2" = "You left the timer hanging. Rude.";
+"disappointment.msg.3" = "The timer was getting lonely.";
+"disappointment.msg.4" = "Come back! The timer misses you.";
+"disappointment.msg.5" = "That was a soft commitment.";
+"disappointment.msg.6" = "You ghosted the timer.";
+"disappointment.msg.7" = "Not your finest moment, champ.";
+
+/* Todo */
+"todo.placeholder" = "Enter todo";
+
+/* Fatal errors */
+"fatal.modelcontainer_creation_failed" = "Could not create ModelContainer.";
+

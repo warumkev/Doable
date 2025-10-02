@@ -1,10 +1,10 @@
 /* German localizations */
 "Doable" = "Doable";
-"No todos yet" = "Noch keine Aufgaben";
+"No todos yet" = "Keine Aufgaben";
 "Tap the + button to create your first todo" = "Tippe auf +, um deine erste Aufgabe zu erstellen";
 "Delete" = "Löschen";
 "Done" = "Erledigt";
-"Set a timer" = "Timer einstellen";
+"Set a timer" = "Timer setzen";
 "for %@" = "für %@";
 ":" = ":";
 "colon" = ":";
@@ -17,44 +17,39 @@
 "Enter todo" = "Aufgabe eingeben";
 "Rotate your device" = "Drehe dein Gerät";
 "Please rotate into landscape to start the timer" = "Bitte ins Querformat drehen, um den Timer zu starten";
-"Keep in landscape to continue" = "Im Querformat belassen, um weiterzulaufen";
-"Timer finished — rotate back to portrait to complete the task" = "Timer beendet — zurück ins Hochformat drehen, um die Aufgabe abzuschließen";
-"Done!" = "Erledigt!";
-"Rotate back to portrait to mark the task as completed" = "Zurück ins Hochformat drehen, um die Aufgabe als erledigt zu markieren";
+"Keep in landscape to continue" = "Im Querformat bleiben, damit der Timer fortläuft";
+"Timer finished — rotate back to portrait to complete the task" = "Timer beendet — zurück ins Hochformat drehen, um die Aufgabe zu beenden";
+"Done!" = "Fertig!";
+"Rotate back to portrait to mark the task as completed" = "Ins Hochformat drehen, um die Aufgabe als erledigt zu markieren";
 "Timer cancelled" = "Timer abgebrochen";
 "This wasn't very Doable of you." = "Das war nicht sehr Doable von dir.";
 "You left the timer hanging. Rude." = "Du hast den Timer hängen lassen. Unhöflich.";
 "The timer was getting lonely." = "Dem Timer wurde langweilig.";
-"Come back! The timer misses you." = "Komm zurück! Dem Timer fehlt du.";
-"That was a soft commitment." = "Das war eine schwache Verpflichtung.";
+"Come back! The timer misses you." = "Komm zurück! Der Timer vermisst dich.";
+"That was a soft commitment." = "Das war ein schwaches Versprechen.";
 "You ghosted the timer." = "Du hast den Timer geghostet.";
-"Not your finest moment, champ." = "Nicht dein bester Moment, Champion.";
+"Not your finest moment, champ." = "Nicht dein Glanzmoment, Champion.";
 "OK" = "OK";
-"Done today(%d)" = "Erledigt heute(%d)";
-"for %@" = "für %@";
-
-/* Accessibility */
+"Done today(%d)" = "Heute erledigt(%d)";
 "accessibility.added_todo" = "Aufgabe hinzugefügt";
 "accessibility.timer.started" = "Timer gestartet";
 "accessibility.timer.paused" = "Timer pausiert";
 "accessibility.timer.resumed" = "Timer fortgesetzt";
 "accessibility.timer.finished" = "Timer beendet";
 
-/* Snackbar */
-"snackbar.deleted" = "\"%@\" gelöscht";
-"snackbar.completed" = "\"%@\" erledigt";
+"snackbar.deleted" = "Gelöscht \"%@\"";
+"snackbar.completed" = "Erledigt \"%@\"";
 "snackbar.undo" = "Rückgängig";
 
 /* Onboarding */
 "onboarding.chooseTodo.title" = "Wähle eine Aufgabe";
-"onboarding.chooseTodo.desc" = "Wähle eine kleine Sache, die du erledigen möchtest.";
+"onboarding.chooseTodo.desc" = "Wähle eine kleine Aufgabe, die du beenden möchtest.";
 
-"onboarding.setTimer.title" = "Stell einen Timer";
-"onboarding.setTimer.desc" = "Nutze einen kurzen Timer, um dich zu fokussieren — so schaffst du es wirklich.";
+"onboarding.setTimer.title" = "Timer setzen";
+"onboarding.setTimer.desc" = "Nutze einen kurzen Timer, um dich zu fokussieren — er hilft dir, Dinge zu erledigen.";
 
-
-"onboarding.keepRunning.title" = "Lass den Timer laufen";
-"onboarding.keepRunning.desc" = "Bleibe im Querformat, damit der Timer weiterläuft.";
+"onboarding.keepRunning.title" = "Timer laufen lassen";
+"onboarding.keepRunning.desc" = "Bleibe im Querformat, damit der Timer weiterzählt.";
 
 "onboarding.final.title" = "Kein Tracking — nur lokal";
 "onboarding.final.desc" = "Deine Aufgaben bleiben auf diesem Gerät. Keine Konten, kein Tracking. Los geht's!";
@@ -62,3 +57,66 @@
 "onboarding.next" = "Weiter";
 "onboarding.letsgo" = "Los geht's";
 "onboarding.skip" = "Überspringen";
+
+/* App strings introduced by localization sweep */
+"app.title" = "Doable";
+
+/* Empty state */
+"empty.no_todos" = "Keine Aufgaben";
+"empty.tap_plus_to_create" = "Tippe auf +, um deine erste Aufgabe zu erstellen";
+
+/* Fullscreen timer */
+"timer.paused.rotate_to_resume" = "Pausiert — zum Fortsetzen drehen";
+"timer.paused.resume_in_seconds" = "Fortsetzen in %ds";
+"accessibility.timer.resume_in_seconds" = "Timer in %d Sekunden fortsetzen";
+"timer.finished.rotate_to_confirm" = "Timer beendet — zurück ins Hochformat drehen, um zu bestätigen";
+"timer.instructions.rotate_device" = "Drehe dein Gerät";
+"timer.instructions.rotate_to_landscape" = "Bitte ins Querformat drehen, um den Timer zu starten";
+"timer.controls.stop" = "Stopp";
+
+/* Timer setup */
+"timer_setup.title" = "Timer setzen";
+"timer_setup.for_todo" = "für %@";
+"timer_setup.min" = "min";
+"timer_setup.sec" = "sek";
+"timer_setup.colon" = ":";
+"timer_setup.cancel" = "Abbrechen";
+"timer_setup.confirm" = "Bestätigen";
+
+/* Finished/confirm */
+"finished.completed" = "Erledigt";
+"finished.rotate_or_confirm" = "Ins Hochformat drehen oder Bestätigen drücken, um die Aufgabe als erledigt zu markieren";
+
+/* Misc */
+"section.done" = "Erledigt";
+"onboarding.progress" = "%d/%d";
+"finished.confirm" = "Bestätigen";
+
+/* Settings / Statistics */
+"settings.title" = "Einstellungen";
+"settings.coming_soon" = "Demnächst — hier werden Einstellungen erscheinen.";
+
+"statistics.title" = "Statistiken";
+"statistics.coming_soon" = "Demnächst — hier werden Fortschritt, Streaks und die Historie angezeigt.";
+
+/* Disappointment */
+"disappointment.title" = "Timer abgebrochen";
+"disappointment.ok" = "OK";
+"disappointment.msg.1" = "Das war nicht sehr Doable von dir.";
+"disappointment.msg.2" = "Du hast den Timer hängen lassen. Unhöflich.";
+"disappointment.msg.3" = "Dem Timer wurde langweilig.";
+"disappointment.msg.4" = "Komm zurück! Der Timer vermisst dich.";
+"disappointment.msg.5" = "Das war ein schwaches Versprechen.";
+"disappointment.msg.6" = "Du hast den Timer geghostet.";
+"disappointment.msg.7" = "Nicht dein Glanzmoment, Champion.";
+
+/* Actions */
+"actions.delete" = "Löschen";
+
+/* Timer setup picker labels */
+"timer_setup.minutes_label" = "Minuten";
+"timer_setup.seconds_label" = "Sekunden";
+"todo.placeholder" = "Aufgabe eingeben";
+
+/* Fatal errors */
+"fatal.modelcontainer_creation_failed" = "ModelContainer konnte nicht erstellt werden.";

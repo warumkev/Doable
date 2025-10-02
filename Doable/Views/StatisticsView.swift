@@ -5,12 +5,12 @@ struct StatisticsView: View {
         NavigationStack {
             VStack {
                 Spacer()
-                Text("Statistics")
+                Text(LocalizedStringKey("statistics.title"))
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding()
 
-                Text("Coming soon — this will show Momentum, streaks and history.")
+                Text(LocalizedStringKey("statistics.coming_soon"))
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
                     .padding()

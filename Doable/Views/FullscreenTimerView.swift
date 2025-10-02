@@ -104,19 +104,20 @@ struct FullscreenTimerView: View {
                             }
 
                             if remainingSeconds > 0 {
-                                Text("Paused — rotate to resume")
+                                Text(LocalizedStringKey("timer.paused.rotate_to_resume"))
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                 if portraitGraceRemaining > 0 {
-                                    Text("Resume in \(portraitGraceRemaining)s")
+                                    Text(LocalizedStringKey("timer.paused.resume_in_seconds"), tableName: nil)
+                                        .environment(\.locale, .current)
                                         .foregroundStyle(.secondary)
                                         .font(.caption2)
                                         .monospacedDigit()
                                         .padding(.top, 2)
-                                        .accessibilityLabel(Text(verbatim: "Resume timer in \(portraitGraceRemaining) seconds"))
+                                        .accessibilityLabel(Text(LocalizedStringKey("accessibility.timer.resume_in_seconds")))
                                 }
                             } else {
-                                Text("Timer finished — rotate back to portrait to complete the task")
+                                Text(LocalizedStringKey("timer.finished.rotate_to_confirm"))
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                     .multilineTextAlignment(.center)
@@ -126,10 +127,10 @@ struct FullscreenTimerView: View {
                     } else if !timerActive && !timerFinished {
                         // Initial instruction screen asking the user to rotate to landscape to start
                         VStack(spacing: 12) {
-                            Text("Rotate your device")
+                            Text(LocalizedStringKey("timer.instructions.rotate_device"))
                                 .font(.title2)
                                 .fontWeight(.semibold)
-                            Text("Please rotate into landscape to start the timer")
+                            Text(LocalizedStringKey("timer.instructions.rotate_to_landscape"))
                                 .foregroundStyle(.secondary)
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal)
@@ -159,7 +160,7 @@ struct FullscreenTimerView: View {
                                             disappointedMessageKey = DisappointmentText.randomMessageKey()
                                             disappointed = true
                                         }) {
-                                            Text("Stop")
+                                            Text(LocalizedStringKey("timer.controls.stop"))
                                                 .font(.title2)
                                                 .foregroundColor(.white)
                                                 .padding(.horizontal, 48)
@@ -212,23 +213,24 @@ struct FullscreenTimerView: View {
 
                             if remainingSeconds >= 0 {
                                 if isPausedMicrostate {
-                                    Text("Paused — rotate to resume")
+                                    Text(LocalizedStringKey("timer.paused.rotate_to_resume"))
                                         .foregroundStyle(.secondary)
                                         .font(.caption)
                                         .transition(.opacity)
                                     // Show the portrait-grace countdown while paused
                                     if portraitGraceRemaining > 0 {
-                                        Text("Resume in \(portraitGraceRemaining)s")
+                                        Text(LocalizedStringKey("timer.paused.resume_in_seconds"), tableName: nil)
+                                            .environment(\.locale, .current)
                                             .foregroundStyle(.secondary)
                                             .font(.caption2)
                                             .monospacedDigit()
                                             .transition(.opacity)
                                             .padding(.top, 2)
-                                            .accessibilityLabel(Text(verbatim: "Resume timer in \(portraitGraceRemaining) seconds"))
+                                            .accessibilityLabel(Text(String(format: NSLocalizedString("accessibility.timer.resume_in_seconds", comment: "Resume timer in %d seconds"), portraitGraceRemaining)))
                                     }
                                 }
                             } else {
-                                    Text("Timer finished — rotate back to portrait to complete the task")
+                                    Text(LocalizedStringKey("timer.finished.rotate_to_confirm"))
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                     .multilineTextAlignment(.center)
@@ -244,18 +246,18 @@ struct FullscreenTimerView: View {
                                     Text(todo.title)
                                         .font(.title3)
                                         .foregroundStyle(.secondary)
-                                    Text("Completed")
+                                    Text(LocalizedStringKey("finished.completed"))
                                         .font(.system(size: 48, weight: .bold, design: .rounded))
                                         .foregroundStyle(.green)
-                                    Text("Rotate back to portrait or tap Confirm to mark the task as completed")
-                                        .foregroundStyle(.secondary)
+                                    Text(LocalizedStringKey("finished.rotate_or_confirm"))
+                                    .foregroundStyle(.secondary)
                                     Button(action: {
                                         // Confirm completion (rotate to portrait also triggers)
                                         didComplete = true
                                         onComplete()
                                         dismiss()
                                     }) {
-                                        Text("Confirm")
+                                        Text(LocalizedStringKey("finished.confirm"))
                                             .font(.title2)
                                             .foregroundColor(.white)
                                             .padding(.horizontal, 48)
@@ -473,7 +475,8 @@ struct FullscreenTimerView: View {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
         // Accessibility announcement
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            UIAccessibility.post(notification: .announcement, argument: "Timer started")
+            let s = NSLocalizedString("accessibility.timer.started", comment: "Timer started")
+            UIAccessibility.post(notification: .announcement, argument: s)
         }
         // simple timer publisher
         timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
@@ -491,7 +494,8 @@ struct FullscreenTimerView: View {
                         playVibration()
                         // done bloom and announcement
                         showDoneBloom = true
-                        UIAccessibility.post(notification: .announcement, argument: "Timer finished")
+                        let s = NSLocalizedString("accessibility.timer.finished", comment: "Timer finished")
+                        UIAccessibility.post(notification: .announcement, argument: s)
                     }
                 }
             }
@@ -520,7 +524,8 @@ struct FullscreenTimerView: View {
         withAnimation(.easeInOut(duration: 0.18)) {
             isPausedMicrostate = true
         }
-        UIAccessibility.post(notification: .announcement, argument: "Timer paused")
+    let s = NSLocalizedString("accessibility.timer.paused", comment: "Timer paused")
+    UIAccessibility.post(notification: .announcement, argument: s)
     }
 
     private func resumeTimer() {
@@ -548,7 +553,8 @@ struct FullscreenTimerView: View {
                 }
             }
         // announce resume
-        UIAccessibility.post(notification: .announcement, argument: "Timer resumed")
+    let s = NSLocalizedString("accessibility.timer.resumed", comment: "Timer resumed")
+    UIAccessibility.post(notification: .announcement, argument: s)
     }
 
     private func stopTimerIfNeeded() {
@@ -593,7 +599,7 @@ struct FullscreenTimerView: View {
 #Preview {
     // Create a lightweight preview with a dummy Todo
     let t = Todo(title: "Preview Task")
-    FullscreenTimerView(todo: t, totalSeconds: 3600, onComplete: {}, onCancel: {})
+    FullscreenTimerView(todo: t, totalSeconds: 10, onComplete: {}, onCancel: {})
 }
 
 // MARK: - Confetti UIViewRepresentable

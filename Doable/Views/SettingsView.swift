@@ -5,12 +5,12 @@ struct SettingsView: View {
         NavigationStack {
             VStack {
                 Spacer()
-                Text("Settings")
+                Text(LocalizedStringKey("settings.title"))
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding()
 
-                Text("Coming soon — this will show settings.")
+                Text(LocalizedStringKey("settings.coming_soon"))
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
                     .padding()

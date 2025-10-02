@@ -29,7 +29,7 @@ struct OnboardingView: View {
                             .frame(height: 48)
                             .foregroundColor(.primary)
                     }
-                    Text("Doable")
+					Text(LocalizedStringKey("app.title"))
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     HStack(spacing: 14) {
@@ -49,7 +49,8 @@ struct OnboardingView: View {
 
 					VStack(spacing: 20) {
 						Spacer()
-                        Text("\(index + 1)/\(slides.count)")
+						Text(LocalizedStringKey("onboarding.progress"), tableName: nil)
+							.environment(\.locale, .current)
                             .font(.caption)
                             .foregroundStyle(.secondary)
 						Text(slide.titleKey)
@@ -92,7 +93,7 @@ struct OnboardingView: View {
 							selection += 1
 						}
 					}) {
-						Text("onboarding.next")
+						Text(LocalizedStringKey("onboarding.next"))
 							.frame(minWidth: 100)
 					}
 					.buttonStyle(.borderedProminent)
@@ -103,7 +104,7 @@ struct OnboardingView: View {
 					Button(action: {
 						dismiss()
 					}) {
-						Text("onboarding.letsgo")
+						Text(LocalizedStringKey("onboarding.letsgo"))
 							.frame(minWidth: 120)
 					}
 					.buttonStyle(.borderedProminent)

@@ -32,7 +32,7 @@ struct TodoView: View {
             }
             .buttonStyle(PlainButtonStyle())
             
-            TextField("Enter todo", text: $todo.title)
+            TextField(LocalizedStringKey("todo.placeholder"), text: $todo.title)
                 .textFieldStyle(PlainTextFieldStyle())
                 .strikethrough(todo.isCompleted)
                 .foregroundColor(todo.isCompleted ? .secondary : .primary)
