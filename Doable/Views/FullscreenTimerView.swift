@@ -3,30 +3,58 @@ import Combine
 import UIKit
 import AudioToolbox
 
-/// Fullscreen timer view that asks the user to rotate device into landscape to start the timer.
-/// When the countdown completes it asks user to rotate back to portrait to confirm completion.
+/// Fullscreen timer view that drives the timed completion experience for a `Todo`.
+///
+/// UX summary:
+/// - The user chooses a duration from a sheet (parent view). This view is shown full-screen.
+/// - The user is asked to rotate the device to landscape to start the timer.
+/// - If the user rotates to portrait while the timer is running, a 15s grace period begins.
+///   If they return to landscape within the grace period, the timer resumes; otherwise the timer
+///   is cancelled and a light-hearted "disappointment" overlay is shown.
+/// - When the countdown reaches zero, the view plays a success haptic/animation and waits for the
+///   user to rotate back to portrait to confirm completion; once portrait is detected the `onComplete`
+///   callback is invoked.
 struct FullscreenTimerView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.scenePhase) private var scenePhase
 
+    // The todo we're timing and the completion/cancellation callbacks the parent provides.
     let todo: Todo
-    let totalSeconds: Int
     let onComplete: () -> Void
     let onCancel: () -> Void
 
+    // MARK: - State
+    // Track the current device orientation and various timer-related flags.
     @State private var orientation: UIDeviceOrientation = UIDevice.current.orientation
-    @State private var remainingSeconds: Int
-    @State private var timerActive: Bool = false
-    @State private var timerFinished: Bool = false
-    @State private var timerCancellable: AnyCancellable? = nil
-    @State private var didComplete: Bool = false
-    @State private var didPlaySuccess: Bool = false
-    @State private var disappointed: Bool = false
-    @State private var disappointedMessageKey: LocalizedStringKey = DisappointmentText.randomMessageKey()
-    // micro-interaction states
+    @State private var timerActive = false
+    @State private var timerFinished = false
+    @State private var disappointed = false
+    @State private var remainingSeconds: Int = 0
+    @State private var totalSeconds: Int = 0
+
+    // Portrait grace handling: when the user temporarily rotates to portrait we give them
+    // a short window to return to landscape before cancelling the timer.
+    @State private var portraitGraceRemaining: Int = 15
+    @State private var portraitGraceCancellable: AnyCancellable? = nil
+    private let portraitGraceDuration: Int = 15
+
+    // Micro interaction flags used to control small UI states/animations
     @State private var isPausedMicrostate: Bool = false
     @State private var showDoneBloom: Bool = false
-    
+    @State private var pausedDueToPortrait: Bool = false
+
+    // Timer publishers/cancellables
+    @State private var timerCancellable: AnyCancellable? = nil
+
+    // Track that we've already signaled success haptics so they are only played once
+    @State private var didPlaySuccess: Bool = false
+    @State private var didComplete: Bool = false
+
+    // Selected random disappointment message key for the overlay
+    @State private var disappointedMessageKey: LocalizedStringKey = DisappointmentText.randomMessageKey()
+
+    // Keep an observer token so we can unregister when the view disappears
+    @State private var orientationObserverToken: NSObjectProtocol? = nil
 
     init(todo: Todo, totalSeconds: Int, onComplete: @escaping () -> Void, onCancel: @escaping () -> Void) {
         self.todo = todo
@@ -38,7 +66,7 @@ struct FullscreenTimerView: View {
 
     var body: some View {
         ZStack {
-            // If disappointed, show a dedicated fullscreen disappointment view and nothing else.
+            // If the user abandoned the running timer, show a dedicated 'disappointment' overlay.
             if disappointed {
                 DisappointmentView(
                     title: DisappointmentText.titleKey,
@@ -58,23 +86,9 @@ struct FullscreenTimerView: View {
                 VStack(spacing: 24) {
                     Spacer()
 
-                    if !timerActive && !timerFinished {
-                        VStack(spacing: 12) {
-                            Text("Rotate your device")
-                                    .font(.title2)
-                                    .fontWeight(.semibold)
-                                Text("Please rotate into landscape to start the timer")
-                                    .foregroundStyle(.secondary)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal)
-
-                            Image(systemName: "iphone.landscape")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 120, height: 120)
-                                .foregroundStyle(.secondary)
-                        }
-                    } else if timerActive {
+                    // Different UI states depending on the timer/orientation
+                    if pausedDueToPortrait {
+                        // Paused state while in portrait and the portrait-grace countdown is active
                         VStack(spacing: 12) {
                             Text(todo.title)
                                 .font(.title)
@@ -84,24 +98,87 @@ struct FullscreenTimerView: View {
 
                             ZStack {
                                 Text(timeString(from: remainingSeconds))
-                                .font(.system(size: 60, weight: .bold, design: .monospaced))
-                                .foregroundStyle(.primary)
-                                .padding(.top, 8)
+                                    .font(.system(size: 60, weight: .bold, design: .monospaced))
+                                    .foregroundStyle(.primary)
+                                    .padding(.top, 8)
+                            }
+
+                            if remainingSeconds > 0 {
+                                Text("Paused \u2014 rotate to resume")
+                                    .foregroundStyle(.secondary)
+                                    .font(.caption)
+                                if portraitGraceRemaining > 0 {
+                                    Text("Resume in \(portraitGraceRemaining)s")
+                                        .foregroundStyle(.secondary)
+                                        .font(.caption2)
+                                        .monospacedDigit()
+                                        .padding(.top, 2)
+                                        .accessibilityLabel(Text("Resume timer in \(portraitGraceRemaining) seconds"))
+                                }
+                            } else {
+                                Text("Timer finished \u2014 rotate back to portrait to complete the task")
+                                    .foregroundStyle(.secondary)
+                                    .font(.caption)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal)
+                            }
+                        }
+                    } else if !timerActive && !timerFinished {
+                        // Initial instruction screen asking the user to rotate to landscape to start
+                        VStack(spacing: 12) {
+                            Text("Rotate your device")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                            Text("Please rotate into landscape to start the timer")
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+
+                            Image(systemName: "iphone.landscape")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 120, height: 120)
+                                .foregroundStyle(.secondary)
+                        }
+                    } else if timerActive {
+                        // Active countdown
+                        VStack(spacing: 12) {
+                            Text(todo.title)
+                                .font(.title)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+
+                            ZStack {
+                                Text(timeString(from: remainingSeconds))
+                                    .font(.system(size: 60, weight: .bold, design: .monospaced))
+                                    .foregroundStyle(.primary)
+                                    .padding(.top, 8)
                             }
 
                             if remainingSeconds > 0 {
                                 if isPausedMicrostate {
-                                    Text("Paused — rotate to resume")
+                                    Text("Paused \u2014 rotate to resume")
                                         .foregroundStyle(.secondary)
                                         .font(.caption)
                                         .transition(.opacity)
+                                    // Show the portrait-grace countdown while paused
+                                    if portraitGraceRemaining > 0 {
+                                        Text("Resume in \(portraitGraceRemaining)s")
+                                            .foregroundStyle(.secondary)
+                                            .font(.caption2)
+                                            .monospacedDigit()
+                                            .transition(.opacity)
+                                            .padding(.top, 2)
+                                            .accessibilityLabel(Text("Resume timer in \(portraitGraceRemaining) seconds"))
+                                    }
                                 } else {
                                     Text("Keep in landscape to continue")
                                         .foregroundStyle(.secondary)
                                         .font(.caption)
                                 }
                             } else {
-                                Text("Timer finished — rotate back to portrait to complete the task")
+                                Text("Timer finished \u2014 rotate back to portrait to complete the task")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                     .multilineTextAlignment(.center)
@@ -109,14 +186,15 @@ struct FullscreenTimerView: View {
                             }
                         }
                     } else if timerFinished {
+                        // Finished: show celebratory state while waiting for portrait rotation to confirm
                         VStack(spacing: 12) {
                             Text("Done!")
-                                    .font(.title)
-                                    .fontWeight(.semibold)
-                                Text("Rotate back to portrait to mark the task as completed")
-                                    .foregroundStyle(.secondary)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal)
+                                .font(.title)
+                                .fontWeight(.semibold)
+                            Text("Rotate back to portrait to mark the task as completed")
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
 
                             ZStack {
                                 Image(systemName: "checkmark.seal")
@@ -139,7 +217,7 @@ struct FullscreenTimerView: View {
 
                     Spacer()
 
-                    // Buttons removed per request. Keep spacing at bottom.
+                    // Keep bottom spacing consistent
                     Color.clear
                         .frame(height: 24)
                         .padding(.bottom, 24)
@@ -152,8 +230,8 @@ struct FullscreenTimerView: View {
                 .onDisappear {
                     stopObservingOrientation()
                     stopTimerIfNeeded()
-                    // Do NOT call onCancel here — we want to keep the view presented so that
-                    // when the user returns from background we can show the disappointment overlay.
+                    // Do NOT call onCancel here — the dismissal/cancellation is handled explicitly
+                    // from the disappointment overlay or other flows.
                 }
 
                 // Confetti overlay when finished (above content)
@@ -175,9 +253,11 @@ struct FullscreenTimerView: View {
 
     // MARK: - Orientation observation
 
+    /// Start listening for device orientation notifications and handle the initial state.
     private func beginObservingOrientation() {
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-        NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: .main) { _ in
+        // Keep the observer token so we can remove it later.
+        orientationObserverToken = NotificationCenter.default.addObserver(forName: UIDevice.orientationDidChangeNotification, object: nil, queue: .main) { _ in
             orientation = UIDevice.current.orientation
             handleOrientationChange()
         }
@@ -185,26 +265,40 @@ struct FullscreenTimerView: View {
         handleOrientationChange()
     }
 
+    /// Stop observing device orientation notifications and clean up.
     private func stopObservingOrientation() {
-        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
+        if let token = orientationObserverToken {
+            NotificationCenter.default.removeObserver(token)
+            orientationObserverToken = nil
+        }
         UIDevice.current.endGeneratingDeviceOrientationNotifications()
     }
 
+    /// Core orientation handling logic. Decides when to start, pause, resume, finish or cancel the timer
+    /// based on the current `orientation` and internal state.
     private func handleOrientationChange() {
         // If we're showing the disappointed fullscreen, ignore orientation changes
         if disappointed { return }
         if !timerActive && !timerFinished {
             // start when user rotates to landscape
             if orientation.isLandscape {
-                startTimer()
+                // If the timer had already started and was paused, resume it instead of resetting.
+                if remainingSeconds < totalSeconds && remainingSeconds > 0 {
+                    // Cancel the portrait grace if it's running before resuming.
+                    cancelPortraitGrace()
+                    resumeTimer()
+                } else {
+                    startTimer()
+                }
             }
         } else if timerActive {
-            // if user rotates back to portrait while timer is active, pause or stop. Here we choose to pause the timer until landscape is regained.
             if !orientation.isLandscape {
-                // pause the timer
-                pauseTimer()
+                // Entered portrait while active -> start the 15s grace countdown.
+                pauseTimer() // pause the main countdown
+                startPortraitGrace()
             } else {
-                // resume
+                // Returned to landscape while active -> cancel grace (if any) and resume main timer
+                cancelPortraitGrace()
                 resumeTimer()
             }
         } else if timerFinished {
@@ -216,6 +310,53 @@ struct FullscreenTimerView: View {
                 dismiss()
             }
         }
+    }
+
+    // MARK: - Portrait grace helpers
+    private func startPortraitGrace() {
+        cancelPortraitGrace()
+        portraitGraceRemaining = portraitGraceDuration
+        // mark paused UI state
+        pausedDueToPortrait = true
+        // Start a simple 1s-tick publisher that decrements the remaining grace seconds.
+        portraitGraceCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
+            .autoconnect()
+            .sink { _ in
+                portraitGraceTick()
+            }
+    }
+
+    private func cancelPortraitGrace() {
+        portraitGraceCancellable?.cancel()
+        portraitGraceCancellable = nil
+        portraitGraceRemaining = portraitGraceDuration
+        // clear paused UI
+        pausedDueToPortrait = false
+    }
+
+    private func portraitGraceTick() {
+        guard portraitGraceRemaining > 0 else {
+            portraitGraceCancellable?.cancel()
+            portraitGraceCancellable = nil
+            portraitGraceRemaining = 0
+            handlePortraitGraceExpired()
+            return
+        }
+        portraitGraceRemaining -= 1
+        // If you have a small UI showing the countdown, update it here.
+    }
+
+    private func handlePortraitGraceExpired() {
+        // The user did not return to landscape within the grace window.
+        // Cancel the running timer and show disappointment.
+        stopTimerIfNeeded()
+        disappointed = true
+        // Clear paused UI state
+        pausedDueToPortrait = false
+        // Optionally mark timerFinished to prevent normal completion flow.
+        timerFinished = false
+        timerActive = false
+        // If you need to perform any onCancel callbacks, do it here.
     }
 
     // MARK: - Timer control
@@ -252,13 +393,13 @@ struct FullscreenTimerView: View {
                     timerFinished = true
                     timerActive = false
                     stopTimerIfNeeded()
-                        // Play vibration once
-                        if !didPlaySuccess {
-                            playVibration()
-                            // done bloom and announcement
-                            showDoneBloom = true
-                            UIAccessibility.post(notification: .announcement, argument: "Timer finished")
-                        }
+                    // Play vibration once
+                    if !didPlaySuccess {
+                        playVibration()
+                        // done bloom and announcement
+                        showDoneBloom = true
+                        UIAccessibility.post(notification: .announcement, argument: "Timer finished")
+                    }
                 }
             }
     }
@@ -280,6 +421,8 @@ struct FullscreenTimerView: View {
         timerCancellable?.cancel()
         timerCancellable = nil
         timerActive = false
+        // indicate that we're paused due to portrait rotation
+        pausedDueToPortrait = true
         // show pause microstate
         withAnimation(.easeInOut(duration: 0.18)) {
             isPausedMicrostate = true
@@ -290,7 +433,11 @@ struct FullscreenTimerView: View {
     private func resumeTimer() {
         if disappointed { return }
         guard !timerActive && !timerFinished && remainingSeconds > 0 else { return }
+        // Defensive: stop any portrait-grace timer so it cannot fire after we resume.
+        cancelPortraitGrace()
         timerActive = true
+        // clear paused UI state
+        pausedDueToPortrait = false
         // clear pause microstate
         withAnimation(.easeInOut(duration: 0.18)) {
             isPausedMicrostate = false

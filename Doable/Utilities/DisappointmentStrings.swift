@@ -1,15 +1,16 @@
 import Foundation
-
-/// Centralized strings for the Disappointment / cancellation UI.
 import SwiftUI
 
-/// Centralized keys for the Disappointment / cancellation UI.
-/// This exposes `LocalizedStringKey` values so views can use SwiftUI's localization directly.
+/// Utility that centralizes the localized keys/messages used when the user
+/// abandons a running timer. Exposes LocalizedStringKey values so SwiftUI views
+/// can use them directly without converting at call sites.
 struct DisappointmentText {
-    // Use the english phrases as LocalizedStringKey so they map to existing Localizable.strings entries.
+    // Title shown in the disappointment overlay
     static var titleKey: LocalizedStringKey { LocalizedStringKey("Timer cancelled") }
+    // Label for the acknowledgement button
     static var okButtonKey: LocalizedStringKey { LocalizedStringKey("OK") }
 
+    // Variety of playful messages that are selected at random to make the cancellation UX lighter.
     private static let messageKeys: [LocalizedStringKey] = [
         LocalizedStringKey("This wasn't very Doable of you."),
         LocalizedStringKey("You left the timer hanging. Rude."),
@@ -20,6 +21,7 @@ struct DisappointmentText {
         LocalizedStringKey("Not your finest moment, champ."),
     ]
 
+    // Pick a random message to display when the timer is cancelled.
     static func randomMessageKey() -> LocalizedStringKey {
         messageKeys.randomElement() ?? messageKeys.first!
     }

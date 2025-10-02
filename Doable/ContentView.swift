@@ -10,18 +10,29 @@ import SwiftData
 import Foundation
 import Combine
 
+/// The app's primary view showing the list of todos and controls to add/complete them.
+///
+/// Responsibilities:
+/// - Query and display `Todo` items from SwiftData.
+/// - Provide adding/deleting, completion (via a timed fullscreen flow), and an undo snackbar.
 struct ContentView: View {
+    // SwiftData model context for inserting/deleting model objects
     @Environment(\.modelContext) private var modelContext
+    // Query property wrapper to fetch all Todo objects
     @Query private var todos: [Todo]
+
+    // UI state
     @State private var isDoneSectionExpanded = false
     @State private var pendingCompletionTodo: Todo? = nil
     @State private var isTimerSheetPresented: Bool = false
     @State private var isFullscreenTimerPresented: Bool = false
     @State private var timerSecondsToRun: Int = 0
+    // Flag set while the time-setup sheet is dismissing so we can present the fullscreen cover
     @State private var shouldPresentFullscreenAfterSheet: Bool = false
     @State private var isAdding: Bool = false
     @State private var isStatisticsPresented: Bool = false
     @State private var isSettingsPresented: Bool = false
+
     // Snackbar / undo state
     @State private var snackbarVisible: Bool = false
     @State private var snackbarMessage: String = ""
@@ -30,45 +41,36 @@ struct ContentView: View {
     @State private var snackbarTimerCancellable: AnyCancellable? = nil
     enum LastAction { case none, deleted, completed }
     @State private var lastAction: LastAction = .none
-    
+
+    // How long the snackbar stays visible before auto-dismiss
     private var snackbarDuration: TimeInterval { 4.0 }
-    
+
+    // Derived lists for convenience and ordering
     private var incompleteTodos: [Todo] {
         todos.filter { !$0.isCompleted }.sorted { $0.createdAt > $1.createdAt }
     }
-    
+
     private var completedTodos: [Todo] {
         todos.filter { $0.isCompleted }.sorted { $0.createdAt > $1.createdAt }
     }
-    
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                // Header with title left and icons on the right
+                // Header with title left and optional icons on the right
                 HStack {
                     Text("Doable")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     Spacer()
                     HStack(spacing: 14) {
-//                        Button(action: { isStatisticsPresented = true }) {
-//                            Image(systemName: "chart.bar.fill")
-//                               .font(.title2)
-//                                .foregroundColor(.primary)
-//                        }
-//                        .accessibilityLabel(Text("Statistics"))
-
-//                        Button(action: { isSettingsPresented = true }) {
-//                            Image(systemName: "gearshape.fill")
-//                                .font(.title2)
-//                                .foregroundColor(.primary)
-//                        }
-//                        .accessibilityLabel(Text("Settings"))
+                        // Statistics / settings buttons are currently commented out.
                     }
                 }
                 .padding(.top, 40)
                 .padding(.bottom, 20)
-                
+
+                // Empty state
                 if incompleteTodos.isEmpty && completedTodos.isEmpty {
                     VStack {
                         Spacer()
@@ -83,11 +85,12 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity)
                 } else {
                     VStack(spacing: 0) {
-                        // Main todos area
+                        // Main todos list (incomplete first)
                         ScrollView {
                             LazyVStack(alignment: .leading, spacing: 12) {
                                 ForEach(incompleteTodos) { todo in
                                     TodoView(todo: todo, onRequestComplete: {
+                                        // Parent will show the timer sheet for the selected todo
                                         pendingCompletionTodo = todo
                                         isTimerSheetPresented = true
                                     })
@@ -98,13 +101,12 @@ struct ContentView: View {
                                     }
                                 }
                             }
-                            // outer VStack already provides horizontal padding; keep inner content tight
                             .padding(.bottom, 20)
                         }
-                        
+
                         Spacer()
-                        
-                        // Done section - always at bottom
+
+                        // Done section: collapsible list of completed todos
                         if !completedTodos.isEmpty {
                             VStack(alignment: .leading, spacing: 8) {
                                 Button(action: {
@@ -116,18 +118,18 @@ struct ContentView: View {
                                         Image(systemName: isDoneSectionExpanded ? "chevron.down" : "chevron.right")
                                             .font(.caption)
                                             .foregroundColor(.secondary)
-                                        
+
                                         Text("Done")
                                             .font(.headline)
                                             .foregroundColor(.secondary)
-                                        
+
                                         Spacer()
                                     }
                                     .padding(.horizontal, 24)
                                     .padding(.vertical, 8)
                                 }
                                 .buttonStyle(PlainButtonStyle())
-                                
+
                                 if isDoneSectionExpanded {
                                     ScrollView {
                                         LazyVStack(alignment: .leading, spacing: 12) {
@@ -152,7 +154,8 @@ struct ContentView: View {
                 }
             }
             .padding(.horizontal, 20)
-            
+
+            // Floating area containing snackbar and the Add (+) button
             VStack {
                 Spacer()
 
@@ -174,15 +177,15 @@ struct ContentView: View {
                     .padding(.vertical, 12)
                     .background(BlurView(style: .systemThinMaterialDark))
                     .cornerRadius(12)
-                    // Subtle shadow for better visibility
                     .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)
                     .padding(.horizontal, 20)
-                    // small gap between snackbar and the + button
                     .padding(.bottom, 12)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
 
                 // + button with press bounce
+                // Disabled while there's an unfinished (empty) todo so users don't create multiple blank entries
+                let hasEmptyTodo = incompleteTodos.contains { $0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                 Button(action: addTodo) {
                     Image(systemName: "plus")
                         .font(.title2)
@@ -193,6 +196,8 @@ struct ContentView: View {
                         .shadow(color: .black.opacity(isAdding ? 0.15 : 0.25), radius: isAdding ? 2 : 6, x: 0, y: 4)
                         .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isAdding)
                 }
+                .disabled(hasEmptyTodo)
+                .opacity(hasEmptyTodo ? 0.6 : 1.0)
                 .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged({ _ in
                     isAdding = true
                 }).onEnded({ _ in
@@ -201,6 +206,7 @@ struct ContentView: View {
                 .padding(.bottom, 20)
             }
         }
+        // Timer setup sheet -> fullscreen timer presentation flow
         .sheet(isPresented: $isTimerSheetPresented) {
             TimerSetupSheet(
                 todoTitle: pendingCompletionTodo?.title ?? "",
@@ -222,12 +228,12 @@ struct ContentView: View {
                 FullscreenTimerView(todo: todo, totalSeconds: timerSecondsToRun) {
                     // completion callback from fullscreen view: mark todo completed and clear pending
                     withAnimation {
-                                todo.isCompleted = true
+                        todo.isCompleted = true
                     }
-                            // show snackbar for undo
-                            performComplete(todo)
-                            pendingCompletionTodo = nil
-                            isFullscreenTimerPresented = false
+                    // show snackbar for undo
+                    performComplete(todo)
+                    pendingCompletionTodo = nil
+                    isFullscreenTimerPresented = false
                 } onCancel: {
                     // user cancelled the fullscreen timer flow
                     pendingCompletionTodo = nil
@@ -239,11 +245,11 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $isStatisticsPresented) {
-            // Present the new Statistics view
+            // Present the Statistics view
             StatisticsView()
         }
         .sheet(isPresented: $isSettingsPresented) {
-            // Present the settings view
+            // Present the Settings view
             SettingsView()
         }
         .onChange(of: isTimerSheetPresented) { _, newValue in
@@ -253,9 +259,12 @@ struct ContentView: View {
                 isFullscreenTimerPresented = true
             }
         }
-        
+
     }
-    
+
+    // MARK: - Actions
+
+    /// Create a new, empty Todo and focus the text field (handled by `TodoView`).
     private func addTodo() {
         withAnimation {
             let newTodo = Todo(title: "")
@@ -267,9 +276,9 @@ struct ContentView: View {
             UIAccessibility.post(notification: .announcement, argument: s)
         }
     }
-    
+
+    /// Delete a todo and show the undo snackbar.
     private func performDelete(_ todo: Todo) {
-        // remove and show undo snackbar
         withAnimation {
             lastDeletedTodo = todo
             lastAction = .deleted
@@ -278,15 +287,17 @@ struct ContentView: View {
         showSnackbar(message: String(format: NSLocalizedString("snackbar.deleted", comment: "Deleted message with title"), todo.title))
     }
 
+    /// Called when a todo is completed via the fullscreen timer flow. Shows the snackbar for undo.
     private func performComplete(_ todo: Todo) {
         withAnimation {
             lastCompletedTodo = todo
             lastAction = .completed
-            // already marked completed by caller
+            // todo.isCompleted is already updated by caller
         }
         showSnackbar(message: String(format: NSLocalizedString("snackbar.completed", comment: "Completed message with title"), todo.title))
     }
 
+    /// Undo the last deletion or completion if possible.
     private func undoLastAction() {
         snackbarTimerCancellable?.cancel()
         snackbarTimerCancellable = nil
@@ -309,6 +320,7 @@ struct ContentView: View {
         clearSnackbar()
     }
 
+    /// Show a transient snackbar with undo action.
     private func showSnackbar(message: String) {
         snackbarMessage = message
         withAnimation(.easeOut) {
@@ -332,7 +344,7 @@ struct ContentView: View {
         lastDeletedTodo = nil
         lastCompletedTodo = nil
     }
-    }
+}
 
 #Preview {
     ContentView()
