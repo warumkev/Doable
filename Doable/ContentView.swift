@@ -288,6 +288,19 @@ struct ContentView: View {
                     timerSecondsToRun = seconds
                     shouldPresentFullscreenAfterSheet = true
                     isTimerSheetPresented = false
+                },
+                onCompleteWithoutTimer: {
+                    // Immediately complete the pending todo without running the timer.
+                    if let todo = pendingCompletionTodo {
+                        withAnimation {
+                            todo.isCompleted = true
+                            todo.completedAt = Date()
+                        }
+                        performComplete(todo)
+                    }
+                    // Dismiss sheet and clear pending
+                    isTimerSheetPresented = false
+                    pendingCompletionTodo = nil
                 }
             )
         }

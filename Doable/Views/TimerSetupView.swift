@@ -4,9 +4,11 @@ struct TimerSetupSheet: View {
     let todoTitle: String
     let onCancel: () -> Void
     let onConfirm: (_ selectedMinutes: Int) -> Void
+    let onCompleteWithoutTimer: () -> Void
     
     @State private var minutes: Int = 0
     @State private var seconds: Int = 0
+    @State private var isConfirmingCompleteWithoutTimer: Bool = false
 
     // Read the user's preferred default timer minutes from settings
     @AppStorage("settings.defaultTimerMinutes") private var defaultTimerMinutes: Int = 5
@@ -80,7 +82,36 @@ struct TimerSetupSheet: View {
             .padding(.horizontal)
             
             Spacer(minLength: 0)
-            
+
+            // Quick-complete button (requires two clicks to confirm)
+            Button {
+                if isConfirmingCompleteWithoutTimer {
+                    // second click: perform immediate completion
+                    onCompleteWithoutTimer()
+                } else {
+                    // first click: ask for confirmation
+                    withAnimation {
+                        isConfirmingCompleteWithoutTimer = true
+                    }
+                    // revert confirmation state after a short timeout
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        withAnimation {
+                            isConfirmingCompleteWithoutTimer = false
+                        }
+                    }
+                }
+            } label: {
+                Text(isConfirmingCompleteWithoutTimer ? LocalizedStringKey("timer_setup.confirm_quick_complete_confirm") : LocalizedStringKey("timer_setup.confirm_quick_complete"))
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(isConfirmingCompleteWithoutTimer ? Color.red : Color.secondary.opacity(0.12))
+                    .foregroundStyle(isConfirmingCompleteWithoutTimer ? Color.white : Color.primary)
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 8)
+
             HStack(spacing: 12) {
                 Button(role: .cancel) {
                     onCancel()
@@ -122,5 +153,10 @@ struct TimerSetupSheet: View {
 }
 
 #Preview {
-    TimerSetupSheet(todoTitle: "Buy milk", onCancel: {}, onConfirm: { _ in })
+    TimerSetupSheet(
+        todoTitle: "Buy milk",
+        onCancel: {},
+        onConfirm: { _ in },
+        onCompleteWithoutTimer: {}
+    )
 }

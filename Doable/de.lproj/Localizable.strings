@@ -82,6 +82,8 @@
 "timer_setup.colon" = ":";
 "timer_setup.cancel" = "Abbrechen";
 "timer_setup.confirm" = "Bestätigen";
+"timer_setup.confirm_quick_complete" = "Ohne Timer erledigen";
+"timer_setup.confirm_quick_complete_confirm" = "Erneut tippen zum Bestätigen";
 
 /* Finished/confirm */
 "finished.completed" = "Erledigt";

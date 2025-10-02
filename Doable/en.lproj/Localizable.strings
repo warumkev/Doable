@@ -55,6 +55,8 @@
 "timer_setup.confirm" = "Confirm";
 "timer_setup.minutes_label" = "Minutes";
 "timer_setup.seconds_label" = "Seconds";
+"timer_setup.confirm_quick_complete" = "Complete without timer";
+"timer_setup.confirm_quick_complete_confirm" = "Tap again to confirm";
 
 /* Finished/confirm */
 "finished.completed" = "Completed";
