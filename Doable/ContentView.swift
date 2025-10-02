@@ -88,12 +88,25 @@ struct ContentView: View {
                                 .transition(.opacity) */
                         }
                     }
-                    Text(LocalizedStringKey("app.title"))
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    HStack(spacing: 14) {
-                        // Statistics / settings buttons are currently commented out.
+                    Menu {
+                        Button(LocalizedStringKey("menu.statistics")) {
+                            isStatisticsPresented = true
+                        }
+                        Button(LocalizedStringKey("menu.settings")) {
+                            isSettingsPresented = true
+                        }
+                    } label: {
+                        HStack(spacing: 6) {
+                            Text(LocalizedStringKey("app.title"))
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(.primary)
+                            Image(systemName: "chevron.down")
+                                .font(.title2)
+                                .foregroundColor(.primary)
+                        }
                     }
+
                     Divider()
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 8)

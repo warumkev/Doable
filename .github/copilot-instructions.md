@@ -1,45 +1,48 @@
-# Copilot instructions for Doable
+# Copilot instructions for Doable (merged & focused)
 
-These instructions are for automated coding agents (Copilot/Coding agent) to be immediately productive in the Doable iOS SwiftUI app.
+This small SwiftUI app uses SwiftData for local persistence and keeps most app logic inside views. The goal of this doc is to give an AI coding agent the minimal, actionable context required to make correct, low-risk changes.
 
 - Big picture
 
-  - Doable is a small SwiftUI iOS app that uses SwiftData for local persistence. Key folders:
-    - `Models/` — domain models (see `Models/Todo.swift` which uses `@Model`).
-    - `Views/` — all UI and much of the app logic (e.g. `Views/FullscreenTimerView.swift`).
-    - `Utilities/` — small helpers such as `DisappointmentStrings.swift` for localized messages.
-    - `Ressources/` — asset catalogs and localization (`en.lproj`, `de.lproj`).
+  - Doable is a single-window SwiftUI iOS app. Data flows: UI views ⇄ SwiftData `ModelContainer` (shared via `.modelContainer(...)`) ⇄ `@Model` objects (see `Models/Todo.swift`).
+  - Most business logic lives in views (see `Views/FullscreenTimerView.swift`); prefer small, local edits unless you extract a helper into `Utilities/` or `ViewModels/`.
 
-- Persistence and app entry
+- Persistence and schema cautions
 
-  - `DoableApp.swift` constructs a single shared `ModelContainer` (SwiftData) at app startup and injects it via `.modelContainer(sharedModelContainer)` into the scene.
-  - Editing models changes the schema; the app currently fails fast on container creation errors. If modifying models, either keep schema-compatible changes or plan to reset persisted data / add migration logic.
+  - `DoableApp.swift` creates the app-wide `ModelContainer`. Changing `@Model` types alters the schema and will fail at startup in development; either keep compatibility, add migrations, or accept resetting simulator data.
 
-- Concrete code patterns (examples to follow)
+- Key patterns to preserve
 
-  - `@Model` for persistable types; `@Bindable` for binding model instances in views (`Models/Todo.swift`, `Views/TodoView.swift`).
-  - Use `@Environment(.modelContext)` to access the SwiftData context and call `modelContext.delete(_:)` to remove objects (see `TodoView`'s delete-on-empty logic).
-  - `FullscreenTimerView.swift` implements orientation-driven lifecycle and a 15s portrait "grace" period. Key helpers to preserve if changing behavior: `beginObservingOrientation`, `handleOrientationChange`, `startPortraitGrace`, `handlePortraitGraceExpired`.
-  - Localization uses `LocalizedStringKey` and strings files under `en.lproj`/`de.lproj`. Helpers like `Utilities/DisappointmentStrings.swift` return `LocalizedStringKey` values for views.
+  - Use `@Model` and `@Bindable` for persisted types and bindings (example: `Models/Todo.swift`, `Views/TodoView.swift`).
+  - Use `@Environment(\.modelContext)` for inserts/deletes. `TodoView` removes empty todos on blur — preserve that UX if you refactor.
+  - `FullscreenTimerView` is orientation-driven and relies on observers and timers. If modifying, keep helpers: `beginObservingOrientation`, `handleOrientationChange`, `startPortraitGrace`, `handlePortraitGraceExpired`.
 
-- Developer workflows
+- Localization and assets
 
-  - Preferred iteration: open `Doable.xcodeproj` in Xcode and run on simulator or device. Deleting the app on the simulator resets SwiftData storage.
-  - For scripted builds use `xcodebuild` with the app scheme. Most UI behaviors (orientation, haptics) require device/simulator testing.
+  - Strings live under `en.lproj` and `de.lproj` and UI uses `LocalizedStringKey`. Prefer adding keys to these files when introducing text.
+  - Asset names (in `Ressources/Assets.xcassets`) are referenced literally (e.g., `Image("doableLogo")`). Avoid renaming assets without updating code.
 
-- Conventions and style
+- Build & run notes (developer workflows)
 
-  - PascalCase for types and components; camelCase for vars/functions; ALL_CAPS for constants.
-  - The project keeps view-centric logic in SwiftUI views. If extracting business logic, prefer `Utilities/` or `ViewModels/` and keep changes minimal.
+  - Preferred: open `Doable.xcodeproj` in Xcode and run on Simulator/device (UI behaviors like orientation and haptics require simulator/device).
+  - Scripted: `xcodebuild -scheme Doable -workspace Doable.xcworkspace` (or open Xcode project). Deleting the app from simulator resets SwiftData storage.
 
-- Integration points and cautions
+- Conventions
 
-  - No external dependencies. Uses system frameworks: SwiftUI, SwiftData, UIKit orientation APIs, AudioToolbox (haptics/vibration).
-  - Asset names in `Ressources/Assets.xcassets` are referenced by name in code and are sensitive to renames.
+  - PascalCase for types, camelCase for vars/functions, ALL_CAPS for constants.
+  - Keep view-centric logic in `Views/`. Small reusable helpers go into `Utilities/`.
 
-- Files to inspect when making changes
-  - `DoableApp.swift` — app bootstrap and model container
-  - `Models/Todo.swift` — model definition
-  - `Views/TodoView.swift` — binding and delete-on-empty behavior
-  - `Views/FullscreenTimerView.swift` — orientation and timer lifecycle
-  - `Utilities/DisappointmentStrings.swift` — timer cancelation messages
+- Files to inspect first (quick checklist)
+
+  - `DoableApp.swift` — model container & onboarding presentation
+  - `Models/Todo.swift` — persisted data shape
+  - `Views/TodoView.swift` — text binding and delete-on-empty logic
+  - `Views/FullscreenTimerView.swift` — orientation + timer lifecycle (sensitive behavior)
+  - `Utilities/DisappointmentStrings.swift` — localized message helpers
+  - `en.lproj/Localizable.strings` & `de.lproj/Localizable.strings` — add keys here when changing text
+
+- Safety checklist before changing behavior
+  - If you change `@Model` definitions, document migration or reset instructions; run the app in simulator and delete the app to test a fresh schema.
+  - When changing timer/orientation code, test on device/simulator (portrait/landscape) and ensure the 15s portrait grace behavior remains consistent.
+
+If anything here is unclear or you want more examples (e.g., a small change walkthrough), tell me which area to expand and I will iterate.
