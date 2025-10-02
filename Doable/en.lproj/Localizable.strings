@@ -41,3 +41,21 @@
 "snackbar.deleted" = "Deleted \"%@\"";
 "snackbar.completed" = "Completed \"%@\"";
 "snackbar.undo" = "Undo";
+
+/* Onboarding */
+"onboarding.chooseTodo.title" = "Choose a todo";
+"onboarding.chooseTodo.desc" = "Pick one small thing you want to finish.";
+
+"onboarding.setTimer.title" = "Set a timer";
+"onboarding.setTimer.desc" = "Use a short timer to focus — it helps you actually get things done.";
+
+
+"onboarding.keepRunning.title" = "Keep the timer running";
+"onboarding.keepRunning.desc" = "Stay in landscape so the timer can keep counting down.";
+
+"onboarding.final.title" = "No tracking — local only";
+"onboarding.final.desc" = "Your todos stay on this device. No accounts, no tracking. Let's go!";
+
+"onboarding.next" = "Next";
+"onboarding.letsgo" = "Let's go";
+"onboarding.skip" = "Skip";

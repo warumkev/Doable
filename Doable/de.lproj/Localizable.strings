@@ -33,12 +33,32 @@
 "Done today(%d)" = "Erledigt heute(%d)";
 "for %@" = "für %@";
 
+/* Accessibility */
 "accessibility.added_todo" = "Aufgabe hinzugefügt";
 "accessibility.timer.started" = "Timer gestartet";
 "accessibility.timer.paused" = "Timer pausiert";
 "accessibility.timer.resumed" = "Timer fortgesetzt";
 "accessibility.timer.finished" = "Timer beendet";
 
+/* Snackbar */
 "snackbar.deleted" = "\"%@\" gelöscht";
 "snackbar.completed" = "\"%@\" erledigt";
 "snackbar.undo" = "Rückgängig";
+
+/* Onboarding */
+"onboarding.chooseTodo.title" = "Wähle eine Aufgabe";
+"onboarding.chooseTodo.desc" = "Wähle eine kleine Sache, die du erledigen möchtest.";
+
+"onboarding.setTimer.title" = "Stell einen Timer";
+"onboarding.setTimer.desc" = "Nutze einen kurzen Timer, um dich zu fokussieren — so schaffst du es wirklich.";
+
+
+"onboarding.keepRunning.title" = "Lass den Timer laufen";
+"onboarding.keepRunning.desc" = "Bleibe im Querformat, damit der Timer weiterläuft.";
+
+"onboarding.final.title" = "Kein Tracking — nur lokal";
+"onboarding.final.desc" = "Deine Aufgaben bleiben auf diesem Gerät. Keine Konten, kein Tracking. Los geht's!";
+
+"onboarding.next" = "Weiter";
+"onboarding.letsgo" = "Los geht's";
+"onboarding.skip" = "Überspringen";

@@ -104,7 +104,7 @@ struct FullscreenTimerView: View {
                             }
 
                             if remainingSeconds > 0 {
-                                Text("Paused \u2014 rotate to resume")
+                                Text("Paused — rotate to resume")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                 if portraitGraceRemaining > 0 {
@@ -113,10 +113,10 @@ struct FullscreenTimerView: View {
                                         .font(.caption2)
                                         .monospacedDigit()
                                         .padding(.top, 2)
-                                        .accessibilityLabel(Text("Resume timer in \(portraitGraceRemaining) seconds"))
+                                        .accessibilityLabel(Text(verbatim: "Resume timer in \(portraitGraceRemaining) seconds"))
                                 }
                             } else {
-                                Text("Timer finished \u2014 rotate back to portrait to complete the task")
+                                Text("Timer finished — rotate back to portrait to complete the task")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                     .multilineTextAlignment(.center)
@@ -158,7 +158,7 @@ struct FullscreenTimerView: View {
 
                             if remainingSeconds > 0 {
                                 if isPausedMicrostate {
-                                    Text("Paused \u2014 rotate to resume")
+                                    Text("Paused — rotate to resume")
                                         .foregroundStyle(.secondary)
                                         .font(.caption)
                                         .transition(.opacity)
@@ -170,7 +170,7 @@ struct FullscreenTimerView: View {
                                             .monospacedDigit()
                                             .transition(.opacity)
                                             .padding(.top, 2)
-                                            .accessibilityLabel(Text("Resume timer in \(portraitGraceRemaining) seconds"))
+                                            .accessibilityLabel(Text(verbatim: "Resume timer in \(portraitGraceRemaining) seconds"))
                                     }
                                 } else {
                                     Text("Keep in landscape to continue")
@@ -178,7 +178,7 @@ struct FullscreenTimerView: View {
                                         .font(.caption)
                                 }
                             } else {
-                                Text("Timer finished \u2014 rotate back to portrait to complete the task")
+                                    Text("Timer finished — rotate back to portrait to complete the task")
                                     .foregroundStyle(.secondary)
                                     .font(.caption)
                                     .multilineTextAlignment(.center)

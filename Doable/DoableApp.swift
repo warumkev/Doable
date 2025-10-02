@@ -31,12 +31,27 @@ struct DoableApp: App {
         }
     }()
 
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+
     var body: some Scene {
         // The main window shows ContentView and inherits the model container so
         // child views can access the SwiftData context via @Environment(\.modelContext).
         WindowGroup {
             ContentView()
+                // Inject the model container as before
+                .modelContainer(sharedModelContainer)
+                // Present onboarding on first launch using AppStorage flag
+                .fullScreenCover(isPresented: Binding(get: {
+                    !hasSeenOnboarding
+                }, set: { newValue in
+                    // When the cover is dismissed (set false) mark onboarding seen.
+                    if !newValue {
+                        hasSeenOnboarding = true
+                    }
+                })) {
+                    OnboardingView()
+                }
         }
-        .modelContainer(sharedModelContainer)
+        // modelContainer already set on the ContentView above
     }
 }

@@ -22,6 +22,7 @@ struct ContentView: View {
     @Query private var todos: [Todo]
 
     // UI state
+    @State private var isLogoRubbed: Bool = false
     @State private var isDoneSectionExpanded = false
     @State private var pendingCompletionTodo: Todo? = nil
     @State private var isTimerSheetPresented: Bool = false
@@ -58,14 +59,43 @@ struct ContentView: View {
         ZStack {
             VStack(spacing: 0) {
                 // Header with title left and optional icons on the right
-                HStack {
+                VStack {
+                    ZStack {
+                        Image("doableLogo")
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 48)
+                            .foregroundColor(.primary)
+                            .gesture(
+                                DragGesture(minimumDistance: 50)
+                                    .onChanged { _ in
+                                        isLogoRubbed = true
+                                    }
+                                    .onEnded { _ in
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            isLogoRubbed = false
+                                        }
+                                    }
+                            )
+                        if isLogoRubbed {
+/*                             Text("✨ You rubbed the logo! ✨")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.accentColor)
+                                .padding(.top, 56)
+                                .transition(.opacity) */
+                        }
+                    }
                     Text("Doable")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                    Spacer()
                     HStack(spacing: 14) {
                         // Statistics / settings buttons are currently commented out.
                     }
+                    Divider()
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
                 }
                 .padding(.top, 40)
                 .padding(.bottom, 20)
@@ -186,12 +216,12 @@ struct ContentView: View {
                 // + button with press bounce
                 // Disabled while there's an unfinished (empty) todo so users don't create multiple blank entries
                 let hasEmptyTodo = incompleteTodos.contains { $0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-                Button(action: addTodo) {
+                Button(action: addTodo) 
                     Image(systemName: "plus")
                         .font(.title2)
                         .foregroundColor(.white)
                         .frame(width: 56, height: 56)
-                        .background(Circle().fill(Color.accentColor))
+                        .background(Circle().fill(Color.secondary))
                         .scaleEffect(isAdding ? 0.9 : 1.0)
                         .shadow(color: .black.opacity(isAdding ? 0.15 : 0.25), radius: isAdding ? 2 : 6, x: 0, y: 4)
                         .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isAdding)
