@@ -1,144 +1,100 @@
-//
-//  OnboardingView.swift
-//  Doable
-//
-//  Created by automated assistant on 02.10.25.
-//
-
 import SwiftUI
 
-/// A small, self-contained onboarding flow presented as a fullscreen cover on first launch.
-/// - Persists a `hasSeenOnboarding` flag using `AppStorage` so the flow only appears once.
+struct OnboardingSlide: Identifiable {
+	let id = UUID()
+	let titleKey: LocalizedStringKey
+	let descKey: LocalizedStringKey
+}
+
 struct OnboardingView: View {
-    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
-    @State private var selection: Int = 0
+	@Environment(\.dismiss) private var dismiss
+	@State private var selection: Int = 0
 
-    private struct Page {
-        let title: LocalizedStringKey
-        let description: LocalizedStringKey
-        let imageName: String?
-    }
+	private let slides: [OnboardingSlide] = [
+		OnboardingSlide(titleKey: "onboarding.chooseTodo.title", descKey: "onboarding.chooseTodo.desc"),
+		OnboardingSlide(titleKey: "onboarding.setTimer.title", descKey: "onboarding.setTimer.desc"),
+		OnboardingSlide(titleKey: "onboarding.keepRunning.title", descKey: "onboarding.keepRunning.desc"),
+		OnboardingSlide(titleKey: "onboarding.final.title", descKey: "onboarding.final.desc"),
+	]
 
-    // Use the images the user added to Assets.xcassets. One image was missing; for that page
-    // we pass `nil` so the view will render the system placeholder illustration.
-    private let pages: [Page] = [
-        Page(title: "onboarding.chooseTodo.title", description: "onboarding.chooseTodo.desc", imageName: "list-view"),
-        Page(title: "onboarding.setTimer.title", description: "onboarding.setTimer.desc", imageName: "set-timer"),
-        Page(title: "onboarding.keepRunning.title", description: "onboarding.keepRunning.desc", imageName: "timer-running-landscape"),
-    Page(title: "onboarding.final.title", description: "onboarding.final.desc", imageName: "timer-sad"),
-    ]
+	var body: some View {
+		VStack {
+			HStack {
+				Spacer()
+				Button(action: {
+					// Skip onboarding
+					dismiss()
+				}) {
+					Text("onboarding.skip")
+				}
+				.padding(.trailing, 16)
+				.padding(.top, 12)
+				.buttonStyle(.plain)
+			}
 
-    var body: some View {
-        VStack(spacing: 16) {
-            HStack {
-                Spacer()
-                Button(action: { skip() }) {
-                    Text("onboarding.skip")
-                        .foregroundColor(.secondary)
-                }
-                .padding(.trailing, 20)
-            }
+			TabView(selection: $selection) {
+					ForEach(Array(slides.enumerated()), id: \.element.id) { pair in
+						let index = pair.offset
+						let slide = pair.element
 
-            TabView(selection: $selection) {
-                ForEach(pages.indices, id: \.self) { idx in
-                    pageView(for: pages[idx])
-                        .tag(idx)
-                }
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            .animation(.easeInOut, value: selection)
+					VStack(spacing: 20) {
+						Spacer()
 
-            HStack {
-                Spacer()
-                Button(action: nextTapped) {
-                    Text(selection == pages.count - 1 ? "onboarding.letsgo" : "onboarding.next")
-                        .bold()
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 20)
-                        .background(RoundedRectangle(cornerRadius: 10).fill(Color.accentColor))
-                        .foregroundColor(.white)
-                }
-            }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 34)
-        }
-        .padding(.top, 10)
-        .background(Color(UIColor.systemBackground))
-        .edgesIgnoringSafeArea(.all)
-    }
+						Text(slide.titleKey)
+							.font(.title)
+							.fontWeight(.semibold)
+							.multilineTextAlignment(.center)
+							.padding(.horizontal)
 
-    private func pageView(for page: Page) -> some View {
-        // Compute the UIImage once outside of the ViewBuilder to avoid loops/mutations inside
-        // the view builder closure (which is not allowed).
-        let foundUIImage: UIImage? = {
-            guard let name = page.imageName else { return nil }
-            if let ui = UIImage(named: name) { return ui }
-            if let ui = UIImage(named: "\(name).png") { return ui }
-            if let ui = UIImage(named: "\(name).PNG") { return ui }
-            return nil
-        }()
+						Text(slide.descKey)
+							.foregroundStyle(.secondary)
+							.multilineTextAlignment(.center)
+							.padding(.horizontal)
 
-        return VStack(spacing: 18) {
-            Spacer()
+						Spacer()
+					}
+					.tag(index)
+				}
+			}
+			.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 
-            if let ui = foundUIImage {
-                Image(uiImage: ui)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxHeight: 260)
-            } else if let name = page.imageName {
-                // Fall back to SwiftUI asset lookup by asset name
-                Image(name)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxHeight: 260)
-            } else {
-                // Lightweight placeholder illustration
-                Image(systemName: "sparkles")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 120, height: 120)
-                    .foregroundColor(.accentColor)
-            }
+			// Page indicator
+			HStack(spacing: 8) {
+				ForEach(0..<slides.count, id: \.self) { idx in
+					Circle()
+						.frame(width: 8, height: 8)
+						.foregroundColor(idx == selection ? Color.accentColor : Color(UIColor.tertiaryLabel))
+						.scaleEffect(idx == selection ? 1.1 : 1.0)
+						.animation(.easeInOut(duration: 0.18), value: selection)
+				}
+			}
+			.padding(.top, 8)
 
-            Text(page.title)
-                .font(.title)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 30)
-
-            Text(page.description)
-                .font(.body)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-
-            Spacer()
-        }
-    }
-
-    private func nextTapped() {
-        if selection < pages.count - 1 {
-            selection += 1
-        } else {
-            finish()
-        }
-    }
-
-    private func skip() {
-        finish()
-    }
-
-    private func finish() {
-        // Persist flag. The presenting view observes this AppStorage key and will dismiss.
-        hasSeenOnboarding = true
-    }
+			// Navigation
+			HStack {
+				Spacer()
+				Button(action: {
+					if selection < slides.count - 1 {
+						selection += 1
+					} else {
+						dismiss()
+					}
+				}) {
+					Text(selection < slides.count - 1 ? "onboarding.next" : "onboarding.letsgo")
+						.frame(minWidth: 100)
+				}
+				.buttonStyle(.borderedProminent)
+				.padding()
+			}
+		}
+		.background(Color(UIColor.systemBackground))
+		.ignoresSafeArea(edges: .bottom)
+	}
 }
 
-#if DEBUG
 struct OnboardingView_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingView()
-    }
+	static var previews: some View {
+		OnboardingView()
+	}
 }
-#endif
+

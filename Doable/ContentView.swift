@@ -28,6 +28,7 @@ struct ContentView: View {
     @State private var isTimerSheetPresented: Bool = false
     @State private var isFullscreenTimerPresented: Bool = false
     @State private var timerSecondsToRun: Int = 0
+    
     // Flag set while the time-setup sheet is dismissing so we can present the fullscreen cover
     @State private var shouldPresentFullscreenAfterSheet: Bool = false
     @State private var isAdding: Bool = false
@@ -216,18 +217,18 @@ struct ContentView: View {
                 // + button with press bounce
                 // Disabled while there's an unfinished (empty) todo so users don't create multiple blank entries
                 let hasEmptyTodo = incompleteTodos.contains { $0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-                Button(action: addTodo) 
+                Button(action: addTodo) {
                     Image(systemName: "plus")
                         .font(.title2)
-                        .foregroundColor(.white)
+                        .foregroundColor(.gray)
                         .frame(width: 56, height: 56)
-                        .background(Circle().fill(Color.secondary))
+                        .background(Circle().fill(Color.primary))
                         .scaleEffect(isAdding ? 0.9 : 1.0)
                         .shadow(color: .black.opacity(isAdding ? 0.15 : 0.25), radius: isAdding ? 2 : 6, x: 0, y: 4)
                         .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isAdding)
                 }
                 .disabled(hasEmptyTodo)
-                .opacity(hasEmptyTodo ? 0.6 : 1.0)
+                .opacity(hasEmptyTodo ? 0.3 : 1.0)
                 .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged({ _ in
                     isAdding = true
                 }).onEnded({ _ in
