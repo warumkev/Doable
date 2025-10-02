@@ -1,8 +1,28 @@
-//
-//  SettingsView.swift
-//  Doable
-//
-//  Created by Kevin Tamme on 02.10.25.
-//
+import SwiftUI
 
-import Foundation
+struct SettingsView: View {
+    var body: some View {
+        NavigationStack {
+            VStack {
+                Spacer()
+                Text("Settings")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding()
+
+                Text("Coming soon — this will show settings.")
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding()
+
+                Spacer()
+            }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+#Preview {
+    StatisticsView()
+}

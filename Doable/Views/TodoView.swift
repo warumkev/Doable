@@ -38,9 +38,9 @@ struct TodoView: View {
                 .overlay(
                     // soft glow when new
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.accentColor.opacity(highlightNew ? 0.9 : 0.0), lineWidth: 2)
+                        .stroke(Color.accentColor.opacity(highlightNew ? 0.5 : 0.0), lineWidth: 2)
                         .blur(radius: highlightNew ? 6 : 0)
-                        .animation(.easeOut(duration: 0.9), value: highlightNew)
+                        .animation(.easeOut(duration: 0.5), value: highlightNew)
                 )
                 .onAppear {
                     if todo.title.isEmpty {
@@ -48,8 +48,8 @@ struct TodoView: View {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
                             isTextFieldFocused = true
                             highlightNew = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                withAnimation(.easeOut(duration: 0.6)) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                withAnimation(.easeOut(duration: 0.5)) {
                                     highlightNew = false
                                 }
                             }

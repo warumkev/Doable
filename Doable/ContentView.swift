@@ -51,19 +51,19 @@ struct ContentView: View {
                         .fontWeight(.bold)
                     Spacer()
                     HStack(spacing: 14) {
-                        Button(action: { isStatisticsPresented = true }) {
-                            Image(systemName: "chart.bar.fill")
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                        }
-                        .accessibilityLabel(Text("Statistics"))
+//                        Button(action: { isStatisticsPresented = true }) {
+//                            Image(systemName: "chart.bar.fill")
+//                               .font(.title2)
+//                                .foregroundColor(.primary)
+//                        }
+//                        .accessibilityLabel(Text("Statistics"))
 
-                        Button(action: { isSettingsPresented = true }) {
-                            Image(systemName: "gearshape.fill")
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                        }
-                        .accessibilityLabel(Text("Settings"))
+//                        Button(action: { isSettingsPresented = true }) {
+//                            Image(systemName: "gearshape.fill")
+//                                .font(.title2)
+//                                .foregroundColor(.primary)
+//                        }
+//                        .accessibilityLabel(Text("Settings"))
                     }
                 }
                 .padding(.top, 40)
@@ -243,20 +243,8 @@ struct ContentView: View {
             StatisticsView()
         }
         .sheet(isPresented: $isSettingsPresented) {
-            // Minimal settings placeholder for now
-            NavigationStack {
-                VStack(spacing: 16) {
-                    Text("Settings")
-                        .font(.title)
-                        .fontWeight(.semibold)
-                    Text("App settings will go here.")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-                .padding()
-                .navigationTitle("Settings")
-                .navigationBarTitleDisplayMode(.inline)
-            }
+            // Present the settings view
+            SettingsView()
         }
         .onChange(of: isTimerSheetPresented) { _, newValue in
             // When the sheet finishes dismissing and we had requested to present the fullscreen timer, do it now.
