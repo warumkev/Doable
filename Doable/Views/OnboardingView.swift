@@ -20,26 +20,38 @@ struct OnboardingView: View {
 	var body: some View {
 		VStack {
 			HStack {
-				Spacer()
-				Button(action: {
-					// Skip onboarding
-					dismiss()
-				}) {
-					Text("onboarding.skip")
+                VStack {
+                    ZStack {
+                        Image("doableLogo")
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 48)
+                            .foregroundColor(.primary)
+                    }
+                    Text("Doable")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    HStack(spacing: 14) {
+                        // Statistics / settings buttons are currently commented out.
+                    }
+                    Divider()
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
 				}
-				.padding(.trailing, 16)
-				.padding(.top, 12)
-				.buttonStyle(.plain)
+
 			}
 
-			TabView(selection: $selection) {
+		TabView(selection: $selection) {
 					ForEach(Array(slides.enumerated()), id: \.element.id) { pair in
 						let index = pair.offset
 						let slide = pair.element
 
 					VStack(spacing: 20) {
 						Spacer()
-
+                        Text("\(index + 1)/\(slides.count)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
 						Text(slide.titleKey)
 							.font(.title)
 							.fontWeight(.semibold)
@@ -63,7 +75,7 @@ struct OnboardingView: View {
 				ForEach(0..<slides.count, id: \.self) { idx in
 					Circle()
 						.frame(width: 8, height: 8)
-						.foregroundColor(idx == selection ? Color.accentColor : Color(UIColor.tertiaryLabel))
+						.foregroundColor(idx == selection ? Color.primary : Color(UIColor.tertiaryLabel))
 						.scaleEffect(idx == selection ? 1.1 : 1.0)
 						.animation(.easeInOut(duration: 0.18), value: selection)
 				}
@@ -73,18 +85,32 @@ struct OnboardingView: View {
 			// Navigation
 			HStack {
 				Spacer()
-				Button(action: {
-					if selection < slides.count - 1 {
-						selection += 1
-					} else {
-						dismiss()
+
+				if selection < slides.count - 1 {
+					Button(action: {
+						withAnimation {
+							selection += 1
+						}
+					}) {
+						Text("onboarding.next")
+							.frame(minWidth: 100)
 					}
-				}) {
-					Text(selection < slides.count - 1 ? "onboarding.next" : "onboarding.letsgo")
-						.frame(minWidth: 100)
+					.buttonStyle(.borderedProminent)
+					.tint(Color.primary)
+					.foregroundColor(Color(UIColor.systemBackground))
+					.padding()
+				} else {
+					Button(action: {
+						dismiss()
+					}) {
+						Text("onboarding.letsgo")
+							.frame(minWidth: 120)
+					}
+					.buttonStyle(.borderedProminent)
+					.tint(Color.primary)
+					.foregroundColor(Color(UIColor.systemBackground))
+					.padding()
 				}
-				.buttonStyle(.borderedProminent)
-				.padding()
 			}
 		}
 		.background(Color(UIColor.systemBackground))

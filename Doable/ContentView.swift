@@ -28,7 +28,7 @@ struct ContentView: View {
     @State private var isTimerSheetPresented: Bool = false
     @State private var isFullscreenTimerPresented: Bool = false
     @State private var timerSecondsToRun: Int = 0
-    
+
     // Flag set while the time-setup sheet is dismissing so we can present the fullscreen cover
     @State private var shouldPresentFullscreenAfterSheet: Bool = false
     @State private var isAdding: Bool = false
@@ -94,6 +94,30 @@ struct ContentView: View {
                     HStack(spacing: 14) {
                         // Statistics / settings buttons are currently commented out.
                     }
+                    Divider()
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 8)
+                    HStack {
+                        // Left: current day abbreviation (e.g. Fri)
+                        Text(formattedDate("EE"))
+                            .font(.largeTitle)
+                            .fontWeight(.medium)
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
+                        // Right: yy.month <br> yyyy
+                        VStack(alignment: .trailing, spacing: 0) {
+                            Text(formattedDate("dd. MMMM"))
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                            Text(formattedDate("yyyy"))
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .padding(.horizontal, 8)
+
                     Divider()
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 8)
@@ -294,6 +318,14 @@ struct ContentView: View {
     }
 
     // MARK: - Actions
+
+    /// Return a formatted date string using the given date format and the current locale.
+    private func formattedDate(_ format: String) -> String {
+        let df = DateFormatter()
+        df.locale = Locale.current
+        df.dateFormat = format
+        return df.string(from: Date())
+    }
 
     /// Create a new, empty Todo and focus the text field (handled by `TodoView`).
     private func addTodo() {

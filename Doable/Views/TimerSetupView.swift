@@ -85,8 +85,8 @@ struct TimerSetupSheet: View {
                     Text("Cancel")
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(Color(.systemGray5))
-                        .foregroundStyle(.primary)
+                        .background(Color.secondary.opacity(0.12))
+                        .foregroundStyle(Color.primary)
                         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 }
                 
@@ -97,7 +97,7 @@ struct TimerSetupSheet: View {
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(Color.accentColor)
+                        .background(Color.primary)
                         .foregroundStyle(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 }
