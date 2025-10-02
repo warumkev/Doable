@@ -145,3 +145,9 @@
 "settings.reset_success" = "All data reset";
 "settings.import_permission_help" = "Unable to access the selected file. If the file is in iCloud Drive, grant Files/iCloud access or copy the file to On My iPhone before importing.";
 
+/* Privacy */
+"privacy.intro" = "Doable is a local-first app. Your todos and timer usage stay on your device unless you explicitly export or import data.";
+"privacy.data_storage" = "Data storage: Todos are stored locally on your device using SwiftData. We do not upload or sync your todos to any server.";
+"privacy.tracking" = "Tracking: Doable does not use analytics or tracking. There are no accounts, no advertising, and no third-party trackers.";
+"privacy.contact" = "Contact: If you have privacy questions, email kevintamme@icloud.com.";
+

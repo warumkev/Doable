@@ -28,6 +28,7 @@ struct SettingsView: View {
     // Reset state
     @State private var isResetConfirmPresented: Bool = false
     @State private var showResetSuccess: Bool = false
+    @State private var isPrivacyPresented: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -145,10 +146,22 @@ struct SettingsView: View {
                     }
 
                     Button(LocalizedStringKey("settings.send_feedback")) {
-                        // Placeholder: open mail/feedback
+                        if let url = URL(string: "mailto:kevintamme@icloud.com?subject=Doable%20Feedback") {
+                            UIApplication.shared.open(url)
+                        }
                     }
                     Button(LocalizedStringKey("settings.privacy")) {
-                        // Placeholder: open privacy page
+                        isPrivacyPresented = true
+                    }
+                    .sheet(isPresented: $isPrivacyPresented) {
+                        PrivacyView()
+                    }
+                    HStack {
+                        Spacer()
+                        Text("© 2025 Kevin Tamme - Doable")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                        Spacer()
                     }
                 }
             }

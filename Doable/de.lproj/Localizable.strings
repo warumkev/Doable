@@ -181,3 +181,9 @@
 "settings.reset_confirm_confirm" = "Zurücksetzen";
 "settings.reset_success" = "Alle Daten zurückgesetzt";
 "settings.import_permission_help" = "Konnte auf die ausgewählte Datei nicht zugreifen. Wenn die Datei in iCloud Drive liegt, erteile der Dateien‑App iCloud‑Zugriff oder kopiere die Datei nach 'Auf meinem iPhone', bevor du sie importierst.";
+
+/* Privacy */
+"privacy.intro" = "Doable ist eine lokal-first App. Deine Aufgaben und Timer-Nutzung bleiben auf deinem Gerät, es sei denn, du exportierst oder importierst Daten aktiv.";
+"privacy.data_storage" = "Speicherung: Aufgaben werden lokal auf deinem Gerät mit SwiftData gespeichert. Wir laden deine Aufgaben nicht auf einen Server hoch.";
+"privacy.tracking" = "Tracking: Doable verwendet keine Analyse- oder Tracking-Dienste. Es gibt keine Accounts, keine Werbung und keine Drittanbieter-Tracker.";
+"privacy.contact" = "Kontakt: Bei Datenschutzfragen schreibe an kevintamme@icloud.com.";
