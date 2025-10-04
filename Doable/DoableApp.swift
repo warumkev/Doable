@@ -21,7 +21,7 @@ struct DoableApp: App {
             Todo.self,
         ])
         // Persisted on disk by default (not in-memory).
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false, cloudKitDatabase: .automatic)
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])

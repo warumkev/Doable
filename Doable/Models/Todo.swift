@@ -15,9 +15,9 @@ import SwiftData
 /// - `createdAt`: timestamp used for sorting and display
 @Model
 final class Todo {
-    var title: String
-    var isCompleted: Bool
-    var createdAt: Date
+    var title: String = ""
+    var isCompleted: Bool = false
+    var createdAt: Date = Date()
     // Optional timestamp for when the todo was completed
     var completedAt: Date?
 
