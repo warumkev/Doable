@@ -264,7 +264,9 @@ struct StatisticsView: View {
         view.layoutIfNeeded()
 
         let format = UIGraphicsImageRendererFormat.default()
-        format.scale = UIScreen.main.scale
+        // Derive scale from context to avoid deprecated UIScreen.main usage (iOS 26)
+        let scale = view.window?.windowScene?.screen.scale ?? view.traitCollection.displayScale
+        format.scale = scale
         let renderer = UIGraphicsImageRenderer(size: view.bounds.size, format: format)
         return renderer.image { _ in
             view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
