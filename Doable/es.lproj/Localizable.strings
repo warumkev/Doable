@@ -63,6 +63,9 @@
 "finished.rotate_or_confirm" = "Gira de nuevo a vertical o toca Confirmar para marcar la tarea como completada";
 "finished.confirm" = "Confirmar";
 
+/* Sections */
+"section.title" = "Hecho";
+
 /* Statistics */
 "settings.coming_soon" = "Próximamente — aquí se mostrarán los ajustes.";
 "statistics.title" = "Estadísticas";

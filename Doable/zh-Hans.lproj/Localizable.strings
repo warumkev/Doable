@@ -61,6 +61,9 @@
 "finished.rotate_or_confirm" = "旋转回竖屏或点击确认以标记任务完成";
 "finished.confirm" = "确认";
 
+/* Sections */
+"section.title" = "已完成";
+
 /* Statistics */
 "settings.coming_soon" = "敬请期待——这里将显示设置。";
 "statistics.title" = "统计";

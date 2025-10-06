@@ -63,6 +63,9 @@
 "finished.rotate_or_confirm" = "Drehe zurück ins Hochformat oder tippe auf Bestätigen, um die Aufgabe als erledigt zu markieren";
 "finished.confirm" = "Bestätigen";
 
+/* Sections */
+"section.title" = "Erledigt";
+
 /* Statistics */
 "settings.coming_soon" = "Demnächst verfügbar – hier werden Einstellungen angezeigt.";
 "statistics.title" = "Statistiken";

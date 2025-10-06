@@ -63,6 +63,9 @@
 "finished.rotate_or_confirm" = "縦向きに戻すか「確認」をタップしてタスクを完了してください";
 "finished.confirm" = "確認";
 
+/* Sections */
+"section.title" = "完了";
+
 /* Statistics */
 "settings.coming_soon" = "近日公開 — ここに設定が表示されます。";
 "statistics.title" = "統計";

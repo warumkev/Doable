@@ -63,6 +63,9 @@
 "finished.rotate_or_confirm" = "Gire de volta para retrato ou toque em Confirmar para marcar a tarefa como concluída";
 "finished.confirm" = "Confirmar";
 
+/* Sections */
+"section.title" = "Conclu\u00eddo";
+
 /* Statistics */
 "settings.coming_soon" = "Em breve — isso mostrará as configurações.";
 "statistics.title" = "Estatísticas";
