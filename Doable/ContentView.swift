@@ -34,6 +34,7 @@ struct ContentView: View {
     @State private var isAdding: Bool = false
     @State private var isStatisticsPresented: Bool = false
     @State private var isSettingsPresented: Bool = false
+    @State private var isMenuPresented: Bool = false
 
     // Snackbar / undo state
     @State private var snackbarVisible: Bool = false
@@ -79,22 +80,11 @@ struct ContentView: View {
                                         }
                                     }
                             )
-                        if isLogoRubbed {
-/*                             Text("✨ You rubbed the logo! ✨")
-                                .font(.caption)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.accentColor)
-                                .padding(.top, 56)
-                                .transition(.opacity) */
-                        }
                     }
-                    Menu {
-                        Button(LocalizedStringKey("menu.statistics")) {
-                            isStatisticsPresented = true
-                        }
-                        Button(LocalizedStringKey("menu.settings")) {
-                            isSettingsPresented = true
-                        }
+                    // Replace `Menu` with a simple Button + confirmationDialog to avoid
+                    // UIKit context-menu reparenting warnings on some iOS versions.
+                    Button {
+                        isMenuPresented = true
                     } label: {
                         HStack(spacing: 6) {
                             Text(LocalizedStringKey("app.title"))
@@ -104,6 +94,23 @@ struct ContentView: View {
                             Image(systemName: "chevron.down")
                                 .font(.title2)
                                 .foregroundColor(.primary)
+                        }
+                    }
+                    // Attach the confirmation dialog to the Button so it anchors under
+                    // the "Doable" text instead of the logo image.
+                    .confirmationDialog("Title",isPresented: $isMenuPresented, titleVisibility: .hidden) {
+                        Button(LocalizedStringKey("menu.statistics")) {
+                            isMenuPresented = false
+                            // Present the sheet after the dialog dismisses
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                                isStatisticsPresented = true
+                            }
+                        }
+                        Button(LocalizedStringKey("menu.settings")) {
+                            isMenuPresented = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                                isSettingsPresented = true
+                            }
                         }
                     }
 

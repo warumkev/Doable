@@ -63,8 +63,7 @@
 "finished.rotate_or_confirm" = "Rotate back to portrait or tap Confirm to mark the task as completed";
 "finished.confirm" = "Confirm";
 
-/* Settings / Statistics */
-"settings.title" = "Settings";
+/* Statistics */
 "settings.coming_soon" = "Coming soon — this will show settings.";
 "statistics.title" = "Statistics";
 "statistics.coming_soon" = "Coming soon — this will show Momentum, streaks and history.";
@@ -114,29 +113,25 @@
 "menu.settings" = "Settings";
 
 /* Settings */
+"settings.title" = "Settings";
 "settings.general" = "General";
 "settings.theme" = "Theme";
 "settings.theme.system" = "System";
 "settings.theme.light" = "Light";
 "settings.theme.dark" = "Dark";
-
 "settings.notifications" = "Notifications";
 "settings.haptics" = "Haptics";
 "settings.sound" = "Sound";
-
 "settings.timer_defaults" = "Timer defaults";
 "settings.default_timer_minutes" = "Default timer";
 "settings.default_timer_minutes_format" = "%d min";
-
 "settings.todos" = "Todos";
 "settings.prefill_suggestions" = "Prefill todo suggestions";
 "settings.prefill_suggestions_desc" = "When enabled, suggested todo names will be inserted into new todos instead of shown as placeholders.";
-
 "settings.data" = "Data";
 "settings.export" = "Export data";
 "settings.import" = "Import data";
 "settings.reset_data" = "Reset all data";
-
 "settings.about" = "About";
 "settings.version" = "Version";
 "settings.send_feedback" = "Send feedback";
@@ -151,10 +146,14 @@
 "settings.reset_confirm_confirm" = "Reset";
 "settings.reset_success" = "All data reset";
 "settings.import_permission_help" = "Unable to access the selected file. If the file is in iCloud Drive, grant Files/iCloud access or copy the file to On My iPhone before importing.";
+"settings.iCloud_sync" = "iCloud Sync";
+"settings.iCloud_sync_desc" = "iCloud Sync is enabled by default. Toggle to disable cloud sync and keep data local to this device.";
+"settings.restart_required_title" = "Restart required";
+"settings.restart_required_message" = "To apply the iCloud Sync change the app must be restarted. Please close and re-open the app.";
 
 /* Privacy */
-"privacy.intro" = "Doable is a local-first app. Your todos and timer usage stay on your device unless you explicitly export or import data.";
-"privacy.data_storage" = "Data storage: Todos are stored locally on your device using SwiftData. We do not upload or sync your todos to any server.";
-"privacy.tracking" = "Tracking: Doable does not use analytics or tracking. There are no accounts, no advertising, and no third-party trackers.";
-"privacy.contact" = "Contact: If you have privacy questions, email kevintamme@icloud.com.";
-
+"privacy.intro" = "Doable is a local-first app. Your todos and timer usage stay on your device by default. If you enable iCloud Sync, your todos will be synced across your devices using your iCloud account (CloudKit).";
+"privacy.data_storage" = "Data storage: Todos are stored locally on your device using SwiftData. If you opt in to iCloud Sync, todos are uploaded to your private CloudKit database (iCloud) so they can sync across your devices. Only data you create in the app (titles, timestamps, completion state, and related metadata) is stored. Your CloudKit data is stored in your iCloud account and managed by Apple; Doable's developer does not have access to your private CloudKit database contents. Sync may use silent push notifications to keep devices up to date.";
+"privacy.tracking" = "Tracking: Doable does not collect analytics or use third-party trackers. Enabling iCloud Sync does not enable analytics — it only syncs your own data between your devices. No advertising or user profiling is performed.";
+"privacy.contact" = "Contact: If you have questions about privacy or iCloud Sync, email kevintamme@icloud.com.";
+"privacy.sync_note" = "Sync: iCloud Sync is optional and can be enabled in Settings. When enabled, devices use your iCloud account (CloudKit) to keep todos in sync. iCloud may use silent push notifications to notify devices about changes so they stay up to date.";

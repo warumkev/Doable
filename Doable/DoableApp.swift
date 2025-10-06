@@ -21,10 +21,19 @@ struct DoableApp: App {
             Todo.self,
         ])
         // Persisted on disk by default (not in-memory).
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false, cloudKitDatabase: .automatic)
+        // Respect user preference for iCloud Sync (opt-out: enabled by default).
+        let iCloudEnabled = UserDefaults.standard.object(forKey: "settings.iCloudSyncEnabled") == nil ? true : UserDefaults.standard.bool(forKey: "settings.iCloudSyncEnabled")
 
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            if iCloudEnabled {
+                // Create container configured for CloudKit sync
+                let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false, cloudKitDatabase: .automatic)
+                return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            } else {
+                // Create a local-only container (no CloudKit)
+                let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+                return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            }
         } catch {
             // Fail fast during development if the container can't be created.
             fatalError(NSLocalizedString("fatal.modelcontainer_creation_failed", comment: "Could not create ModelContainer: %@"))

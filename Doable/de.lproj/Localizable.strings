@@ -1,107 +1,74 @@
-/* German localizations */
-"Doable" = "Doable";
-"No todos yet" = "Keine Aufgaben";
-"Tap the + button to create your first todo" = "Tippe auf +, um deine erste Aufgabe zu erstellen";
-"Delete" = "Löschen";
-"Done" = "Erledigt";
-"Set a timer" = "Timer setzen";
-"for %@" = "für %@";
-":" = ":";
-"colon" = ":";
-"Minutes" = "Minuten";
-"Seconds" = "Sekunden";
-"min" = "min";
-"sec" = "sek";
-"Cancel" = "Abbrechen";
-"Confirm" = "Bestätigen";
-"Enter todo" = "Aufgabe eingeben";
-"Rotate your device" = "Drehe dein Gerät";
-"Please rotate into landscape to start the timer" = "Bitte ins Querformat drehen, um den Timer zu starten";
-"Keep in landscape to continue" = "Im Querformat bleiben, damit der Timer fortläuft";
-"Timer finished — rotate back to portrait to complete the task" = "Timer beendet — zurück ins Hochformat drehen, um die Aufgabe zu beenden";
-"Done!" = "Fertig!";
-"Rotate back to portrait to mark the task as completed" = "Ins Hochformat drehen, um die Aufgabe als erledigt zu markieren";
-"Timer cancelled" = "Timer abgebrochen";
-"This wasn't very Doable of you." = "Das war nicht sehr Doable von dir.";
-"You left the timer hanging. Rude." = "Du hast den Timer hängen lassen. Unhöflich.";
-"The timer was getting lonely." = "Dem Timer wurde langweilig.";
-"Come back! The timer misses you." = "Komm zurück! Der Timer vermisst dich.";
-"That was a soft commitment." = "Das war ein schwaches Versprechen.";
-"You ghosted the timer." = "Du hast den Timer geghostet.";
-"Not your finest moment, champ." = "Nicht dein Glanzmoment, Champion.";
-"OK" = "OK";
-"Done today(%d)" = "Heute erledigt(%d)";
-"accessibility.added_todo" = "Aufgabe hinzugefügt";
+/* Deutsche Übersetzungen (nur punktierte Schlüssel). Schlüssel im Stil abc.def.xyz beibehalten. */
+
+/* App */
+"app.title" = "Doable";
+
+/* Empty state */
+"empty.no_todos" = "Noch keine Todos";
+"empty.tap_plus_to_create" = "Tippe auf das +, um dein erstes Todo zu erstellen";
+
+/* Actions */
+"actions.delete" = "Löschen";
+
+/* Snackbar */
+"snackbar.deleted" = "„%@“ gelöscht";
+"snackbar.completed" = "„%@“ erledigt";
+"snackbar.undo" = "Rückgängig";
+
+/* Accessibility */
+"accessibility.added_todo" = "Todo hinzugefügt";
 "accessibility.timer.started" = "Timer gestartet";
 "accessibility.timer.paused" = "Timer pausiert";
 "accessibility.timer.resumed" = "Timer fortgesetzt";
 "accessibility.timer.finished" = "Timer beendet";
-
-"snackbar.deleted" = "Gelöscht \"%@\"";
-"snackbar.completed" = "Erledigt \"%@\"";
-"snackbar.undo" = "Rückgängig";
+"accessibility.timer.resume_in_seconds" = "Timer wird in %d Sekunden fortgesetzt";
 
 /* Onboarding */
-"onboarding.chooseTodo.title" = "Wähle eine Aufgabe";
-"onboarding.chooseTodo.desc" = "Wähle eine kleine Aufgabe, die du beenden möchtest.";
-
-"onboarding.setTimer.title" = "Timer setzen";
-"onboarding.setTimer.desc" = "Nutze einen kurzen Timer, um dich zu fokussieren — er hilft dir, Dinge zu erledigen.";
-
-"onboarding.keepRunning.title" = "Timer laufen lassen";
-"onboarding.keepRunning.desc" = "Bleibe im Querformat, damit der Timer weiterzählt.";
-
-"onboarding.final.title" = "Kein Tracking — nur lokal";
-"onboarding.final.desc" = "Deine Aufgaben bleiben auf diesem Gerät. Keine Konten, kein Tracking. Los geht's!";
-
+"onboarding.chooseTodo.title" = "Wähle ein Todo";
+"onboarding.chooseTodo.desc" = "Wähle eine kleine Aufgabe, die du erledigen möchtest.";
+"onboarding.setTimer.title" = "Timer einstellen";
+"onboarding.setTimer.desc" = "Nutze einen kurzen Timer, um dich zu fokussieren – so schaffst du wirklich etwas.";
+"onboarding.keepRunning.title" = "Timer weiterlaufen lassen";
+"onboarding.keepRunning.desc" = "Bleibe im Querformat, damit der Timer weiter läuft.";
+"onboarding.final.title" = "Keine Nachverfolgung – nur lokal";
+"onboarding.final.desc" = "Deine Todos bleiben auf diesem Gerät. Kein Konto, keine Nachverfolgung. Los geht’s!";
 "onboarding.next" = "Weiter";
-"onboarding.letsgo" = "Los geht's";
+"onboarding.letsgo" = "Los geht’s";
 "onboarding.skip" = "Überspringen";
-
-/* App strings introduced by localization sweep */
-"app.title" = "Doable";
-
-/* Empty state */
-"empty.no_todos" = "Keine Aufgaben";
-"empty.tap_plus_to_create" = "Tippe auf +, um deine erste Aufgabe zu erstellen";
+"onboarding.progress" = "%d/%d";
 
 /* Fullscreen timer */
-"timer.paused.rotate_to_resume" = "Pausiert — zum Fortsetzen drehen";
+"timer.paused.rotate_to_resume" = "Pausiert – zum Fortsetzen drehen";
 "timer.paused.resume_in_seconds" = "Fortsetzen in %ds";
-"accessibility.timer.resume_in_seconds" = "Timer in %d Sekunden fortsetzen";
-"timer.finished.rotate_to_confirm" = "Timer beendet — zurück ins Hochformat drehen, um zu bestätigen";
+"timer.finished.rotate_to_confirm" = "Timer beendet – drehe zurück ins Hochformat, um die Aufgabe abzuschließen";
 "timer.instructions.rotate_device" = "Drehe dein Gerät";
 "timer.instructions.rotate_to_landscape" = "Bitte ins Querformat drehen, um den Timer zu starten";
 "timer.controls.stop" = "Stopp";
 
 /* Timer setup */
-"timer_setup.title" = "Timer setzen";
+"timer_setup.title" = "Timer einstellen";
 "timer_setup.for_todo" = "für %@";
-"timer_setup.min" = "min";
-"timer_setup.sec" = "sek";
+"timer_setup.min" = "Min";
+"timer_setup.sec" = "Sek";
 "timer_setup.colon" = ":";
 "timer_setup.cancel" = "Abbrechen";
 "timer_setup.confirm" = "Bestätigen";
-"timer_setup.confirm_quick_complete" = "Ohne Timer erledigen";
-"timer_setup.confirm_quick_complete_confirm" = "Erneut tippen zum Bestätigen";
+"timer_setup.minutes_label" = "Minuten";
+"timer_setup.seconds_label" = "Sekunden";
+"timer_setup.confirm_quick_complete" = "Ohne Timer abschließen";
+"timer_setup.confirm_quick_complete_confirm" = "Nochmal tippen zum Bestätigen";
 
 /* Finished/confirm */
 "finished.completed" = "Erledigt";
-"finished.rotate_or_confirm" = "Ins Hochformat drehen oder Bestätigen drücken, um die Aufgabe als erledigt zu markieren";
-
-/* Misc */
-"section.done" = "Erledigt";
-"onboarding.progress" = "%d/%d";
+"finished.rotate_or_confirm" = "Drehe zurück ins Hochformat oder tippe auf Bestätigen, um die Aufgabe als erledigt zu markieren";
 "finished.confirm" = "Bestätigen";
 
-/* Settings / Statistics */
-"settings.title" = "Einstellungen";
-"settings.coming_soon" = "Demnächst — hier werden Einstellungen erscheinen.";
-
+/* Statistics */
+"settings.coming_soon" = "Demnächst verfügbar – hier werden Einstellungen angezeigt.";
 "statistics.title" = "Statistiken";
-"statistics.coming_soon" = "Demnächst — hier werden Fortschritt, Streaks und die Historie angezeigt.";
-"statistics.summary" = "Zusammenfassung";
-"statistics.total" = "Insgesamt";
+"statistics.coming_soon" = "Demnächst verfügbar – hier werden Momentum, Serien und Verlauf angezeigt.";
+"statistics.summary" = "Übersicht";
+"statistics.total" = "Gesamt";
 "statistics.this_month" = "Diesen Monat";
 "statistics.current_streak" = "Aktuelle Serie";
 "statistics.longest_streak" = "Längste Serie";
@@ -111,70 +78,61 @@
 "disappointment.ok" = "OK";
 "disappointment.msg.1" = "Das war nicht sehr Doable von dir.";
 "disappointment.msg.2" = "Du hast den Timer hängen lassen. Unhöflich.";
-"disappointment.msg.3" = "Dem Timer wurde langweilig.";
+"disappointment.msg.3" = "Der Timer wurde einsam.";
 "disappointment.msg.4" = "Komm zurück! Der Timer vermisst dich.";
-"disappointment.msg.5" = "Das war ein schwaches Versprechen.";
+"disappointment.msg.5" = "Das war eine schwache Verpflichtung.";
 "disappointment.msg.6" = "Du hast den Timer geghostet.";
-"disappointment.msg.7" = "Nicht dein Glanzmoment, Champion.";
+"disappointment.msg.7" = "Nicht dein bester Moment, Champ.";
 
-/* Actions */
-"actions.delete" = "Löschen";
-
-/* Timer setup picker labels */
-"timer_setup.minutes_label" = "Minuten";
-"timer_setup.seconds_label" = "Sekunden";
-"todo.placeholder" = "Aufgabe eingeben";
+/* Todo */
+"todo.placeholder" = "Todo eingeben";
 
 /* Fatal errors */
 "fatal.modelcontainer_creation_failed" = "ModelContainer konnte nicht erstellt werden.";
 
 /* Default todo name suggestions */
-"todo.default.1" = "Baue ein Imperium";
-"todo.default.2" = "Tagebuch";
-"todo.default.3" = "Erobere die Welt";
-"todo.default.4" = "Nachricht senden";
+"todo.default.1" = "Ein Imperium aufbauen";
+"todo.default.2" = "Tagebuch führen";
+"todo.default.3" = "Eine Bank ausrauben";
+"todo.default.4" = "Diese Nachricht senden";
 "todo.default.5" = "Dehnen";
-"todo.default.6" = "Schreibtisch";
+"todo.default.6" = "Schreibtisch aufräumen";
 "todo.default.7" = "Eine Seite lesen";
 "todo.default.8" = "Wasser trinken";
-"todo.default.9" = "20 Sit‑ups (Schick uns das Video!)";
-"todo.default.10" = "Schick die Nachricht (du weißt welche)";
-"todo.default.11" = "Frag sie nach einem Date";
+"todo.default.9" = "20 Sit-ups (schick uns das Video!)";
+"todo.default.10" = "Diesen Text senden (du weißt welchen)";
+"todo.default.11" = "Sie um ein Date bitten";
 "todo.default.12" = "Eine Schublade ausmisten";
 "todo.default.13" = "2 Minuten meditieren";
-"todo.default.14" = "Rechnung bezahlen";
-"todo.default.15" = "Auf die E‑Mail antworten";
-"todo.default.16" = "Kurz spazieren gehen";
+"todo.default.14" = "Diese Rechnung bezahlen";
+"todo.default.15" = "Diese E-Mail beantworten";
+"todo.default.16" = "Kurzen Spaziergang machen";
 
 /* Menu */
 "menu.statistics" = "Statistiken";
 "menu.settings" = "Einstellungen";
 
 /* Settings */
+"settings.title" = "Einstellungen";
 "settings.general" = "Allgemein";
 "settings.theme" = "Design";
 "settings.theme.system" = "System";
 "settings.theme.light" = "Hell";
 "settings.theme.dark" = "Dunkel";
-
 "settings.notifications" = "Benachrichtigungen";
 "settings.haptics" = "Haptik";
 "settings.sound" = "Ton";
-
 "settings.timer_defaults" = "Timer-Standard";
 "settings.default_timer_minutes" = "Standard-Timer";
 "settings.default_timer_minutes_format" = "%d Min";
-
-"settings.todos" = "Aufgaben";
-"settings.prefill_suggestions" = "Vorschläge vorausfüllen";
-"settings.prefill_suggestions_desc" = "Wenn aktiviert, werden vorgeschlagene Aufgabennamen beim Erstellen eingefügt anstatt als Platzhalter angezeigt.";
-
+"settings.todos" = "Todos";
+"settings.prefill_suggestions" = "Todo-Vorschläge automatisch einfügen";
+"settings.prefill_suggestions_desc" = "Wenn aktiviert, werden vorgeschlagene Todo-Namen in neue Todos eingefügt statt als Platzhalter angezeigt.";
 "settings.data" = "Daten";
 "settings.export" = "Daten exportieren";
 "settings.import" = "Daten importieren";
 "settings.reset_data" = "Alle Daten zurücksetzen";
-
-"settings.about" = "Info";
+"settings.about" = "Über";
 "settings.version" = "Version";
 "settings.send_feedback" = "Feedback senden";
 "settings.privacy" = "Datenschutz";
@@ -183,14 +141,19 @@
 "settings.import_success" = "Import erfolgreich";
 "settings.import_failure" = "Import fehlgeschlagen";
 "settings.reset_confirm_title" = "Alle Daten zurücksetzen?";
-"settings.reset_confirm_message" = "Dies löscht dauerhaft alle Aufgaben auf diesem Gerät. Diese Aktion kann nicht rückgängig gemacht werden.";
+"settings.reset_confirm_message" = "Dadurch werden alle Todos auf diesem Gerät dauerhaft gelöscht. Diese Aktion ist unwiderruflich.";
 "settings.reset_confirm_cancel" = "Abbrechen";
 "settings.reset_confirm_confirm" = "Zurücksetzen";
 "settings.reset_success" = "Alle Daten zurückgesetzt";
-"settings.import_permission_help" = "Konnte auf die ausgewählte Datei nicht zugreifen. Wenn die Datei in iCloud Drive liegt, erteile der Dateien‑App iCloud‑Zugriff oder kopiere die Datei nach 'Auf meinem iPhone', bevor du sie importierst.";
+"settings.import_permission_help" = "Zugriff auf die ausgewählte Datei nicht möglich. Wenn die Datei in iCloud Drive liegt, gewähre Zugriff auf Dateien/iCloud oder kopiere die Datei vor dem Import auf „Auf meinem iPhone“.";
+"settings.iCloud_sync" = "iCloud-Sync";
+"settings.iCloud_sync_desc" = "iCloud-Sync ist standardmäßig aktiviert. Deaktiviere dies, um die Cloud-Synchronisierung auszuschalten und Daten nur lokal zu speichern.";
+"settings.restart_required_title" = "Neustart erforderlich";
+"settings.restart_required_message" = "Um die Änderung der iCloud-Synchronisierung zu übernehmen, muss die App neu gestartet werden. Bitte schließe und öffne die App erneut.";
 
 /* Privacy */
-"privacy.intro" = "Doable ist eine lokal-first App. Deine Aufgaben und Timer-Nutzung bleiben auf deinem Gerät, es sei denn, du exportierst oder importierst Daten aktiv.";
-"privacy.data_storage" = "Speicherung: Aufgaben werden lokal auf deinem Gerät mit SwiftData gespeichert. Wir laden deine Aufgaben nicht auf einen Server hoch.";
-"privacy.tracking" = "Tracking: Doable verwendet keine Analyse- oder Tracking-Dienste. Es gibt keine Accounts, keine Werbung und keine Drittanbieter-Tracker.";
-"privacy.contact" = "Kontakt: Bei Datenschutzfragen schreibe an kevintamme@icloud.com.";
+"privacy.intro" = "Doable ist eine lokal ausgerichtete App. Deine Todos und Timer-Nutzung bleiben standardmäßig auf deinem Gerät. Wenn du iCloud-Sync aktivierst, werden deine Todos über dein iCloud-Konto (CloudKit) auf deinen Geräten synchronisiert.";
+"privacy.data_storage" = "Datenspeicherung: Todos werden lokal auf deinem Gerät mit SwiftData gespeichert. Wenn du iCloud-Sync aktivierst, werden Todos in deiner privaten CloudKit-Datenbank (iCloud) hochgeladen, damit sie auf deinen Geräten synchronisiert werden können. Es werden nur Daten gespeichert, die du in der App erstellst (Titel, Zeitstempel, Abschlussstatus und zugehörige Metadaten). Deine CloudKit-Daten werden in deinem iCloud-Konto gespeichert und von Apple verwaltet; der Entwickler von Doable hat keinen Zugriff auf die Inhalte deiner privaten CloudKit-Datenbank. Die Synchronisierung kann stille Push-Benachrichtigungen verwenden, um Geräte aktuell zu halten.";
+"privacy.tracking" = "Tracking: Doable sammelt keine Analysen und verwendet keine Drittanbieter-Tracker. Die Aktivierung von iCloud-Sync aktiviert keine Analysen – es werden nur deine eigenen Daten zwischen deinen Geräten synchronisiert. Es gibt keine Werbung oder Nutzerprofilierung.";
+"privacy.contact" = "Kontakt: Bei Fragen zu Datenschutz oder iCloud-Sync sende eine E-Mail an kevintamme@icloud.com.";
+"privacy.sync_note" = "Sync: iCloud-Sync ist optional und kann in den Einstellungen aktiviert werden. Wenn aktiviert, verwenden Geräte dein iCloud-Konto (CloudKit), um Todos zu synchronisieren. iCloud kann stille Push-Benachrichtigungen verwenden, um Geräte über Änderungen zu informieren, damit sie aktuell bleiben.";

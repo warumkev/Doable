@@ -1,54 +1,53 @@
-
-/* Japanese localizations (complete) */
+/* English localizations (dotted keys only). Keep keys in abc.def.xyz style. */
 
 /* App */
 "app.title" = "Doable";
 
 /* Empty state */
-"empty.no_todos" = "まだタスクがありません";
-"empty.tap_plus_to_create" = "＋をタップして最初のタスクを作成してください";
+"empty.no_todos" = "まだToDoはありません";
+"empty.tap_plus_to_create" = "＋ボタンをタップして最初のToDoを作成しましょう";
 
 /* Actions */
 "actions.delete" = "削除";
 
 /* Snackbar */
-"snackbar.deleted" = "削除しました \"%@\"";
-"snackbar.completed" = "完了しました \"%@\"";
+"snackbar.deleted" = "「%@」を削除しました";
+"snackbar.completed" = "「%@」を完了しました";
 "snackbar.undo" = "元に戻す";
 
 /* Accessibility */
-"accessibility.added_todo" = "タスクを追加しました";
+"accessibility.added_todo" = "ToDoを追加しました";
 "accessibility.timer.started" = "タイマー開始";
 "accessibility.timer.paused" = "タイマー一時停止";
 "accessibility.timer.resumed" = "タイマー再開";
 "accessibility.timer.finished" = "タイマー終了";
-"accessibility.timer.resume_in_seconds" = "%d秒で再開";
+"accessibility.timer.resume_in_seconds" = "%d秒後にタイマーを再開";
 
 /* Onboarding */
-"onboarding.chooseTodo.title" = "タスクを選ぶ";
-"onboarding.chooseTodo.desc" = "終わらせたい小さな作業を一つ選んでください。";
+"onboarding.chooseTodo.title" = "ToDoを選択";
+"onboarding.chooseTodo.desc" = "達成したい小さなことを選びましょう。";
 "onboarding.setTimer.title" = "タイマーを設定";
-"onboarding.setTimer.desc" = "短いタイマーで集中しましょう — 実際に物事を終わらせるのに役立ちます。";
-"onboarding.keepRunning.title" = "タイマーを継続";
-"onboarding.keepRunning.desc" = "タイマーが動き続けるように横向きのままにしてください。";
-"onboarding.final.title" = "トラッキングなし — ローカルのみ";
-"onboarding.final.desc" = "タスクはこのデバイスに保存されます。アカウントやトラッキングはありません。さあ始めましょう！";
+"onboarding.setTimer.desc" = "短いタイマーで集中しましょう — 実際に物事を終わらせる助けになります。";
+"onboarding.keepRunning.title" = "タイマーを動かし続ける";
+"onboarding.keepRunning.desc" = "タイマーをカウントダウンさせるために横向きで維持してください。";
+"onboarding.final.title" = "追跡なし — ローカルのみ";
+"onboarding.final.desc" = "あなたのToDoはこのデバイスに保存されます。アカウントも追跡もありません。始めましょう！";
 "onboarding.next" = "次へ";
-"onboarding.letsgo" = "始めよう";
+"onboarding.letsgo" = "始める";
 "onboarding.skip" = "スキップ";
 "onboarding.progress" = "%d/%d";
 
 /* Fullscreen timer */
-"timer.paused.rotate_to_resume" = "一時停止 — 回転して再開";
-"timer.paused.resume_in_seconds" = "%dsで再開";
-"timer.finished.rotate_to_confirm" = "タイマー終了 — 縦向きに戻してタスクを完了してください";
-"timer.instructions.rotate_device" = "デバイスを回転させてください";
+"timer.paused.rotate_to_resume" = "一時停止中 — 再開するには回転してください";
+"timer.paused.resume_in_seconds" = "%ds後に再開";
+"timer.finished.rotate_to_confirm" = "タイマー終了 — タスク完了のために縦向きに戻してください";
+"timer.instructions.rotate_device" = "デバイスを回転してください";
 "timer.instructions.rotate_to_landscape" = "タイマーを開始するには横向きにしてください";
 "timer.controls.stop" = "停止";
 
 /* Timer setup */
-"timer_setup.title" = "タイマー設定";
-"timer_setup.for_todo" = "%@ 用";
+"timer_setup.title" = "タイマーを設定";
+"timer_setup.for_todo" = "「%@」のため";
 "timer_setup.min" = "分";
 "timer_setup.sec" = "秒";
 "timer_setup.colon" = ":";
@@ -61,100 +60,100 @@
 
 /* Finished/confirm */
 "finished.completed" = "完了";
-"finished.rotate_or_confirm" = "縦に戻すか「確認」をタップしてタスクを完了としてマークしてください";
+"finished.rotate_or_confirm" = "縦向きに戻すか「確認」をタップしてタスクを完了してください";
 "finished.confirm" = "確認";
 
-/* Settings / Statistics */
-"settings.title" = "設定";
+/* Statistics */
 "settings.coming_soon" = "近日公開 — ここに設定が表示されます。";
 "statistics.title" = "統計";
-"statistics.coming_soon" = "近日公開 — ここにモメンタム、連続記録、履歴が表示されます。";
+"statistics.coming_soon" = "近日公開 — ここにMomentum、連続記録、履歴が表示されます。";
 "statistics.summary" = "概要";
 "statistics.total" = "合計";
 "statistics.this_month" = "今月";
-"statistics.current_streak" = "現在の連続";
-"statistics.longest_streak" = "最長連続";
+"statistics.current_streak" = "現在の連続記録";
+"statistics.longest_streak" = "最長連続記録";
 
 /* Disappointment */
 "disappointment.title" = "タイマーがキャンセルされました";
 "disappointment.ok" = "OK";
-"disappointment.msg.1" = "それはあまり Doable ではありませんでした。";
-"disappointment.msg.2" = "タイマーを放置しましたね。失礼です。";
-"disappointment.msg.3" = "タイマーが寂しかったようです。";
-"disappointment.msg.4" = "戻ってきて！タイマーがあなたを恋しく思っています。";
-"disappointment.msg.5" = "それは弱い約束でした。";
-"disappointment.msg.6" = "タイマーを放置しました。";
-"disappointment.msg.7" = "最高の瞬間ではありませんでした。";
+"disappointment.msg.1" = "これはDoableらしくありませんね。";
+"disappointment.msg.2" = "タイマーを放置しました。失礼です。";
+"disappointment.msg.3" = "タイマーが寂しがっています。";
+"disappointment.msg.4" = "戻ってきて！タイマーがあなたを恋しがっています。";
+"disappointment.msg.5" = "それは弱いコミットメントでした。";
+"disappointment.msg.6" = "タイマーを無視しましたね。";
+"disappointment.msg.7" = "最高の瞬間ではありませんね、チャンプ。";
 
 /* Todo */
-"todo.placeholder" = "タスクを入力";
+"todo.placeholder" = "ToDoを入力";
 
 /* Fatal errors */
-"fatal.modelcontainer_creation_failed" = "ModelContainer を作成できませんでした。";
+"fatal.modelcontainer_creation_failed" = "ModelContainerを作成できませんでした。";
 
 /* Default todo name suggestions */
 "todo.default.1" = "帝国を築く";
 "todo.default.2" = "日記を書く";
-"todo.default.3" = "大胆な冒険をする";
+"todo.default.3" = "銀行強盗";
 "todo.default.4" = "そのメッセージを送る";
 "todo.default.5" = "ストレッチ";
 "todo.default.6" = "机を片付ける";
 "todo.default.7" = "1ページ読む";
 "todo.default.8" = "水を飲む";
-"todo.default.9" = "腹筋20回（ビデオを送ってね！）";
-"todo.default.10" = "あのメッセージを送る（どれかは分かってるでしょ）";
-"todo.default.11" = "誘ってみる";
-"todo.default.12" = "引き出しを一つ整理する";
-"todo.default.13" = "2分間瞑想する";
-"todo.default.14" = "請求書を支払う";
-"todo.default.15" = "あのメールに返信する";
-"todo.default.16" = "さっと散歩する";
+"todo.default.9" = "腹筋20回（動画を送ってください！）";
+"todo.default.10" = "そのテキストを送る（どれか分かってますよね）";
+"todo.default.11" = "彼女を誘う";
+"todo.default.12" = "引き出しを1つ整理";
+"todo.default.13" = "2分間瞑想";
+"todo.default.14" = "その請求書を支払う";
+"todo.default.15" = "そのメールに返信";
+"todo.default.16" = "短い散歩をする";
 
 /* Menu */
 "menu.statistics" = "統計";
 "menu.settings" = "設定";
 
 /* Settings */
+"settings.title" = "設定";
 "settings.general" = "一般";
 "settings.theme" = "テーマ";
 "settings.theme.system" = "システム";
 "settings.theme.light" = "ライト";
 "settings.theme.dark" = "ダーク";
-
 "settings.notifications" = "通知";
-"settings.haptics" = "触覚フィードバック";
+"settings.haptics" = "触覚";
 "settings.sound" = "サウンド";
-
 "settings.timer_defaults" = "タイマーのデフォルト";
 "settings.default_timer_minutes" = "デフォルトタイマー";
 "settings.default_timer_minutes_format" = "%d分";
-
-"settings.todos" = "タスク";
-"settings.prefill_suggestions" = "提案を自動入力";
-"settings.prefill_suggestions_desc" = "有効にすると、新しいタスクに推奨名がプレースホルダではなく挿入されます。";
-
+"settings.todos" = "ToDo";
+"settings.prefill_suggestions" = "ToDo候補を自動入力";
+"settings.prefill_suggestions_desc" = "有効にすると、候補のToDo名が新しいToDoに自動入力され、プレースホルダーとして表示されません。";
 "settings.data" = "データ";
 "settings.export" = "データをエクスポート";
 "settings.import" = "データをインポート";
 "settings.reset_data" = "すべてのデータをリセット";
-
-"settings.about" = "情報";
+"settings.about" = "アプリについて";
 "settings.version" = "バージョン";
 "settings.send_feedback" = "フィードバックを送る";
-"settings.privacy" = "プライバシー";
+"settings.privacy" = "プライバシーポリシー";
 "settings.export_success" = "エクスポート成功";
 "settings.export_failure" = "エクスポート失敗";
 "settings.import_success" = "インポート成功";
 "settings.import_failure" = "インポート失敗";
 "settings.reset_confirm_title" = "すべてのデータをリセットしますか？";
-"settings.reset_confirm_message" = "これはこのデバイス上のすべてのタスクを永久に削除します。この操作は取り消せません。";
+"settings.reset_confirm_message" = "これにより、このデバイス上のすべてのToDoが完全に削除されます。この操作は元に戻せません。";
 "settings.reset_confirm_cancel" = "キャンセル";
 "settings.reset_confirm_confirm" = "リセット";
 "settings.reset_success" = "すべてのデータをリセットしました";
-"settings.import_permission_help" = "選択したファイルにアクセスできません。ファイルが iCloud Drive にある場合は、ファイルのアクセス権を付与するか、ファイルを「iPhone 上」にコピーしてからインポートしてください。";
+"settings.import_permission_help" = "選択したファイルにアクセスできません。ファイルがiCloud Driveにある場合は、Files/iCloudへのアクセスを許可するか、ファイルを「このiPhone内」にコピーしてからインポートしてください。";
+"settings.iCloud_sync" = "iCloud同期";
+"settings.iCloud_sync_desc" = "iCloud同期はデフォルトで有効です。切り替えるとクラウド同期を無効にし、このデバイスのみにデータを保持します。";
+"settings.restart_required_title" = "再起動が必要です";
+"settings.restart_required_message" = "iCloud同期の変更を適用するにはアプリを再起動する必要があります。アプリを閉じて再度開いてください。";
 
 /* Privacy */
-"privacy.intro" = "Doable はローカルファーストなアプリです。タスクとタイマーのデータは、エクスポートやインポートを行わない限りあなたのデバイスに残ります。";
-"privacy.data_storage" = "データ保存: タスクは SwiftData を使ってローカルに保存されます。タスクをサーバーにアップロードすることはありません。";
-"privacy.tracking" = "トラッキング: Doable は分析やトラッキングを使用しません。アカウントも広告もサードパーティのトラッカーもありません。";
-"privacy.contact" = "お問い合わせ: プライバシーに関する質問は kevintamme@icloud.com へ。";
+"privacy.intro" = "Doableはローカルファーストのアプリです。あなたのToDoやタイマーの使用状況はデフォルトでデバイスに保存されます。iCloud同期を有効にすると、iCloudアカウント（CloudKit）を使ってToDoがデバイス間で同期されます。";
+"privacy.data_storage" = "データ保存：ToDoはSwiftDataを使ってデバイスにローカル保存されます。iCloud同期を選択すると、ToDoはあなたのプライベートCloudKitデータベース（iCloud）にアップロードされ、デバイス間で同期されます。アプリで作成したデータ（タイトル、タイムスタンプ、完了状態、関連メタデータ）のみが保存されます。CloudKitデータはあなたのiCloudアカウントに保存され、Appleによって管理されます。Doableの開発者はあなたのプライベートCloudKitデータベースの内容にアクセスできません。同期はデバイスを最新状態に保つためにサイレントプッシュ通知を使用する場合があります。";
+"privacy.tracking" = "追跡：Doableは分析情報を収集したり、サードパーティのトラッカーを使用しません。iCloud同期を有効にしても分析は有効になりません — あなた自身のデータのみがデバイス間で同期されます。広告やユーザーのプロファイリングは行いません。";
+"privacy.contact" = "お問い合わせ：プライバシーやiCloud同期について質問がある場合は kevintamme@icloud.com までメールしてください。";
+"privacy.sync_note" = "同期：iCloud同期はオプションで、設定から有効にできます。有効にすると、デバイスはあなたのiCloudアカウント（CloudKit）を使ってToDoを同期します。iCloudは変更を通知するためにサイレントプッシュ通知を使用する場合があります。";

@@ -1,8 +1,159 @@
-/* French localizations */
+/* French localizations (dotted keys only). Keep keys in abc.def.xyz style. */
+
+/* App */
+"app.title" = "Doable";
+
+/* Empty state */
+"empty.no_todos" = "Aucune tâche pour l’instant";
+"empty.tap_plus_to_create" = "Appuyez sur le bouton + pour créer votre première tâche";
+
+/* Actions */
+"actions.delete" = "Supprimer";
+
+/* Snackbar */
+"snackbar.deleted" = "« %@ » supprimé";
+"snackbar.completed" = "« %@ » terminé";
+"snackbar.undo" = "Annuler";
+
+/* Accessibility */
+"accessibility.added_todo" = "Tâche ajoutée";
+"accessibility.timer.started" = "Minuteur démarré";
+"accessibility.timer.paused" = "Minuteur en pause";
+"accessibility.timer.resumed" = "Minuteur repris";
+"accessibility.timer.finished" = "Minuteur terminé";
+"accessibility.timer.resume_in_seconds" = "Reprendre le minuteur dans %d secondes";
+
+/* Onboarding */
+"onboarding.chooseTodo.title" = "Choisissez une tâche";
+"onboarding.chooseTodo.desc" = "Choisissez une petite chose à accomplir.";
+"onboarding.setTimer.title" = "Définir un minuteur";
+"onboarding.setTimer.desc" = "Utilisez un minuteur court pour vous concentrer — cela vous aide à vraiment avancer.";
+"onboarding.keepRunning.title" = "Gardez le minuteur actif";
+"onboarding.keepRunning.desc" = "Restez en mode paysage pour que le minuteur continue de tourner.";
+"onboarding.final.title" = "Aucune collecte — local seulement";
+"onboarding.final.desc" = "Vos tâches restent sur cet appareil. Pas de compte, pas de suivi. C’est parti !";
+"onboarding.next" = "Suivant";
+"onboarding.letsgo" = "C’est parti";
+"onboarding.skip" = "Passer";
+"onboarding.progress" = "%d/%d";
+
+/* Fullscreen timer */
+"timer.paused.rotate_to_resume" = "Pause — pivotez pour reprendre";
+"timer.paused.resume_in_seconds" = "Reprendre dans %ds";
+"timer.finished.rotate_to_confirm" = "Minuteur terminé — repassez en portrait pour valider la tâche";
+"timer.instructions.rotate_device" = "Tournez votre appareil";
+"timer.instructions.rotate_to_landscape" = "Veuillez passer en mode paysage pour démarrer le minuteur";
+"timer.controls.stop" = "Arrêter";
+
+/* Timer setup */
+"timer_setup.title" = "Définir un minuteur";
+"timer_setup.for_todo" = "pour %@";
+"timer_setup.min" = "min";
+"timer_setup.sec" = "sec";
+"timer_setup.colon" = ":";
+"timer_setup.cancel" = "Annuler";
+"timer_setup.confirm" = "Confirmer";
+"timer_setup.minutes_label" = "Minutes";
+"timer_setup.seconds_label" = "Secondes";
+"timer_setup.confirm_quick_complete" = "Terminer sans minuteur";
+"timer_setup.confirm_quick_complete_confirm" = "Appuyez à nouveau pour confirmer";
+
+/* Finished/confirm */
+"finished.completed" = "Terminé";
+"finished.rotate_or_confirm" = "Repassez en portrait ou appuyez sur Confirmer pour marquer la tâche comme terminée";
+"finished.confirm" = "Confirmer";
+
+/* Statistics */
+"settings.coming_soon" = "Bientôt disponible — ceci affichera les paramètres.";
 "statistics.title" = "Statistiques";
-"statistics.coming_soon" = "Bientôt — ici apparaîtront Momentum, les séries et l'historique.";
+"statistics.coming_soon" = "Bientôt disponible — ceci affichera Momentum, séries et historique.";
 "statistics.summary" = "Résumé";
 "statistics.total" = "Total";
 "statistics.this_month" = "Ce mois-ci";
-"statistics.current_streak" = "Série actuelle";
-"statistics.longest_streak" = "Plus longue série";
+"statistics.current_streak" = "Série en cours";
+"statistics.longest_streak" = "Série la plus longue";
+
+/* Disappointment */
+"disappointment.title" = "Minuteur annulé";
+"disappointment.ok" = "OK";
+"disappointment.msg.1" = "Ce n’était pas très Doable de votre part.";
+"disappointment.msg.2" = "Vous avez laissé le minuteur en plan. Pas cool.";
+"disappointment.msg.3" = "Le minuteur se sentait seul.";
+"disappointment.msg.4" = "Revenez ! Le minuteur vous attend.";
+"disappointment.msg.5" = "Engagement trop léger.";
+"disappointment.msg.6" = "Vous avez ignoré le minuteur.";
+"disappointment.msg.7" = "Pas votre meilleur moment, champion.";
+
+/* Todo */
+"todo.placeholder" = "Saisissez une tâche";
+
+/* Fatal errors */
+"fatal.modelcontainer_creation_failed" = "Impossible de créer ModelContainer.";
+
+/* Default todo name suggestions */
+"todo.default.1" = "Construire un empire";
+"todo.default.2" = "Écrire dans le journal";
+"todo.default.3" = "Braquer une banque";
+"todo.default.4" = "Envoyer ce message";
+"todo.default.5" = "S’étirer";
+"todo.default.6" = "Ranger le bureau";
+"todo.default.7" = "Lire une page";
+"todo.default.8" = "Boire de l’eau";
+"todo.default.9" = "20 abdos (envoyez-nous la vidéo !)";
+"todo.default.10" = "Envoyer ce texto (vous savez lequel)";
+"todo.default.11" = "L’inviter à sortir";
+"todo.default.12" = "Désencombrer un tiroir";
+"todo.default.13" = "Méditer 2 minutes";
+"todo.default.14" = "Payer cette facture";
+"todo.default.15" = "Répondre à cet email";
+"todo.default.16" = "Faire une petite promenade";
+
+/* Menu */
+"menu.statistics" = "Statistiques";
+"menu.settings" = "Paramètres";
+
+/* Settings */
+"settings.title" = "Paramètres";
+"settings.general" = "Général";
+"settings.theme" = "Thème";
+"settings.theme.system" = "Système";
+"settings.theme.light" = "Clair";
+"settings.theme.dark" = "Sombre";
+"settings.notifications" = "Notifications";
+"settings.haptics" = "Haptique";
+"settings.sound" = "Son";
+"settings.timer_defaults" = "Minuteur par défaut";
+"settings.default_timer_minutes" = "Minuteur par défaut";
+"settings.default_timer_minutes_format" = "%d min";
+"settings.todos" = "Tâches";
+"settings.prefill_suggestions" = "Suggestions de tâches préremplies";
+"settings.prefill_suggestions_desc" = "Si activé, des noms de tâches suggérés seront insérés dans les nouvelles tâches au lieu d’être affichés comme des exemples.";
+"settings.data" = "Données";
+"settings.export" = "Exporter les données";
+"settings.import" = "Importer des données";
+"settings.reset_data" = "Réinitialiser toutes les données";
+"settings.about" = "À propos";
+"settings.version" = "Version";
+"settings.send_feedback" = "Envoyer des commentaires";
+"settings.privacy" = "Politique de confidentialité";
+"settings.export_success" = "Exportation réussie";
+"settings.export_failure" = "Échec de l’exportation";
+"settings.import_success" = "Importation réussie";
+"settings.import_failure" = "Échec de l’importation";
+"settings.reset_confirm_title" = "Réinitialiser toutes les données ?";
+"settings.reset_confirm_message" = "Cela supprimera définitivement toutes les tâches sur cet appareil. Cette action est irréversible.";
+"settings.reset_confirm_cancel" = "Annuler";
+"settings.reset_confirm_confirm" = "Réinitialiser";
+"settings.reset_success" = "Toutes les données ont été réinitialisées";
+"settings.import_permission_help" = "Impossible d’accéder au fichier sélectionné. Si le fichier est dans iCloud Drive, autorisez l’accès à Fichiers/iCloud ou copiez le fichier sur Mon iPhone avant d’importer.";
+"settings.iCloud_sync" = "Synchronisation iCloud";
+"settings.iCloud_sync_desc" = "La synchronisation iCloud est activée par défaut. Désactivez pour garder les données uniquement sur cet appareil.";
+"settings.restart_required_title" = "Redémarrage requis";
+"settings.restart_required_message" = "Pour appliquer le changement de synchronisation iCloud, l’application doit être redémarrée. Veuillez fermer et rouvrir l’application.";
+
+/* Privacy */
+"privacy.intro" = "Doable est une application locale avant tout. Vos tâches et l’utilisation du minuteur restent sur votre appareil par défaut. Si vous activez la synchronisation iCloud, vos tâches seront synchronisées sur vos appareils via votre compte iCloud (CloudKit).";
+"privacy.data_storage" = "Stockage des données : Les tâches sont stockées localement sur votre appareil avec SwiftData. Si vous activez la synchronisation iCloud, les tâches sont envoyées sur votre base CloudKit privée (iCloud) pour être synchronisées sur vos appareils. Seules les données que vous créez dans l’application (titres, horodatages, état d’achèvement et métadonnées associées) sont stockées. Vos données CloudKit sont stockées dans votre compte iCloud et gérées par Apple ; le développeur de Doable n’a pas accès au contenu de votre base CloudKit privée. La synchronisation peut utiliser des notifications push silencieuses pour garder les appareils à jour.";
+"privacy.tracking" = "Suivi : Doable ne collecte pas d’analyses et n’utilise pas de traqueurs tiers. Activer la synchronisation iCloud n’active pas d’analyses — cela synchronise uniquement vos propres données entre vos appareils. Pas de publicité ni de profilage utilisateur.";
+"privacy.contact" = "Contact : Si vous avez des questions sur la confidentialité ou la synchronisation iCloud, envoyez un email à kevintamme@icloud.com.";
+"privacy.sync_note" = "Synchronisation : La synchronisation iCloud est optionnelle et peut être activée dans les paramètres. Quand elle est activée, les appareils utilisent votre compte iCloud (CloudKit) pour garder les tâches synchronisées. iCloud peut utiliser des notifications push silencieuses pour informer les appareils des changements et les garder à jour.";

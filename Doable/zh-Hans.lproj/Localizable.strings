@@ -1,8 +1,157 @@
-/* Simplified Chinese localizations */
+/* App */
+"app.title" = "Doable";
+
+/* Empty state */
+"empty.no_todos" = "暂无待办事项";
+"empty.tap_plus_to_create" = "点击 + 按钮创建你的第一个待办";
+
+/* Actions */
+"actions.delete" = "删除";
+
+/* Snackbar */
+"snackbar.deleted" = "已删除“%@”";
+"snackbar.completed" = "已完成“%@”";
+"snackbar.undo" = "撤销";
+
+/* Accessibility */
+"accessibility.added_todo" = "已添加待办";
+"accessibility.timer.started" = "计时器已启动";
+"accessibility.timer.paused" = "计时器已暂停";
+"accessibility.timer.resumed" = "计时器已恢复";
+"accessibility.timer.finished" = "计时器已结束";
+"accessibility.timer.resume_in_seconds" = "%d 秒后恢复计时器";
+
+/* Onboarding */
+"onboarding.chooseTodo.title" = "选择一个待办";
+"onboarding.chooseTodo.desc" = "选择一个你想完成的小任务。";
+"onboarding.setTimer.title" = "设置计时器";
+"onboarding.setTimer.desc" = "使用短计时器专注——这能帮助你真正完成任务。";
+"onboarding.keepRunning.title" = "保持计时器运行";
+"onboarding.keepRunning.desc" = "保持横屏以让计时器继续倒计时。";
+"onboarding.final.title" = "无跟踪——仅本地";
+"onboarding.final.desc" = "你的待办仅保存在此设备。无需账号，无跟踪。开始吧！";
+"onboarding.next" = "下一步";
+"onboarding.letsgo" = "开始吧";
+"onboarding.skip" = "跳过";
+"onboarding.progress" = "%d/%d";
+
+/* Fullscreen timer */
+"timer.paused.rotate_to_resume" = "已暂停——旋转设备以恢复";
+"timer.paused.resume_in_seconds" = "%ds 后恢复";
+"timer.finished.rotate_to_confirm" = "计时结束——旋转回竖屏以完成任务";
+"timer.instructions.rotate_device" = "请旋转你的设备";
+"timer.instructions.rotate_to_landscape" = "请旋转到横屏以启动计时器";
+"timer.controls.stop" = "停止";
+
+/* Timer setup */
+"timer_setup.title" = "设置计时器";
+"timer_setup.for_todo" = "用于 %@";
+"timer_setup.min" = "分钟";
+"timer_setup.sec" = "秒";
+"timer_setup.colon" = ":";
+"timer_setup.cancel" = "取消";
+"timer_setup.confirm" = "确认";
+"timer_setup.minutes_label" = "分钟";
+"timer_setup.seconds_label" = "秒";
+"timer_setup.confirm_quick_complete" = "直接完成";
+"timer_setup.confirm_quick_complete_confirm" = "再次点击以确认";
+
+/* Finished/confirm */
+"finished.completed" = "已完成";
+"finished.rotate_or_confirm" = "旋转回竖屏或点击确认以标记任务完成";
+"finished.confirm" = "确认";
+
+/* Statistics */
+"settings.coming_soon" = "敬请期待——这里将显示设置。";
 "statistics.title" = "统计";
-"statistics.coming_soon" = "敬请期待 — 这里将显示动量、连胜和历史记录。";
+"statistics.coming_soon" = "敬请期待——这里将显示动力、连续天数和历史记录。";
 "statistics.summary" = "摘要";
-"statistics.total" = "总数";
+"statistics.total" = "总计";
 "statistics.this_month" = "本月";
-"statistics.current_streak" = "当前连胜";
-"statistics.longest_streak" = "最长连胜";
+"statistics.current_streak" = "当前连续天数";
+"statistics.longest_streak" = "最长连续天数";
+
+/* Disappointment */
+"disappointment.title" = "计时器已取消";
+"disappointment.ok" = "确定";
+"disappointment.msg.1" = "这可不是很 Doable 哦。";
+"disappointment.msg.2" = "你让计时器空等了。太不礼貌了。";
+"disappointment.msg.3" = "计时器感到孤独了。";
+"disappointment.msg.4" = "快回来！计时器想你了。";
+"disappointment.msg.5" = "这只是个软承诺。";
+"disappointment.msg.6" = "你悄悄离开了计时器。";
+"disappointment.msg.7" = "这不是你最棒的时刻，伙计。";
+
+/* Todo */
+"todo.placeholder" = "输入待办事项";
+
+/* Fatal errors */
+"fatal.modelcontainer_creation_failed" = "无法创建 ModelContainer。";
+
+/* Default todo name suggestions */
+"todo.default.1" = "建立一个帝国";
+"todo.default.2" = "写日记";
+"todo.default.3" = "抢银行";
+"todo.default.4" = "发送那条消息";
+"todo.default.5" = "拉伸";
+"todo.default.6" = "整理桌面";
+"todo.default.7" = "读一页书";
+"todo.default.8" = "喝水";
+"todo.default.9" = "做 20 个仰卧起坐（记得发视频！）";
+"todo.default.10" = "发那条短信（你知道是哪条）";
+"todo.default.11" = "约她出去";
+"todo.default.12" = "整理一个抽屉";
+"todo.default.13" = "冥想 2 分钟";
+"todo.default.14" = "支付账单";
+"todo.default.15" = "回复那封邮件";
+"todo.default.16" = "快走一会儿";
+
+/* Menu */
+"menu.statistics" = "统计";
+"menu.settings" = "设置";
+
+/* Settings */
+"settings.title" = "设置";
+"settings.general" = "通用";
+"settings.theme" = "主题";
+"settings.theme.system" = "系统";
+"settings.theme.light" = "浅色";
+"settings.theme.dark" = "深色";
+"settings.notifications" = "通知";
+"settings.haptics" = "触感反馈";
+"settings.sound" = "声音";
+"settings.timer_defaults" = "计时器默认值";
+"settings.default_timer_minutes" = "默认计时器";
+"settings.default_timer_minutes_format" = "%d 分钟";
+"settings.todos" = "待办事项";
+"settings.prefill_suggestions" = "预填待办建议";
+"settings.prefill_suggestions_desc" = "启用后，建议的待办名称将直接插入新待办，而不是作为占位符显示。";
+"settings.data" = "数据";
+"settings.export" = "导出数据";
+"settings.import" = "导入数据";
+"settings.reset_data" = "重置所有数据";
+"settings.about" = "关于";
+"settings.version" = "版本";
+"settings.send_feedback" = "发送反馈";
+"settings.privacy" = "隐私政策";
+"settings.export_success" = "导出成功";
+"settings.export_failure" = "导出失败";
+"settings.import_success" = "导入成功";
+"settings.import_failure" = "导入失败";
+"settings.reset_confirm_title" = "重置所有数据？";
+"settings.reset_confirm_message" = "这将永久删除此设备上的所有待办事项。此操作不可逆。";
+"settings.reset_confirm_cancel" = "取消";
+"settings.reset_confirm_confirm" = "重置";
+"settings.reset_success" = "所有数据已重置";
+"settings.import_permission_help" = "无法访问所选文件。如果文件在 iCloud 云盘，请授予文件/iCloud 访问权限或将文件复制到“在我的 iPhone”后再导入。";
+"settings.iCloud_sync" = "iCloud 同步";
+"settings.iCloud_sync_desc" = "iCloud 同步默认启用。切换以禁用云同步，仅将数据保存在此设备。";
+"settings.restart_required_title" = "需要重启";
+"settings.restart_required_message" = "要应用 iCloud 同步更改，必须重启应用。请关闭并重新打开应用。";
+
+/* Privacy */
+"privacy.intro" = "Doable 是本地优先的应用。你的待办和计时器使用情况默认仅保存在你的设备上。如果你启用 iCloud 同步，待办将通过你的 iCloud 账号（CloudKit）在设备间同步。";
+"privacy.data_storage" = "数据存储：待办事项通过 SwiftData 保存在你的设备本地。如果你选择启用 iCloud 同步，待办将上传到你的私人 CloudKit 数据库（iCloud），以便在设备间同步。只有你在应用中创建的数据（标题、时间戳、完成状态及相关元数据）会被存储。你的 CloudKit 数据存储在你的 iCloud 账号，由 Apple 管理；Doable 的开发者无法访问你的私人 CloudKit 数据库内容。同步可能会使用静默推送通知以保持设备数据最新。";
+"privacy.tracking" = "跟踪：Doable 不收集分析数据，也不使用第三方跟踪器。启用 iCloud 同步不会启用分析——它只会在你的设备间同步你的数据。不进行广告或用户画像。";
+"privacy.contact" = "联系方式：如有隐私或 iCloud 同步相关问题，请发送邮件至 kevintamme@icloud.com。";
+"privacy.sync_note" = "同步：iCloud 同步是可选的，可在设置中启用。启用后，设备将使用你的 iCloud 账号（CloudKit）同步待办事项。iCloud 可能会使用静默推送通知以通知设备数据变更，确保数据保持最新。";

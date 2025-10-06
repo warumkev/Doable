@@ -14,6 +14,8 @@ struct PrivacyView: View {
 
                     Text(LocalizedStringKey("privacy.tracking"))
 
+                    Text(LocalizedStringKey("privacy.sync_note"))
+
                     Text(LocalizedStringKey("privacy.contact"))
                         .foregroundStyle(.secondary)
                 }

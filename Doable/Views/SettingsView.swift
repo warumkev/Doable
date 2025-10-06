@@ -8,6 +8,8 @@ struct SettingsView: View {
     @AppStorage("settings.soundEnabled") private var soundEnabled: Bool = true
     @AppStorage("settings.prefillSuggestions") private var prefillSuggestions: Bool = false
     @AppStorage("settings.defaultTimerMinutes") private var defaultTimerMinutes: Int = 5
+    @AppStorage("settings.iCloudSyncEnabled") private var iCloudSyncEnabled: Bool = true
+    @State private var showICloudRestartAlert: Bool = false
 
     private let timerOptions = [1, 3, 5, 10, 15, 20, 25, 30]
 
@@ -89,6 +91,16 @@ struct SettingsView: View {
                 }
 
                 Section(header: Text(LocalizedStringKey("settings.data"))) {
+                    Toggle(LocalizedStringKey("settings.iCloud_sync"), isOn: $iCloudSyncEnabled)
+                        .onChange(of: iCloudSyncEnabled) { _, _ in
+                            // Changing the ModelContainer backend requires recreating
+                            // the ModelContainer. Inform the user to restart the app.
+                            showICloudRestartAlert = true
+                        }
+                    Text(LocalizedStringKey("settings.iCloud_sync_desc"))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+
                     Button {
                         prepareExport()
                     } label: {
@@ -152,6 +164,7 @@ struct SettingsView: View {
                 Section(header: Text(LocalizedStringKey("settings.about"))) {
                     HStack {
                         Text(LocalizedStringKey("settings.version"))
+                        .foregroundColor(.secondary)
                         Spacer()
                         Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0")
                             .foregroundColor(.secondary)
@@ -162,9 +175,13 @@ struct SettingsView: View {
                             UIApplication.shared.open(url)
                         }
                     }
+                    .foregroundColor(.secondary)
+
                     Button(LocalizedStringKey("settings.privacy")) {
                         isPrivacyPresented = true
                     }
+                    .foregroundColor(.secondary)
+
                     .sheet(isPresented: $isPrivacyPresented) {
                         PrivacyView()
                     }
@@ -208,6 +225,11 @@ struct SettingsView: View {
         }
         .alert(isPresented: Binding(get: { importError != nil }, set: { if !$0 { importError = nil } })) {
             Alert(title: Text(LocalizedStringKey("settings.import_failure")), message: Text(importError ?? ""), dismissButton: .default(Text("OK")))
+        }
+        .alert(LocalizedStringKey("settings.restart_required_title"), isPresented: $showICloudRestartAlert) {
+            Button(LocalizedStringKey("disappointment.ok"), role: .cancel) {}
+        } message: {
+            Text(LocalizedStringKey("settings.restart_required_message"))
         }
     }
 }
