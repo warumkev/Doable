@@ -31,7 +31,9 @@
 "onboarding.keepRunning.title" = "Mantenha o temporizador funcionando";
 "onboarding.keepRunning.desc" = "Fique na orientação paisagem para o temporizador continuar contando.";
 "onboarding.final.title" = "Sem rastreamento — apenas local";
-"onboarding.final.desc" = "Suas tarefas ficam neste dispositivo. Sem contas, sem rastreamento. Vamos lá!";
+"onboarding.final.desc" = "Por padrão, suas tarefas ficam neste dispositivo. Você pode ativar a sincronização iCloud para manter suas tarefas sincronizadas em todos os seus dispositivos. Sem contas, sem rastreamento.";
+"onboarding.icloud.desc" = "Ative a sincronização iCloud para manter suas tarefas atualizadas em todos os seus dispositivos. Esta função é opcional e desativada por padrão.";
+"onboarding.notifications.desc" = "Ative as notificações push para receber lembretes e atualizações. Você pode permitir notificações durante o onboarding ou depois nas Configurações.";
 "onboarding.next" = "Próximo";
 "onboarding.letsgo" = "Vamos lá";
 "onboarding.skip" = "Pular";
@@ -152,7 +154,7 @@
 "settings.reset_success" = "Todos os dados redefinidos";
 "settings.import_permission_help" = "Não foi possível acessar o arquivo selecionado. Se o arquivo estiver no iCloud Drive, conceda acesso ao Arquivos/iCloud ou copie o arquivo para No Meu iPhone antes de importar.";
 "settings.iCloud_sync" = "Sincronização iCloud";
-"settings.iCloud_sync_desc" = "A sincronização iCloud está ativada por padrão. Alterne para desativar a sincronização em nuvem e manter os dados apenas neste dispositivo.";
+"settings.iCloud_sync_desc" = "A sincronização iCloud está desativada por padrão. Ative para sincronizar suas tarefas entre dispositivos usando iCloud. Se desativada, os dados permanecem apenas neste dispositivo.";
 "settings.restart_required_title" = "Reinício necessário";
 "settings.restart_required_message" = "Para aplicar a alteração da sincronização iCloud, o app deve ser reiniciado. Por favor, feche e reabra o app.";
 

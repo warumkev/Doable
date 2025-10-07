@@ -10,7 +10,7 @@ struct SettingsView: View {
     @AppStorage("settings.hasAskedNotificationPermission") private var hasAskedNotificationPermission: Bool = false
     @AppStorage("settings.prefillSuggestions") private var prefillSuggestions: Bool = false
     @AppStorage("settings.defaultTimerMinutes") private var defaultTimerMinutes: Int = 5
-    @AppStorage("settings.iCloudSyncEnabled") private var iCloudSyncEnabled: Bool = true
+    @AppStorage("settings.iCloudSyncEnabled") private var iCloudSyncEnabled: Bool = false
     @State private var showICloudRestartAlert: Bool = false
 
     private let timerOptions = [1, 3, 5, 10, 15, 20, 25, 30]

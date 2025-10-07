@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 struct OnboardingSlide: Identifiable {
 	let id = UUID()
@@ -9,6 +10,10 @@ struct OnboardingSlide: Identifiable {
 struct OnboardingView: View {
 	@Environment(\.dismiss) private var dismiss
 	@State private var selection: Int = 0
+
+	@AppStorage("settings.iCloudSyncEnabled") private var iCloudSyncEnabled: Bool = false // opt-in
+	@AppStorage("settings.notificationsEnabled") private var notificationsEnabled: Bool = false
+	@AppStorage("settings.hasAskedNotificationPermission") private var hasAskedNotificationPermission: Bool = false
 
 	private let slides: [OnboardingSlide] = [
 		OnboardingSlide(titleKey: "onboarding.chooseTodo.title", descKey: "onboarding.chooseTodo.desc"),
@@ -61,9 +66,54 @@ struct OnboardingView: View {
 
 						Text(slide.descKey)
 							.foregroundStyle(.secondary)
-							.multilineTextAlignment(.center)
+							.frame(maxWidth: .infinity, alignment: .leading)
+							.lineLimit(nil)
+							.fixedSize(horizontal: false, vertical: true)
+							.multilineTextAlignment(.leading)
 							.padding(.horizontal)
 
+						// On last slide, show toggles for Cloud Sync and Notifications
+						if index == slides.count - 1 {
+							Spacer()
+							VStack(spacing: 16) {
+								Toggle(isOn: $iCloudSyncEnabled) {
+									Text(LocalizedStringKey("settings.iCloud_sync"))
+								}
+								.padding(.horizontal)
+								Text(LocalizedStringKey("settings.iCloud_sync_desc"))
+									.font(.caption)
+									.foregroundColor(.secondary)
+									.frame(maxWidth: .infinity, alignment: .leading)
+									.lineLimit(nil)
+									.fixedSize(horizontal: false, vertical: true)
+									.multilineTextAlignment(.leading)
+									.padding(.horizontal)
+
+								Toggle(isOn: $notificationsEnabled) {
+									Text(LocalizedStringKey("settings.push_notifications"))
+								}
+								.padding(.horizontal)
+								.onChange(of: notificationsEnabled) { _, newValue in
+									if newValue && !hasAskedNotificationPermission {
+										// Request permission only if not already asked
+										UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+											DispatchQueue.main.async {
+												notificationsEnabled = granted
+												hasAskedNotificationPermission = true
+											}
+										}
+									}
+								}
+								Text(LocalizedStringKey("settings.push_notifications_open_settings"))
+									.font(.caption)
+									.foregroundColor(.secondary)
+									.frame(maxWidth: .infinity, alignment: .leading)
+									.lineLimit(nil)
+									.fixedSize(horizontal: false, vertical: true)
+									.multilineTextAlignment(.leading)
+									.padding(.horizontal)
+							}
+						}
 						Spacer()
 					}
 					.tag(index)

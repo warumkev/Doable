@@ -31,7 +31,9 @@
 "onboarding.keepRunning.title" = "Keep the timer running";
 "onboarding.keepRunning.desc" = "Stay in landscape so the timer can keep counting down.";
 "onboarding.final.title" = "No tracking — local only";
-"onboarding.final.desc" = "Your todos stay on this device. No accounts, no tracking. Let's go!";
+"onboarding.final.desc" = "By default, your todos stay on this device. You can opt in to iCloud Sync to keep your todos in sync across devices. No accounts, no tracking.";
+"onboarding.icloud.desc" = "Enable iCloud Sync to keep your todos up to date across all your devices. This is optional and off by default.";
+"onboarding.notifications.desc" = "Enable push notifications to get reminders and updates. You can choose to allow notifications during onboarding or later in Settings.";
 "onboarding.next" = "Next";
 "onboarding.letsgo" = "Let's go";
 "onboarding.skip" = "Skip";
@@ -151,7 +153,7 @@
 "settings.reset_success" = "All data reset";
 "settings.import_permission_help" = "Unable to access the selected file. If the file is in iCloud Drive, grant Files/iCloud access or copy the file to On My iPhone before importing.";
 "settings.iCloud_sync" = "iCloud Sync";
-"settings.iCloud_sync_desc" = "iCloud Sync is enabled by default. Toggle to disable cloud sync and keep data local to this device.";
+"settings.iCloud_sync_desc" = "iCloud Sync is off by default. Enable to sync your todos across devices using iCloud. When off, data stays local to this device.";
 "settings.restart_required_title" = "Restart required";
 "settings.restart_required_message" = "To apply the iCloud Sync change the app must be restarted. Please close and re-open the app.";
 

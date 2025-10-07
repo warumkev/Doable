@@ -29,7 +29,9 @@
 "onboarding.keepRunning.title" = "保持计时器运行";
 "onboarding.keepRunning.desc" = "保持横屏以让计时器继续倒计时。";
 "onboarding.final.title" = "无跟踪——仅本地";
-"onboarding.final.desc" = "你的待办仅保存在此设备。无需账号，无跟踪。开始吧！";
+"onboarding.final.desc" = "默认情况下，你的待办仅保存在此设备。你可以选择启用 iCloud 同步，在多设备间保持待办同步。无需账号，无跟踪。";
+"onboarding.icloud.desc" = "启用 iCloud 同步可在所有设备间保持待办事项最新。此功能为可选，默认关闭。";
+"onboarding.notifications.desc" = "启用推送通知可接收提醒和更新。你可以在引导过程中或稍后在设置中允许通知。";
 "onboarding.next" = "下一步";
 "onboarding.letsgo" = "开始吧";
 "onboarding.skip" = "跳过";
@@ -150,7 +152,7 @@
 "settings.reset_success" = "所有数据已重置";
 "settings.import_permission_help" = "无法访问所选文件。如果文件在 iCloud 云盘，请授予文件/iCloud 访问权限或将文件复制到“在我的 iPhone”后再导入。";
 "settings.iCloud_sync" = "iCloud 同步";
-"settings.iCloud_sync_desc" = "iCloud 同步默认启用。切换以禁用云同步，仅将数据保存在此设备。";
+"settings.iCloud_sync_desc" = "iCloud 同步默认关闭。启用后可通过 iCloud 在多设备间同步待办事项。关闭时，数据仅保存在此设备。";
 "settings.restart_required_title" = "需要重启";
 "settings.restart_required_message" = "要应用 iCloud 同步更改，必须重启应用。请关闭并重新打开应用。";
 

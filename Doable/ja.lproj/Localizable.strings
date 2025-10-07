@@ -31,7 +31,9 @@
 "onboarding.keepRunning.title" = "タイマーを動かし続ける";
 "onboarding.keepRunning.desc" = "タイマーをカウントダウンさせるために横向きで維持してください。";
 "onboarding.final.title" = "追跡なし — ローカルのみ";
-"onboarding.final.desc" = "あなたのToDoはこのデバイスに保存されます。アカウントも追跡もありません。始めましょう！";
+"onboarding.final.desc" = "デフォルトでは、あなたのToDoはこのデバイスに保存されます。iCloud同期を有効にすると、複数のデバイス間でToDoを同期できます。アカウント不要、追跡なし。";
+"onboarding.icloud.desc" = "iCloud同期を有効にすると、すべてのデバイスでToDoを最新に保てます。この機能はオプションで、デフォルトでは無効です。";
+"onboarding.notifications.desc" = "プッシュ通知を有効にすると、リマインダーやアップデートを受け取れます。通知はオンボーディング中または後で設定から許可できます。";
 "onboarding.next" = "次へ";
 "onboarding.letsgo" = "始める";
 "onboarding.skip" = "スキップ";
@@ -152,7 +154,7 @@
 "settings.reset_success" = "すべてのデータをリセットしました";
 "settings.import_permission_help" = "選択したファイルにアクセスできません。ファイルがiCloud Driveにある場合は、Files/iCloudへのアクセスを許可するか、ファイルを「このiPhone内」にコピーしてからインポートしてください。";
 "settings.iCloud_sync" = "iCloud同期";
-"settings.iCloud_sync_desc" = "iCloud同期はデフォルトで有効です。切り替えるとクラウド同期を無効にし、このデバイスのみにデータを保持します。";
+"settings.iCloud_sync_desc" = "iCloud同期はデフォルトで無効です。有効にすると、iCloudを使って複数のデバイス間でToDoを同期できます。無効の場合、データはこのデバイスのみに保存されます。";
 "settings.restart_required_title" = "再起動が必要です";
 "settings.restart_required_message" = "iCloud同期の変更を適用するにはアプリを再起動する必要があります。アプリを閉じて再度開いてください。";
 

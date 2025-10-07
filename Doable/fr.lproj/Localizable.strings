@@ -31,7 +31,9 @@
 "onboarding.keepRunning.title" = "Gardez le minuteur actif";
 "onboarding.keepRunning.desc" = "Restez en mode paysage pour que le minuteur continue de tourner.";
 "onboarding.final.title" = "Aucune collecte — local seulement";
-"onboarding.final.desc" = "Vos tâches restent sur cet appareil. Pas de compte, pas de suivi. C’est parti !";
+"onboarding.final.desc" = "Par défaut, vos tâches restent sur cet appareil. Vous pouvez activer la synchronisation iCloud pour garder vos tâches synchronisées sur tous vos appareils. Pas de compte, pas de suivi.";
+"onboarding.icloud.desc" = "Activez la synchronisation iCloud pour garder vos tâches à jour sur tous vos appareils. Cette fonction est optionnelle et désactivée par défaut.";
+"onboarding.notifications.desc" = "Activez les notifications push pour recevoir des rappels et des mises à jour. Vous pouvez autoriser les notifications pendant l’onboarding ou plus tard dans les paramètres.";
 "onboarding.next" = "Suivant";
 "onboarding.letsgo" = "C’est parti";
 "onboarding.skip" = "Passer";
@@ -152,7 +154,7 @@
 "settings.reset_success" = "Toutes les données ont été réinitialisées";
 "settings.import_permission_help" = "Impossible d’accéder au fichier sélectionné. Si le fichier est dans iCloud Drive, autorisez l’accès à Fichiers/iCloud ou copiez le fichier sur Mon iPhone avant d’importer.";
 "settings.iCloud_sync" = "Synchronisation iCloud";
-"settings.iCloud_sync_desc" = "La synchronisation iCloud est activée par défaut. Désactivez pour garder les données uniquement sur cet appareil.";
+"settings.iCloud_sync_desc" = "La synchronisation iCloud est désactivée par défaut. Activez-la pour synchroniser vos tâches entre appareils via iCloud. Si désactivée, les données restent uniquement sur cet appareil.";
 "settings.restart_required_title" = "Redémarrage requis";
 "settings.restart_required_message" = "Pour appliquer le changement de synchronisation iCloud, l’application doit être redémarrée. Veuillez fermer et rouvrir l’application.";
 

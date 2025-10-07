@@ -31,7 +31,9 @@
 "onboarding.keepRunning.title" = "Timer weiterlaufen lassen";
 "onboarding.keepRunning.desc" = "Bleibe im Querformat, damit der Timer weiter läuft.";
 "onboarding.final.title" = "Keine Nachverfolgung – nur lokal";
-"onboarding.final.desc" = "Deine Todos bleiben auf diesem Gerät. Kein Konto, keine Nachverfolgung. Los geht’s!";
+"onboarding.final.desc" = "Standardmäßig bleiben deine Todos auf diesem Gerät. Du kannst iCloud-Sync aktivieren, um deine Todos auf allen Geräten zu synchronisieren. Kein Konto, kein Tracking.";
+"onboarding.icloud.desc" = "Aktiviere iCloud-Sync, um deine Todos auf allen Geräten aktuell zu halten. Diese Funktion ist optional und standardmäßig deaktiviert.";
+"onboarding.notifications.desc" = "Aktiviere Push-Benachrichtigungen, um Erinnerungen und Updates zu erhalten. Du kannst Benachrichtigungen während des Onboardings oder später in den Einstellungen erlauben.";
 "onboarding.next" = "Weiter";
 "onboarding.letsgo" = "Los geht’s";
 "onboarding.skip" = "Überspringen";
@@ -152,7 +154,7 @@
 "settings.reset_success" = "Alle Daten zurückgesetzt";
 "settings.import_permission_help" = "Zugriff auf die ausgewählte Datei nicht möglich. Wenn die Datei in iCloud Drive liegt, gewähre Zugriff auf Dateien/iCloud oder kopiere die Datei vor dem Import auf „Auf meinem iPhone“.";
 "settings.iCloud_sync" = "iCloud-Sync";
-"settings.iCloud_sync_desc" = "iCloud-Sync ist standardmäßig aktiviert. Deaktiviere dies, um die Cloud-Synchronisierung auszuschalten und Daten nur lokal zu speichern.";
+"settings.iCloud_sync_desc" = "iCloud-Sync ist standardmäßig deaktiviert. Aktiviere dies, um deine Todos über iCloud zu synchronisieren. Wenn deaktiviert, bleiben die Daten nur auf diesem Gerät.";
 "settings.restart_required_title" = "Neustart erforderlich";
 "settings.restart_required_message" = "Um die Änderung der iCloud-Synchronisierung zu übernehmen, muss die App neu gestartet werden. Bitte schließe und öffne die App erneut.";
 
