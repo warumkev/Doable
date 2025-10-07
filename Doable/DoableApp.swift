@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 // App entry point for the Doable application.
 // Responsibilities:
@@ -41,6 +42,8 @@ struct DoableApp: App {
     }()
 
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    @AppStorage("settings.notificationsEnabled") private var notificationsEnabled: Bool = false
+    @AppStorage("settings.hasAskedNotificationPermission") private var hasAskedNotificationPermission: Bool = false
 
     var body: some Scene {
         // The main window shows ContentView and inherits the model container so
@@ -49,6 +52,18 @@ struct DoableApp: App {
             ContentView()
                 // Inject the model container as before
                 .modelContainer(sharedModelContainer)
+                // Request notification permission once on first launch
+                .onAppear {
+                    // Only ask once
+                    if !hasAskedNotificationPermission {
+                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+                            DispatchQueue.main.async {
+                                notificationsEnabled = granted
+                                hasAskedNotificationPermission = true
+                            }
+                        }
+                    }
+                }
                 // Present onboarding on first launch using AppStorage flag
                 .fullScreenCover(isPresented: Binding(get: {
                     !hasSeenOnboarding

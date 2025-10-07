@@ -125,6 +125,8 @@
 "settings.notifications" = "Notifications";
 "settings.haptics" = "Haptique";
 "settings.sound" = "Son";
+"settings.push_notifications" = "Notifications push";
+"settings.push_notifications_open_settings" = "Ouvrez les Réglages pour activer les notifications";
 "settings.timer_defaults" = "Minuteur par défaut";
 "settings.default_timer_minutes" = "Minuteur par défaut";
 "settings.default_timer_minutes_format" = "%d min";

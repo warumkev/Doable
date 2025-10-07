@@ -84,6 +84,8 @@
 "disappointment.msg.5" = "这只是个软承诺。";
 "disappointment.msg.6" = "你悄悄离开了计时器。";
 "disappointment.msg.7" = "这不是你最棒的时刻，伙计。";
+"settings.push_notifications" = "推送通知";
+"settings.push_notifications_open_settings" = "打开设置以启用通知";
 
 /* Todo */
 "todo.placeholder" = "输入待办事项";

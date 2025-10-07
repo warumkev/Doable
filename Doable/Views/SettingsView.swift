@@ -6,6 +6,8 @@ struct SettingsView: View {
     @AppStorage("settings.theme") private var theme: String = "system"
     @AppStorage("settings.hapticsEnabled") private var hapticsEnabled: Bool = true
     @AppStorage("settings.soundEnabled") private var soundEnabled: Bool = true
+    @AppStorage("settings.notificationsEnabled") private var notificationsEnabled: Bool = false
+    @AppStorage("settings.hasAskedNotificationPermission") private var hasAskedNotificationPermission: Bool = false
     @AppStorage("settings.prefillSuggestions") private var prefillSuggestions: Bool = false
     @AppStorage("settings.defaultTimerMinutes") private var defaultTimerMinutes: Int = 5
     @AppStorage("settings.iCloudSyncEnabled") private var iCloudSyncEnabled: Bool = true
@@ -71,6 +73,36 @@ struct SettingsView: View {
                 Section(header: Text(LocalizedStringKey("settings.notifications"))) {
                     Toggle(LocalizedStringKey("settings.haptics"), isOn: $hapticsEnabled)
                     Toggle(LocalizedStringKey("settings.sound"), isOn: $soundEnabled)
+
+                    Toggle(LocalizedStringKey("settings.push_notifications"), isOn: $notificationsEnabled)
+                        .onChange(of: notificationsEnabled) { _, newValue in
+                            if newValue {
+                                // Request permission when user enables the toggle
+                                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                                    DispatchQueue.main.async {
+                                        notificationsEnabled = granted
+                                        hasAskedNotificationPermission = true
+                                    }
+                                }
+                            } else {
+                                // The user turned off in-app toggle; don't revoke system permission here.
+                                // Keep the flag updated so UI can show helpful guidance.
+                                hasAskedNotificationPermission = true
+                            }
+                        }
+
+                    // If notifications are disabled but we previously asked, offer a quick link to system Settings
+                    if !notificationsEnabled && hasAskedNotificationPermission {
+                        Button(action: {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url)
+                            }
+                        }) {
+                            Text(LocalizedStringKey("settings.push_notifications_open_settings"))
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                        }
+                    }
                 }
 
                 Section(header: Text(LocalizedStringKey("settings.timer_defaults"))) {

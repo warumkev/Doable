@@ -125,6 +125,8 @@
 "settings.notifications" = "通知";
 "settings.haptics" = "触覚";
 "settings.sound" = "サウンド";
+"settings.push_notifications" = "プッシュ通知";
+"settings.push_notifications_open_settings" = "通知を有効にするには設定を開く";
 "settings.timer_defaults" = "タイマーのデフォルト";
 "settings.default_timer_minutes" = "デフォルトタイマー";
 "settings.default_timer_minutes_format" = "%d分";
