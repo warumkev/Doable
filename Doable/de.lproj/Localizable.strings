@@ -164,3 +164,14 @@
 "privacy.tracking" = "Tracking: Doable sammelt keine Analysen und verwendet keine Drittanbieter-Tracker. Die Aktivierung von iCloud-Sync aktiviert keine Analysen – es werden nur deine eigenen Daten zwischen deinen Geräten synchronisiert. Es gibt keine Werbung oder Nutzerprofilierung.";
 "privacy.contact" = "Kontakt: Bei Fragen zu Datenschutz oder iCloud-Sync sende eine E-Mail an kevintamme@icloud.com.";
 "privacy.sync_note" = "Sync: iCloud-Sync ist optional und kann in den Einstellungen aktiviert werden. Wenn aktiviert, verwenden Geräte dein iCloud-Konto (CloudKit), um Todos zu synchronisieren. iCloud kann stille Push-Benachrichtigungen verwenden, um Geräte über Änderungen zu informieren, damit sie aktuell bleiben.";
+
+"privacy.section_data" = "Datenspeicherung";
+"privacy.section_tracking" = "Tracking & Analyse";
+"privacy.section_sync" = "iCloud-Sync";
+"privacy.section_contact" = "Kontakt";
+
+"privacy.intro" = "Doable ist auf Datenschutz ausgelegt. Standardmäßig bleiben deine Todos und Timer-Nutzung auf deinem Gerät. Du kannst iCloud-Sync aktivieren, um deine Todos auf allen Geräten zu synchronisieren.";
+"privacy.data_storage" = "Deine Todos werden lokal auf deinem Gerät mit SwiftData gespeichert. Wenn du iCloud-Sync aktivierst, werden deine Todos in deinem privaten iCloud-Konto (CloudKit) gespeichert und auf allen Geräten synchronisiert. Es werden nur Daten gespeichert, die du in der App erstellst (Titel, Zeitstempel, Abschlussstatus und zugehörige Metadaten). Der Entwickler hat keinen Zugriff auf deine privaten iCloud-Daten.";
+"privacy.tracking" = "Doable sammelt keine Analysen und verwendet keine Drittanbieter-Tracker. Die Aktivierung von iCloud-Sync aktiviert keine Analysen – es werden nur deine eigenen Daten zwischen deinen Geräten synchronisiert. Es gibt keine Werbung oder Nutzerprofilierung.";
+"privacy.sync_note" = "iCloud-Sync ist optional und kann in den Einstellungen aktiviert werden. Wenn aktiviert, verwenden deine Geräte dein iCloud-Konto (CloudKit), um Todos zu synchronisieren. iCloud kann stille Push-Benachrichtigungen verwenden, um Geräte aktuell zu halten.";
+"privacy.contact" = "Fragen zu Datenschutz oder iCloud-Sync? Sende eine E-Mail an kevintamme@icloud.com.";

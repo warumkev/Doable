@@ -6,18 +6,44 @@ struct PrivacyView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 24) {
                     Text(LocalizedStringKey("privacy.intro"))
-                        .font(.body)
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .padding(.bottom, 4)
 
-                    Text(LocalizedStringKey("privacy.data_storage"))
+                    Group {
+                        Text(LocalizedStringKey("privacy.section_data"))
+                            .font(.headline)
+                            .padding(.bottom, 2)
+                        Text(LocalizedStringKey("privacy.data_storage"))
+                            .font(.body)
+                    }
 
-                    Text(LocalizedStringKey("privacy.tracking"))
+                    Group {
+                        Text(LocalizedStringKey("privacy.section_tracking"))
+                            .font(.headline)
+                            .padding(.bottom, 2)
+                        Text(LocalizedStringKey("privacy.tracking"))
+                            .font(.body)
+                    }
 
-                    Text(LocalizedStringKey("privacy.sync_note"))
+                    Group {
+                        Text(LocalizedStringKey("privacy.section_sync"))
+                            .font(.headline)
+                            .padding(.bottom, 2)
+                        Text(LocalizedStringKey("privacy.sync_note"))
+                            .font(.body)
+                    }
 
-                    Text(LocalizedStringKey("privacy.contact"))
-                        .foregroundStyle(.secondary)
+                    Group {
+                        Text(LocalizedStringKey("privacy.section_contact"))
+                            .font(.headline)
+                            .padding(.bottom, 2)
+                        Text(LocalizedStringKey("privacy.contact"))
+                            .font(.body)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .padding()
             }

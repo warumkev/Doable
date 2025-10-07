@@ -163,3 +163,14 @@
 "privacy.tracking" = "Tracking: Doable does not collect analytics or use third-party trackers. Enabling iCloud Sync does not enable analytics — it only syncs your own data between your devices. No advertising or user profiling is performed.";
 "privacy.contact" = "Contact: If you have questions about privacy or iCloud Sync, email kevintamme@icloud.com.";
 "privacy.sync_note" = "Sync: iCloud Sync is optional and can be enabled in Settings. When enabled, devices use your iCloud account (CloudKit) to keep todos in sync. iCloud may use silent push notifications to notify devices about changes so they stay up to date.";
+
+"privacy.section_data" = "Data Storage";
+"privacy.section_tracking" = "Tracking & Analytics";
+"privacy.section_sync" = "iCloud Sync";
+"privacy.section_contact" = "Contact";
+
+"privacy.intro" = "Doable is designed for privacy. By default, your todos and timer usage stay on your device. You can opt in to iCloud Sync to keep your todos in sync across devices.";
+"privacy.data_storage" = "Your todos are stored locally on your device using SwiftData. If you enable iCloud Sync, your todos are uploaded to your private iCloud account (CloudKit) and synced across your devices. Only data you create in the app (titles, timestamps, completion state, and related metadata) is stored. The developer cannot access your private iCloud data.";
+"privacy.tracking" = "Doable does not collect analytics or use third-party trackers. Enabling iCloud Sync does not enable analytics — it only syncs your own data between your devices. No advertising or user profiling is performed.";
+"privacy.sync_note" = "iCloud Sync is optional and can be enabled in Settings. When enabled, your devices use your iCloud account (CloudKit) to keep todos in sync. iCloud may use silent push notifications to keep devices up to date.";
+"privacy.contact" = "Questions about privacy or iCloud Sync? Email kevintamme@icloud.com.";

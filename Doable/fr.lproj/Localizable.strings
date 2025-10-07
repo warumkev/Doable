@@ -164,3 +164,14 @@
 "privacy.tracking" = "Suivi : Doable ne collecte pas d’analyses et n’utilise pas de traqueurs tiers. Activer la synchronisation iCloud n’active pas d’analyses — cela synchronise uniquement vos propres données entre vos appareils. Pas de publicité ni de profilage utilisateur.";
 "privacy.contact" = "Contact : Si vous avez des questions sur la confidentialité ou la synchronisation iCloud, envoyez un email à kevintamme@icloud.com.";
 "privacy.sync_note" = "Synchronisation : La synchronisation iCloud est optionnelle et peut être activée dans les paramètres. Quand elle est activée, les appareils utilisent votre compte iCloud (CloudKit) pour garder les tâches synchronisées. iCloud peut utiliser des notifications push silencieuses pour informer les appareils des changements et les garder à jour.";
+
+"privacy.section_data" = "Stockage des données";
+"privacy.section_tracking" = "Suivi & Analyse";
+"privacy.section_sync" = "Synchronisation iCloud";
+"privacy.section_contact" = "Contact";
+
+"privacy.intro" = "Doable est conçue pour la confidentialité. Par défaut, vos tâches et l’utilisation du minuteur restent sur votre appareil. Vous pouvez activer la synchronisation iCloud pour garder vos tâches synchronisées sur tous vos appareils.";
+"privacy.data_storage" = "Vos tâches sont stockées localement sur votre appareil avec SwiftData. Si vous activez la synchronisation iCloud, vos tâches sont stockées dans votre compte iCloud privé (CloudKit) et synchronisées sur tous vos appareils. Seules les données que vous créez dans l’application (titres, horodatages, état d’achèvement et métadonnées associées) sont stockées. Le développeur n’a pas accès à vos données privées iCloud.";
+"privacy.tracking" = "Doable ne collecte pas d’analyses et n’utilise pas de traqueurs tiers. Activer la synchronisation iCloud n’active pas d’analyses — cela synchronise uniquement vos propres données entre vos appareils. Pas de publicité ni de profilage utilisateur.";
+"privacy.sync_note" = "La synchronisation iCloud est optionnelle et peut être activée dans les paramètres. Quand elle est activée, vos appareils utilisent votre compte iCloud (CloudKit) pour garder les tâches synchronisées. iCloud peut utiliser des notifications push silencieuses pour garder les appareils à jour.";
+"privacy.contact" = "Des questions sur la confidentialité ou la synchronisation iCloud ? Envoyez un email à kevintamme@icloud.com.";

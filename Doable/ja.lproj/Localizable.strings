@@ -160,7 +160,16 @@
 
 /* Privacy */
 "privacy.intro" = "Doableはローカルファーストのアプリです。あなたのToDoやタイマーの使用状況はデフォルトでデバイスに保存されます。iCloud同期を有効にすると、iCloudアカウント（CloudKit）を使ってToDoがデバイス間で同期されます。";
+"privacy.section_data" = "データ保存";
+"privacy.section_tracking" = "トラッキング・分析";
+"privacy.section_sync" = "iCloud同期";
+"privacy.section_contact" = "お問い合わせ";
 "privacy.data_storage" = "データ保存：ToDoはSwiftDataを使ってデバイスにローカル保存されます。iCloud同期を選択すると、ToDoはあなたのプライベートCloudKitデータベース（iCloud）にアップロードされ、デバイス間で同期されます。アプリで作成したデータ（タイトル、タイムスタンプ、完了状態、関連メタデータ）のみが保存されます。CloudKitデータはあなたのiCloudアカウントに保存され、Appleによって管理されます。Doableの開発者はあなたのプライベートCloudKitデータベースの内容にアクセスできません。同期はデバイスを最新状態に保つためにサイレントプッシュ通知を使用する場合があります。";
+"privacy.data_storage" = "あなたのToDoはSwiftDataでデバイスにローカル保存されます。iCloud同期を有効にすると、ToDoはあなたのプライベートiCloudアカウント（CloudKit）に保存され、複数のデバイス間で同期されます。アプリで作成したデータ（タイトル、タイムスタンプ、完了状態、関連メタデータ）のみが保存されます。開発者はあなたのiCloudプライベートデータにアクセスできません。";
 "privacy.tracking" = "追跡：Doableは分析情報を収集したり、サードパーティのトラッカーを使用しません。iCloud同期を有効にしても分析は有効になりません — あなた自身のデータのみがデバイス間で同期されます。広告やユーザーのプロファイリングは行いません。";
+"privacy.tracking" = "Doableは分析情報を収集したり、サードパーティのトラッカーを使用しません。iCloud同期を有効にしても分析は有効になりません — あなた自身のデータのみがデバイス間で同期されます。広告やユーザーのプロファイリングは行いません。";
+"privacy.sync_note" = "同期：iCloud同期はオプションで、設定から有効にできます。有効にすると、デバイスはあなたのiCloudアカウント（CloudKit）を使ってToDoを同期します。iCloudは変更を通知するためにサイレントプッシュ通知を使用する場合があります。";
+"privacy.sync_note" = "iCloud同期はオプションで、設定から有効にできます。有効にすると、あなたのデバイスはiCloudアカウント（CloudKit）を使ってToDoを同期します。iCloudはサイレントプッシュ通知でデバイスを最新状態に保つ場合があります。";
 "privacy.contact" = "お問い合わせ：プライバシーやiCloud同期について質問がある場合は kevintamme@icloud.com までメールしてください。";
+"privacy.contact" = "プライバシーやiCloud同期についてご質問があれば kevintamme@icloud.com までご連絡ください。";
 "privacy.sync_note" = "同期：iCloud同期はオプションで、設定から有効にできます。有効にすると、デバイスはあなたのiCloudアカウント（CloudKit）を使ってToDoを同期します。iCloudは変更を通知するためにサイレントプッシュ通知を使用する場合があります。";
