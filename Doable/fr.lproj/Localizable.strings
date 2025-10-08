@@ -10,6 +10,9 @@
 /* Actions */
 "actions.delete" = "Supprimer";
 
+/* Sections */
+"section.done" = "Terminé";
+
 /* Snackbar */
 "snackbar.deleted" = "« %@ » supprimé";
 "snackbar.completed" = "« %@ » terminé";

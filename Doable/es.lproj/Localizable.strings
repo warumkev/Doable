@@ -10,6 +10,9 @@
 /* Actions */
 "actions.delete" = "Eliminar";
 
+/* Sections */
+"section.done" = "Hecho";
+
 /* Snackbar */
 "snackbar.deleted" = "Eliminado \"%@\"";
 "snackbar.completed" = "Completado \"%@\"";

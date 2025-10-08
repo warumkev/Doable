@@ -10,6 +10,9 @@
 /* Actions */
 "actions.delete" = "削除";
 
+/* Sections */
+"section.done" = "完了";
+
 /* Snackbar */
 "snackbar.deleted" = "「%@」を削除しました";
 "snackbar.completed" = "「%@」を完了しました";

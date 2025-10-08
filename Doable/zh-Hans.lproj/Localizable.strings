@@ -8,6 +8,9 @@
 /* Actions */
 "actions.delete" = "删除";
 
+/* Sections */
+"section.done" = "完成";
+
 /* Snackbar */
 "snackbar.deleted" = "已删除“%@”";
 "snackbar.completed" = "已完成“%@”";
