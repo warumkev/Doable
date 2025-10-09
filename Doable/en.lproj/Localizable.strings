@@ -1,4 +1,24 @@
 /* Achievements */
+"achievement.maker.title" = "Der Macher";
+"achievement.maker.desc" = "Complete 100 tasks in total.";
+"achievement.maker.unlock" = "100 things done. Now you are unstoppable.";
+
+"achievement.workaholic.title" = "Der Workaholic";
+"achievement.workaholic.desc" = "Reach 10 hours of pure focus (timer runtime).";
+"achievement.workaholic.unlock" = "You turned your time into pure value. Well done!";
+
+"achievement.empire.title" = "Erstes Imperium";
+"achievement.empire.desc" = "Complete the suggested task 'Build an empire'.";
+"achievement.empire.unlock" = "Mission 1 of 1 finished. What's next?";
+
+"achievement.sprinter.title" = "Sprint-Weltmeister";
+"achievement.sprinter.desc" = "Complete 10 tasks in one hour (without timer or with minimum 1-minute timer).";
+"achievement.sprinter.unlock" = "Short breaks, quick wins. You're focused like a laser.";
+
+"achievement.earlybird.title" = "Der Frühaufsteher";
+"achievement.earlybird.desc" = "Complete a task before 8:00 AM.";
+"achievement.earlybird.unlock" = "The early bird catches the worm... or at least gets things done.";
+/* Achievements */
 "achievements.title" = "Achievements";
 "achievements.open_button" = "Show Achievements";
 "achievements.empty" = "No achievements yet.";

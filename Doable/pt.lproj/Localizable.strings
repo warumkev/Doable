@@ -1,4 +1,24 @@
 /* Achievements */
+"achievement.maker.title" = "O Realizador";
+"achievement.maker.desc" = "Conclua 100 tarefas no total.";
+"achievement.maker.unlock" = "100 coisas feitas. Agora você é imparável.";
+
+"achievement.workaholic.title" = "O Workaholic";
+"achievement.workaholic.desc" = "Alcance 10 horas de foco puro (tempo de cronômetro).";
+"achievement.workaholic.unlock" = "Você transformou seu tempo em valor puro. Muito bem!";
+
+"achievement.empire.title" = "Primeiro Império";
+"achievement.empire.desc" = "Conclua a tarefa sugerida 'Construir um império'.";
+"achievement.empire.unlock" = "Missão 1 de 1 concluída. O que vem a seguir?";
+
+"achievement.sprinter.title" = "Campeão do Sprint";
+"achievement.sprinter.desc" = "Conclua 10 tarefas em uma hora (sem cronômetro ou com cronômetro mínimo de 1 minuto).";
+"achievement.sprinter.unlock" = "Pausas curtas, vitórias rápidas. Você está focado como um laser.";
+
+"achievement.earlybird.title" = "O Madrugador";
+"achievement.earlybird.desc" = "Conclua uma tarefa antes das 8:00 da manhã.";
+"achievement.earlybird.unlock" = "Deus ajuda quem cedo madruga... ou pelo menos termina as tarefas.";
+/* Achievements */
 "achievements.title" = "Conquistas";
 "achievements.open_button" = "Mostrar conquistas";
 "achievements.empty" = "Ainda não há conquistas.";

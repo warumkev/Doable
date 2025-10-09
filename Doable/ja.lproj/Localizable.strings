@@ -1,4 +1,24 @@
 /* Achievements */
+"achievement.maker.title" = "達成者";
+"achievement.maker.desc" = "合計100個のタスクを完了する。";
+"achievement.maker.unlock" = "100個達成。もう止められない！";
+
+"achievement.workaholic.title" = "ワーカホリック";
+"achievement.workaholic.desc" = "合計10時間の集中（タイマー稼働時間）を達成する。";
+"achievement.workaholic.unlock" = "時間を価値に変えた。よくやった！";
+
+"achievement.empire.title" = "最初の帝国";
+"achievement.empire.desc" = "提案されたタスク「帝国を築く」を完了する。";
+"achievement.empire.unlock" = "ミッション1/1完了。次は何？";
+
+"achievement.sprinter.title" = "スプリント王者";
+"achievement.sprinter.desc" = "1時間で10個のタスクを完了する（タイマーなしまたは最短1分タイマー）。";
+"achievement.sprinter.unlock" = "短い休憩、素早い勝利。レーザーのように集中！";
+
+"achievement.earlybird.title" = "早起き名人";
+"achievement.earlybird.desc" = "午前8時前にタスクを完了する。";
+"achievement.earlybird.unlock" = "早起きは三文の得... あるいはタスクを片付ける！";
+/* Achievements */
 "achievements.title" = "実績";
 "achievements.open_button" = "実績を表示";
 "achievements.empty" = "まだ実績はありません。";

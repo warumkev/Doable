@@ -1,4 +1,24 @@
 /* Achievements */
+"achievement.maker.title" = "成就者";
+"achievement.maker.desc" = "累计完成100个任务。";
+"achievement.maker.unlock" = "完成100件事。现在你势不可挡。";
+
+"achievement.workaholic.title" = "工作狂";
+"achievement.workaholic.desc" = "累计专注10小时（计时器运行时间）。";
+"achievement.workaholic.unlock" = "你把时间变成了纯粹的价值。做得好！";
+
+"achievement.empire.title" = "第一个帝国";
+"achievement.empire.desc" = "完成建议任务“建立帝国”。";
+"achievement.empire.unlock" = "任务1/1完成。接下来是什么？";
+
+"achievement.sprinter.title" = "冲刺冠军";
+"achievement.sprinter.desc" = "一小时内完成10个任务（无计时器或最短1分钟计时器）。";
+"achievement.sprinter.unlock" = "短暂休息，快速胜利。你专注如激光。";
+
+"achievement.earlybird.title" = "早起者";
+"achievement.earlybird.desc" = "在早上8点前完成一个任务。";
+"achievement.earlybird.unlock" = "早起的鸟儿有虫吃……或者至少能完成任务。";
+/* Achievements */
 "achievements.title" = "成就";
 "achievements.open_button" = "显示成就";
 "achievements.empty" = "尚无成就。";

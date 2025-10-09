@@ -1,4 +1,24 @@
 /* Achievements */
+"achievement.maker.title" = "Der Macher";
+"achievement.maker.desc" = "Schließe insgesamt 100 Aufgaben ab.";
+"achievement.maker.unlock" = "100 Dinge erledigt. Jetzt bist du nicht mehr aufzuhalten.";
+
+"achievement.workaholic.title" = "Der Workaholic";
+"achievement.workaholic.desc" = "Erreiche insgesamt 10 Stunden reinen Fokus (Timer-Laufzeit).";
+"achievement.workaholic.unlock" = "Du hast deine Zeit in reinen Wert umgewandelt. Gut gemacht!";
+
+"achievement.empire.title" = "Erstes Imperium";
+"achievement.empire.desc" = "Schließe die vorgeschlagene Aufgabe 'Ein Imperium aufbauen' ab.";
+"achievement.empire.unlock" = "Mission 1 von 1 beendet. Was kommt als Nächstes?";
+
+"achievement.sprinter.title" = "Sprint-Weltmeister";
+"achievement.sprinter.desc" = "Schließe 10 Aufgaben in einer Stunde ab (ohne Timer oder mit minimalem 1-Minuten-Timer).";
+"achievement.sprinter.unlock" = "Kurze Pausen, schnelle Siege. Du bist fokussiert wie ein Laser.";
+
+"achievement.earlybird.title" = "Der Frühaufsteher";
+"achievement.earlybird.desc" = "Schließe eine Aufgabe vor 8:00 Uhr morgens ab.";
+"achievement.earlybird.unlock" = "Der frühe Vogel fängt den Wurm... oder erledigt ihn zumindest.";
+/* Achievements */
 "achievements.title" = "Erfolge";
 "achievements.open_button" = "Erfolge anzeigen";
 "achievements.empty" = "Noch keine Erfolge.";

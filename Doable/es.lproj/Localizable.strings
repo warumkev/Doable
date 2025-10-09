@@ -1,4 +1,24 @@
 /* Achievements */
+"achievement.maker.title" = "El Hacedor";
+"achievement.maker.desc" = "Completa 100 tareas en total.";
+"achievement.maker.unlock" = "100 cosas hechas. Ahora eres imparable.";
+
+"achievement.workaholic.title" = "El Workaholic";
+"achievement.workaholic.desc" = "Alcanza 10 horas de enfoque puro (tiempo de temporizador).";
+"achievement.workaholic.unlock" = "Has convertido tu tiempo en valor puro. ¡Bien hecho!";
+
+"achievement.empire.title" = "Primer Imperio";
+"achievement.empire.desc" = "Completa la tarea sugerida 'Construir un imperio'.";
+"achievement.empire.unlock" = "Misión 1 de 1 terminada. ¿Qué sigue?";
+
+"achievement.sprinter.title" = "Campeón de Sprint";
+"achievement.sprinter.desc" = "Completa 10 tareas en una hora (sin temporizador o con temporizador mínimo de 1 minuto).";
+"achievement.sprinter.unlock" = "Pausas cortas, victorias rápidas. Estás enfocado como un láser.";
+
+"achievement.earlybird.title" = "El Madrugador";
+"achievement.earlybird.desc" = "Completa una tarea antes de las 8:00 AM.";
+"achievement.earlybird.unlock" = "El que madruga, Dios le ayuda... o al menos termina sus tareas.";
+/* Achievements */
 "achievements.title" = "Logros";
 "achievements.open_button" = "Mostrar logros";
 "achievements.empty" = "Aún no hay logros.";

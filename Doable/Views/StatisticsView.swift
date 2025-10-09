@@ -49,7 +49,7 @@ struct StatisticsView: View {
             .navigationTitle(LocalizedStringKey("statistics.title"))
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showAchievements) {
-                AchievementsView()
+                AchievementsView(todos: todos)
             }
         }
     }

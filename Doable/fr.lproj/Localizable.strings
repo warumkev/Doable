@@ -1,4 +1,24 @@
 /* Achievements */
+"achievement.maker.title" = "Le Faiseur";
+"achievement.maker.desc" = "Termine 100 tâches au total.";
+"achievement.maker.unlock" = "100 choses faites. Rien ne t'arrête maintenant.";
+
+"achievement.workaholic.title" = "Le Bourreau de travail";
+"achievement.workaholic.desc" = "Atteins 10 heures de concentration pure (temps du minuteur).";
+"achievement.workaholic.unlock" = "Tu as transformé ton temps en valeur pure. Bravo !";
+
+"achievement.empire.title" = "Premier Empire";
+"achievement.empire.desc" = "Termine la tâche suggérée 'Construire un empire'.";
+"achievement.empire.unlock" = "Mission 1 sur 1 terminée. Quelle est la suite ?";
+
+"achievement.sprinter.title" = "Champion du Sprint";
+"achievement.sprinter.desc" = "Termine 10 tâches en une heure (sans minuteur ou avec minuteur d'une minute minimum).";
+"achievement.sprinter.unlock" = "Pauses courtes, victoires rapides. Tu es concentré comme un laser.";
+
+"achievement.earlybird.title" = "Le Matinal";
+"achievement.earlybird.desc" = "Termine une tâche avant 8h00 du matin.";
+"achievement.earlybird.unlock" = "L'avenir appartient à ceux qui se lèvent tôt... ou qui terminent leurs tâches tôt.";
+/* Achievements */
 "achievements.title" = "Succès";
 "achievements.open_button" = "Afficher les succès";
 "achievements.empty" = "Aucun succès pour le moment.";
