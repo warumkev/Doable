@@ -30,10 +30,9 @@ struct StatisticsView: View {
                         showAchievements = true
                     } label: {
                         HStack {
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
                             Text(LocalizedStringKey("achievements.open_button"))
                                 .font(.headline)
+                                .foregroundColor(.primary)
                         }
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -74,7 +73,7 @@ struct StatisticsView: View {
                 .font(.title2)
                 .fontWeight(.semibold)
                 .padding(.top, 2)
-            Text(LocalizedStringKey("statistics.streak_encouragement"))
+            Text(currentStreak > 0 ? LocalizedStringKey("statistics.streak_encouragement_active") : LocalizedStringKey("statistics.streak_encouragement_inactive"))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .padding(.bottom, 2)

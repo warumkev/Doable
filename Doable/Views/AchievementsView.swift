@@ -19,12 +19,31 @@ struct AchievementsView: View {
         let empireDone = completedTodos.contains { $0.title.trimmingCharacters(in: .whitespacesAndNewlines).localizedCompare("Ein Imperium aufbauen") == .orderedSame }
         let earlyBird = completedTodos.contains { $0.completedAt != nil && Calendar.current.component(.hour, from: $0.completedAt!) < 8 }
 
-        // Workaholic: total focus time (not implemented, fallback to 0)
-        let totalFocusSeconds = 0 // TODO: Replace with actual timer runtime aggregation
-        let workaholic = totalFocusSeconds >= 36000
+        // Workaholic: total focus time of 100 hours (360000 seconds) from todos completed with a timer
+        let totalFocusSeconds = completedTodos.reduce(0) { sum, todo in
+            sum + (todo.completedWithTimer ? (todo.timerDurationSeconds ?? 0) : 0)
+        }
+        let workaholic = totalFocusSeconds >= 360000
 
-        // Sprint-Weltmeister: 10 tasks in one hour, each with no timer or timer <= 1 min (not implemented, fallback to false)
-        let sprinter = false // TODO: Implement if timer info per todo is available
+        // Sprint-Weltmeister: 10 tasks in one hour, each with no timer or timer <= 1 min
+        let eligibleTodos = completedTodos.filter {
+            !$0.completedWithTimer || ($0.timerDurationSeconds ?? 0) <= 60
+        }.sorted { ($0.completedAt ?? .distantPast) < ($1.completedAt ?? .distantPast) }
+
+        var sprinter = false
+        if eligibleTodos.count >= 10 {
+            // Sliding window: check for any 10 eligible todos completed within 1 hour
+            for i in 0...(eligibleTodos.count - 10) {
+                let first = eligibleTodos[i]
+                let last = eligibleTodos[i + 9]
+                if let firstDate = first.completedAt, let lastDate = last.completedAt {
+                    if lastDate.timeIntervalSince(firstDate) <= 3600 {
+                        sprinter = true
+                        break
+                    }
+                }
+            }
+        }
 
         return [
             Achievement(
@@ -72,6 +91,9 @@ struct AchievementsView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.top, 32)
+                Text(LocalizedStringKey("achievements.subtitle"))
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(computedAchievements, id: \ .id) { achievement in
@@ -103,13 +125,15 @@ struct AchievementsView: View {
                         .foregroundColor(.gray)
                 }
             }
-            Text(achievement.descriptionKey)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+            if achievement.unlocked {
+                Text(achievement.descriptionKey)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
             Divider()
             Text(achievement.unlockTextKey)
                 .font(.footnote)
                 .foregroundColor(achievement.unlocked ? .accentColor : .secondary)
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)

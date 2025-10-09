@@ -16,6 +16,7 @@ These are concise, actionable rules for editing this SwiftUI + SwiftData app so 
   - Localization: strings use `Localizable.strings` files (many `*.lproj/` directories). Prefer `LocalizedStringKey` in views and `NSLocalizedString` where a String is required (the code already uses both).
   - Empty-todo cleanup: `TodoView` deletes model objects when the text field loses focus and the title is empty. Maintain this UX when changing the text lifecycle.
   - Prefill suggestions: `TodoView` uses `NewTodoNames.randomNameKey()` and an unusual Mirror-based extraction to resolve `LocalizedStringKey` to a String when `AppStorage("settings.prefillSuggestions")` is enabled. If altering suggestion behaviour, keep this pattern or replace it project-wide and update `Utilities/NewTodoNames.swift` accordingly.
+  - The localization files are ordered by sections. If you add new keys, place them in the appropriate section to keep the *.lproj files organized.
 
 - Examples (copy/paste safe) you can reference
 

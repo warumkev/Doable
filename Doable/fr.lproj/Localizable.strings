@@ -1,3 +1,5 @@
+"statistics.streak_encouragement_active" = "Tu es sur une belle lancée !";
+"statistics.streak_encouragement_inactive" = "Prêt à commencer une nouvelle série ?";
 /* Achievements */
 "achievement.maker.title" = "Le Faiseur";
 "achievement.maker.desc" = "Termine 100 tâches au total.";
@@ -22,6 +24,7 @@
 "achievements.title" = "Succès";
 "achievements.open_button" = "Afficher les succès";
 "achievements.empty" = "Aucun succès pour le moment.";
+"achievements.subtitle" = "Peux-tu débloquer tous les succès ? Montre ce dont tu es capable ! Quelques-uns sont entourés de mystère...";
 
 /* App */
 "app.title" = "Doable";

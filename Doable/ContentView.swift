@@ -302,6 +302,8 @@ struct ContentView: View {
                         withAnimation {
                             todo.isCompleted = true
                             todo.completedAt = Date()
+                            todo.completedWithTimer = false
+                            todo.timerDurationSeconds = nil
                         }
                         performComplete(todo)
                     }
@@ -317,6 +319,9 @@ struct ContentView: View {
                     // completion callback from fullscreen view: mark todo completed and clear pending
                     withAnimation {
                         todo.isCompleted = true
+                        todo.completedAt = Date()
+                        todo.completedWithTimer = true
+                        todo.timerDurationSeconds = timerSecondsToRun
                     }
                     // show snackbar for undo
                     performComplete(todo)

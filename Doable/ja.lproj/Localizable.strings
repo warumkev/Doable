@@ -1,3 +1,5 @@
+"statistics.streak_encouragement_active" = "絶好調です！";
+"statistics.streak_encouragement_inactive" = "新しい連続記録を始めませんか？";
 /* Achievements */
 "achievement.maker.title" = "達成者";
 "achievement.maker.desc" = "合計100個のタスクを完了する。";
@@ -22,6 +24,7 @@
 "achievements.title" = "実績";
 "achievements.open_button" = "実績を表示";
 "achievements.empty" = "まだ実績はありません。";
+"achievements.subtitle" = "すべての実績を解除できる？あなたの力を見せてください！いくつかは謎に包まれています...";
 
 /* App */
 "app.title" = "Doable";

@@ -1,3 +1,5 @@
+"statistics.streak_encouragement_active" = "You are doing really great!";
+"statistics.streak_encouragement_inactive" = "Ready to start a new streak?";
 /* Achievements */
 "achievement.maker.title" = "Der Macher";
 "achievement.maker.desc" = "Complete 100 tasks in total.";
@@ -22,6 +24,7 @@
 "achievements.title" = "Achievements";
 "achievements.open_button" = "Show Achievements";
 "achievements.empty" = "No achievements yet.";
+"achievements.subtitle" = "Can you unlock all achievements? Prove your worth! A few are shrouded in mystery...";
 
 /* App */
 "app.title" = "Doable";

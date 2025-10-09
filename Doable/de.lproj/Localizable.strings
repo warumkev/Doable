@@ -1,3 +1,5 @@
+"statistics.streak_encouragement_active" = "Du bist richtig gut dabei!";
+"statistics.streak_encouragement_inactive" = "Bereit für eine neue Serie?";
 /* Achievements */
 "achievement.maker.title" = "Der Macher";
 "achievement.maker.desc" = "Schließe insgesamt 100 Aufgaben ab.";
@@ -22,6 +24,7 @@
 "achievements.title" = "Erfolge";
 "achievements.open_button" = "Erfolge anzeigen";
 "achievements.empty" = "Noch keine Erfolge.";
+"achievements.subtitle" = "Kannst du alle Erfolge freischalten? Beweise dein Können! Einige sind von Geheimnissen umhüllt...";
 
 /* App */
 "app.title" = "Doable";

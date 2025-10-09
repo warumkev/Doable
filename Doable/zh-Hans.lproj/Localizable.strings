@@ -1,3 +1,5 @@
+"statistics.streak_encouragement_active" = "你状态正佳！";
+"statistics.streak_encouragement_inactive" = "准备开始新的连胜了吗？";
 /* Achievements */
 "achievement.maker.title" = "成就者";
 "achievement.maker.desc" = "累计完成100个任务。";
@@ -22,6 +24,7 @@
 "achievements.title" = "成就";
 "achievements.open_button" = "显示成就";
 "achievements.empty" = "尚无成就。";
+"achievements.subtitle" = "你能解锁所有成就吗？证明你的实力！有些成就笼罩在神秘之中...";
 
 /* App */
 "app.title" = "Doable";

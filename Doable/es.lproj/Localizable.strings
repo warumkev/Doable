@@ -1,3 +1,5 @@
+"statistics.streak_encouragement_active" = "¡Vas genial!";
+"statistics.streak_encouragement_inactive" = "¿Listo para empezar una nueva racha?";
 /* Achievements */
 "achievement.maker.title" = "El Hacedor";
 "achievement.maker.desc" = "Completa 100 tareas en total.";
@@ -22,6 +24,7 @@
 "achievements.title" = "Logros";
 "achievements.open_button" = "Mostrar logros";
 "achievements.empty" = "Aún no hay logros.";
+"achievements.subtitle" = "¿Puedes desbloquear todos los logros? ¡Demuestra tu habilidad! Algunos están envueltos en misterio...";
 
 /* App */
 "app.title" = "Doable";

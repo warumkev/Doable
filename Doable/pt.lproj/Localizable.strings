@@ -1,3 +1,5 @@
+"statistics.streak_encouragement_active" = "Você está com tudo!";
+"statistics.streak_encouragement_inactive" = "Pronto para começar uma nova sequência?";
 /* Achievements */
 "achievement.maker.title" = "O Realizador";
 "achievement.maker.desc" = "Conclua 100 tarefas no total.";
@@ -22,6 +24,7 @@
 "achievements.title" = "Conquistas";
 "achievements.open_button" = "Mostrar conquistas";
 "achievements.empty" = "Ainda não há conquistas.";
+"achievements.subtitle" = "Você consegue desbloquear todas as conquistas? Prove seu valor! Algumas estão envoltas em mistério...";
 
 /* App */
 "app.title" = "Doable";

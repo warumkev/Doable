@@ -20,11 +20,17 @@ final class Todo {
     var createdAt: Date = Date()
     // Optional timestamp for when the todo was completed
     var completedAt: Date?
+    // Timer duration in seconds (if completed with timer)
+    var timerDurationSeconds: Int? = nil
+    // Whether this todo was completed with a timer
+    var completedWithTimer: Bool = false
 
     init(title: String) {
         self.title = title
         self.isCompleted = false
         self.createdAt = Date()
         self.completedAt = nil
+        self.timerDurationSeconds = nil
+        self.completedWithTimer = false
     }
 }
