@@ -73,7 +73,8 @@
 
 /* Statistics */
 "statistics.title" = "Statistics";
-"statistics.coming_soon" = "Coming soon — this will show Momentum, streaks and history.";
+"statistics.streak_label" = "Daily Streak";
+"statistics.streak_encouragement" = "You are on a roll!";
 "statistics.summary" = "Summary";
 "statistics.total" = "Total";
 "statistics.this_month" = "This month";

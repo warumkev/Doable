@@ -70,9 +70,9 @@
 "section.title" = "已完成";
 
 /* Statistics */
-"settings.coming_soon" = "敬请期待——这里将显示设置。";
 "statistics.title" = "统计";
-"statistics.coming_soon" = "敬请期待——这里将显示动力、连续天数和历史记录。";
+"statistics.streak_label" = "每周连胜";
+"statistics.streak_encouragement" = "你做得非常棒！";
 "statistics.summary" = "摘要";
 "statistics.total" = "总计";
 "statistics.this_month" = "本月";

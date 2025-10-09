@@ -72,9 +72,9 @@
 "section.title" = "完了";
 
 /* Statistics */
-"settings.coming_soon" = "近日公開 — ここに設定が表示されます。";
 "statistics.title" = "統計";
-"statistics.coming_soon" = "近日公開 — ここにMomentum、連続記録、履歴が表示されます。";
+"statistics.streak_label" = "週間連続";
+"statistics.streak_encouragement" = "とてもよくできています！";
 "statistics.summary" = "概要";
 "statistics.total" = "合計";
 "statistics.this_month" = "今月";

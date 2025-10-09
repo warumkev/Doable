@@ -15,19 +15,24 @@ struct StatisticsView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 16) {
+            ScrollView {
+                VStack(spacing: 16) {
+                    // --- Streak View ---
+                    streakView
 
-                monthHeader
+                    monthHeader
 
-                calendarGrid
+                    calendarGrid
 
-                Divider()
-                // Summary statistics row
-                summaryStats
+                    Divider()
+                    // Summary statistics row
+                    summaryStats
 
-                Spacer()
+                    Spacer()
+                }
+                .padding(.top, 32) // Add extra top padding to avoid overlap
+                .padding()
             }
-            .padding()
             .navigationTitle(LocalizedStringKey("statistics.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -38,6 +43,69 @@ struct StatisticsView: View {
                 }
             }
         }
+    }
+    // --- Streak View ---
+    private var streakView: some View {
+        VStack(spacing: 8) {
+            ZStack {
+                VStack(spacing: 0) {
+                    Image(systemName: "flame.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 36, height: 36)
+                        .foregroundColor(currentStreak > 0 ? .orange : .gray)
+                        .shadow(color: (currentStreak > 0 ? Color.orange : Color.gray).opacity(0.3), radius: 4, x: 0, y: 2)
+                    Text("\(currentStreak)")
+                        .font(.system(size: 44, weight: .bold, design: .rounded))
+                        .foregroundColor(.primary)
+                        .padding(.top, 2)
+                }
+            }
+            Text(LocalizedStringKey("statistics.streak_label"))
+                .font(.title2)
+                .fontWeight(.semibold)
+                .padding(.top, 2)
+            Text(LocalizedStringKey("statistics.streak_encouragement"))
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .padding(.bottom, 2)
+
+            weekStreakRow
+        }
+        .padding(.vertical, 8)
+    }
+
+    // Week row with highlighted streak days
+    private var weekStreakRow: some View {
+        let today = calendar.startOfDay(for: Date())
+        let weekdaySymbols = calendar.shortWeekdaySymbols
+        let weekday = calendar.component(.weekday, from: today) // 1 = Sunday
+        // Calculate start of week (using current locale)
+        let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - calendar.firstWeekday), to: today) ?? today
+        // Build array of 7 days for the week
+        let weekDays: [Date] = (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: startOfWeek) }
+        let completions = completionsByDay()
+
+        return HStack(spacing: 16) {
+            ForEach(0..<7, id: \ .self) { i in
+                VStack(spacing: 4) {
+                    Text(String(weekdaySymbols[i].prefix(1)))
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                    ZStack {
+                        Circle()
+                            .fill((completions[startOfDay(weekDays[i])] ?? 0) > 0 ? Color.orange : Color(.systemGray4))
+                            .frame(width: 24, height: 24)
+                        if (completions[startOfDay(weekDays[i])] ?? 0) > 0 {
+                            Image(systemName: "checkmark")
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(.white)
+                        }
+                    }
+                }
+            }
+        }
+        .padding(.top, 4)
     }
 
     private var monthHeader: some View {

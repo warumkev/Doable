@@ -72,9 +72,9 @@
 "section.title" = "Conclu\u00eddo";
 
 /* Statistics */
-"settings.coming_soon" = "Em breve — isso mostrará as configurações.";
 "statistics.title" = "Estatísticas";
-"statistics.coming_soon" = "Em breve — isso mostrará Momentum, sequências e histórico.";
+"statistics.streak_label" = "Sequência semanal";
+"statistics.streak_encouragement" = "Você está indo muito bem!";
 "statistics.summary" = "Resumo";
 "statistics.total" = "Total";
 "statistics.this_month" = "Este mês";

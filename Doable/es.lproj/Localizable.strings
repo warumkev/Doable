@@ -72,9 +72,9 @@
 "section.title" = "Hecho";
 
 /* Statistics */
-"settings.coming_soon" = "Próximamente — aquí se mostrarán los ajustes.";
 "statistics.title" = "Estadísticas";
-"statistics.coming_soon" = "Próximamente — aquí se mostrarán Momentum, rachas e historial.";
+"statistics.streak_label" = "Racha diaria";
+"statistics.streak_encouragement" = "¡Vas genial!";
 "statistics.summary" = "Resumen";
 "statistics.total" = "Total";
 "statistics.this_month" = "Este mes";

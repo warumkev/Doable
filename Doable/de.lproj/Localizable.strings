@@ -72,9 +72,9 @@
 "section.title" = "Erledigt";
 
 /* Statistics */
-"settings.coming_soon" = "Demnächst verfügbar – hier werden Einstellungen angezeigt.";
 "statistics.title" = "Statistiken";
-"statistics.coming_soon" = "Demnächst verfügbar – hier werden Momentum, Serien und Verlauf angezeigt.";
+"statistics.streak_label" = "Tagesserie";
+"statistics.streak_encouragement" = "Du bist richtig gut dabei!";
 "statistics.summary" = "Übersicht";
 "statistics.total" = "Gesamt";
 "statistics.this_month" = "Diesen Monat";
