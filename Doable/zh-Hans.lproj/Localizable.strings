@@ -1,3 +1,8 @@
+/* Achievements */
+"achievements.title" = "成就";
+"achievements.open_button" = "显示成就";
+"achievements.empty" = "尚无成就。";
+
 /* App */
 "app.title" = "Doable";
 

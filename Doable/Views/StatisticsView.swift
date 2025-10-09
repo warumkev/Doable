@@ -13,6 +13,8 @@ struct StatisticsView: View {
 
     // (no explicit share state needed for basic system share)
 
+    @State private var showAchievements = false
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -24,6 +26,21 @@ struct StatisticsView: View {
                     // Summary statistics row
                     summaryStats
 
+                    Button {
+                        showAchievements = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                            Text(LocalizedStringKey("achievements.open_button"))
+                                .font(.headline)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(.systemGray5))
+                        .cornerRadius(12)
+                    }
+
                     Spacer()
                 }
                 .padding(.top, 32) // Add extra top padding to avoid overlap
@@ -31,7 +48,9 @@ struct StatisticsView: View {
             }
             .navigationTitle(LocalizedStringKey("statistics.title"))
             .navigationBarTitleDisplayMode(.inline)
-            // Share toolbar removed
+            .sheet(isPresented: $showAchievements) {
+                AchievementsView()
+            }
         }
     }
     // --- Streak View ---

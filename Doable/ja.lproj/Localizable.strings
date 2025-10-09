@@ -1,4 +1,7 @@
-/* English localizations (dotted keys only). Keep keys in abc.def.xyz style. */
+/* Achievements */
+"achievements.title" = "実績";
+"achievements.open_button" = "実績を表示";
+"achievements.empty" = "まだ実績はありません。";
 
 /* App */
 "app.title" = "Doable";

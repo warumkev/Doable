@@ -1,4 +1,7 @@
-/* Deutsche Übersetzungen (nur punktierte Schlüssel). Schlüssel im Stil abc.def.xyz beibehalten. */
+/* Achievements */
+"achievements.title" = "Erfolge";
+"achievements.open_button" = "Erfolge anzeigen";
+"achievements.empty" = "Noch keine Erfolge.";
 
 /* App */
 "app.title" = "Doable";
