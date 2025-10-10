@@ -219,14 +219,14 @@ struct ContentView: View {
                                                 TodoView(todo: todo)
                                             }
                                         }
-                                        .padding(.horizontal, 20)
+                                        // Match main todos list: remove extra horizontal padding
                                     }
                                     .frame(maxHeight: 200) // Limit height of expanded done section
                                     .transition(.opacity.combined(with: .move(edge: .top)))
                                 }
                             }
                             .cornerRadius(12)
-                            .padding(.horizontal, 16)
+                            // Remove .padding(.horizontal, 16) to align with main todos
                             .padding(.bottom, 0)
                         }
                     }
