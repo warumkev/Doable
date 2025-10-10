@@ -1,3 +1,10 @@
+/* 分类 */
+"todo.category.work" = "工作";
+"todo.category.school" = "学校";
+"todo.category.shopping" = "购物";
+"todo.category.personal" = "个人";
+"todo.category.other" = "其他";
+"todo.notes.placeholder" = "添加备注...";
 "streak.notification.title" = "保持你的连续记录！";
 "streak.notification.body" = "今天完成一个待办事项以延续你的连续记录。";
 "menu.history" = "显示历史";

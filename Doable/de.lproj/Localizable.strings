@@ -1,3 +1,10 @@
+/* Kategorien */
+"todo.category.work" = "Arbeit";
+"todo.category.school" = "Schule";
+"todo.category.shopping" = "Einkaufen";
+"todo.category.personal" = "Persönlich";
+"todo.category.other" = "Sonstiges";
+"todo.notes.placeholder" = "Notizen hinzufügen...";
 "streak.notification.title" = "Halte deine Serie am Leben!";
 "streak.notification.body" = "Erledige heute eine Aufgabe, um deine Serie fortzusetzen.";
 "menu.history" = "Verlauf anzeigen";

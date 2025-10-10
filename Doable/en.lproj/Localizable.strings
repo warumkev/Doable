@@ -1,3 +1,10 @@
+/* Categories */
+"todo.category.work" = "Work";
+"todo.category.school" = "School";
+"todo.category.shopping" = "Shopping";
+"todo.category.personal" = "Personal";
+"todo.category.other" = "Other";
+"todo.notes.placeholder" = "Add notes...";
 "streak.notification.title" = "Keep your streak alive!";
 "streak.notification.body" = "Complete a todo today to continue your streak.";
 "menu.history" = "Show History";

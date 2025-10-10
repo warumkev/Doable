@@ -1,3 +1,10 @@
+/* カテゴリー */
+"todo.category.work" = "仕事";
+"todo.category.school" = "学校";
+"todo.category.shopping" = "買い物";
+"todo.category.personal" = "個人";
+"todo.category.other" = "その他";
+"todo.notes.placeholder" = "ノートを追加...";
 "streak.notification.title" = "連続記録を続けよう！";
 "streak.notification.body" = "今日もToDoを完了して連続記録を伸ばそう。";
 "menu.history" = "履歴を表示";

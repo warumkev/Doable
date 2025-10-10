@@ -1,3 +1,10 @@
+/* Categorías */
+"todo.category.work" = "Trabajo";
+"todo.category.school" = "Escuela";
+"todo.category.shopping" = "Compras";
+"todo.category.personal" = "Personal";
+"todo.category.other" = "Otro";
+"todo.notes.placeholder" = "Agregar notas...";
 "streak.notification.title" = "¡Mantén tu racha!";
 "streak.notification.body" = "Completa una tarea hoy para continuar tu racha.";
 "menu.history" = "Mostrar historial";

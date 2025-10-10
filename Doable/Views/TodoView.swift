@@ -11,77 +11,82 @@ import SwiftData
 struct TodoView: View {
     @Bindable var todo: Todo
     @FocusState private var isTextFieldFocused: Bool
+    @FocusState private var isNotesFieldFocused: Bool
     @State private var highlightNew: Bool = false
     @State private var suggestedNameKey: LocalizedStringKey = LocalizedStringKey("todo.placeholder")
     var onRequestComplete: (() -> Void)? = nil
+    var onEditingChanged: ((Bool) -> Void)? = nil
     @Environment(\.modelContext) private var modelContext
     @AppStorage("settings.prefillSuggestions") private var prefillSuggestions: Bool = false
     
     var body: some View {
-        HStack {
-            Button(action: {
-                if todo.isCompleted {
-                    // Allow un-completing immediately
-                    todo.isCompleted.toggle()
-                } else {
-                    // Ask parent to present timer sheet
-                    onRequestComplete?()
+        VStack(alignment: .leading, spacing: 2) {
+            // Row: Checkbox and todo title
+            HStack(alignment: .center) {
+                Button(action: {
+                    if todo.isCompleted {
+                        todo.isCompleted.toggle()
+                    } else {
+                        onRequestComplete?()
+                    }
+                }) {
+                    Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(todo.isCompleted ? .green : .gray)
+                        .font(.title2)
                 }
-            }) {
-                Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(todo.isCompleted ? .green : .gray)
-                    .font(.title2)
-            }
-            .buttonStyle(PlainButtonStyle())
-            
-            TextField(suggestedNameKey, text: $todo.title)
-                .textFieldStyle(PlainTextFieldStyle())
-                .strikethrough(todo.isCompleted)
-                .foregroundColor(todo.isCompleted ? .secondary : .primary)
-                .focused($isTextFieldFocused)
-                .overlay(
-                    // soft glow when new
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.accentColor.opacity(highlightNew ? 0.5 : 0.0), lineWidth: 2)
-                        .blur(radius: highlightNew ? 6 : 0)
-                        .animation(.easeOut(duration: 0.5), value: highlightNew)
-                )
-                .onAppear {
-                    if todo.title.isEmpty {
-                        // pick a friendly suggested placeholder and autofocus
-                        let key = NewTodoNames.randomNameKey()
-                        suggestedNameKey = key
-                        if prefillSuggestions {
-                            // Resolve the LocalizedStringKey to a String and prefill the todo title
-                            // NSLocalizedString expects the raw key string, so convert accordingly.
-                            // LocalizedStringKey("todo.default.X")'s description may include the key; but use the key directly.
-                            // We expect NewTodoNames.randomNameKey() returns LocalizedStringKey("todo.default.N").
-                            let mirror = Mirror(reflecting: key)
-                            if let anyKey = mirror.children.first(where: { $0.label == "key" })?.value as? String {
-                                let localized = NSLocalizedString(anyKey, comment: "")
-                                todo.title = localized
-                            } else {
-                                // Fallback: try using string interpolation
-                                todo.title = String(describing: key)
+                .buttonStyle(PlainButtonStyle())
+
+                TextField(suggestedNameKey, text: $todo.title)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .strikethrough(todo.isCompleted)
+                    .foregroundColor(todo.isCompleted ? .secondary : .primary)
+                    .focused($isTextFieldFocused)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(Color.accentColor.opacity(highlightNew ? 0.5 : 0.0), lineWidth: 2)
+                            .blur(radius: highlightNew ? 6 : 0)
+                            .animation(.easeOut(duration: 0.5), value: highlightNew)
+                    )
+                    .onAppear {
+                        if todo.title.isEmpty {
+                            let key = NewTodoNames.randomNameKey()
+                            suggestedNameKey = key
+                            if prefillSuggestions {
+                                let mirror = Mirror(reflecting: key)
+                                if let anyKey = mirror.children.first(where: { $0.label == "key" })?.value as? String {
+                                    let localized = NSLocalizedString(anyKey, comment: "")
+                                    todo.title = localized
+                                } else {
+                                    todo.title = String(describing: key)
+                                }
                             }
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
-                            isTextFieldFocused = true
-                            highlightNew = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                withAnimation(.easeOut(duration: 0.5)) {
-                                    highlightNew = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
+                                isTextFieldFocused = true
+                                highlightNew = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation(.easeOut(duration: 0.5)) {
+                                        highlightNew = false
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                .onChange(of: isTextFieldFocused) { _, focused in
-                    if !focused {
-                        // If the user left the field and didn't type anything, remove the empty todo.
+                    .onChange(of: isTextFieldFocused) { _, focused in
+                        onEditingChanged?(focused)
+                        if !focused {
+                            let trimmed = todo.title.trimmingCharacters(in: .whitespacesAndNewlines)
+                            if trimmed.isEmpty {
+                                DispatchQueue.main.async {
+                                    withAnimation {
+                                        modelContext.delete(todo)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .onDisappear {
                         let trimmed = todo.title.trimmingCharacters(in: .whitespacesAndNewlines)
                         if trimmed.isEmpty {
-                            // Use main thread animation for UI consistency
                             DispatchQueue.main.async {
                                 withAnimation {
                                     modelContext.delete(todo)
@@ -89,18 +94,76 @@ struct TodoView: View {
                             }
                         }
                     }
-                }
-                .onDisappear {
-                    // As a safety net: if the view disappears while title is empty, remove it.
-                    let trimmed = todo.title.trimmingCharacters(in: .whitespacesAndNewlines)
-                    if trimmed.isEmpty {
-                        DispatchQueue.main.async {
-                            withAnimation {
-                                modelContext.delete(todo)
-                            }
+            }
+
+            // Notes field below the row, indented to align with todo title
+            let leadingPadding: CGFloat = 34 // Checkbox width + spacing
+            if !todo.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isTextFieldFocused || isNotesFieldFocused {
+                TextField(LocalizedStringKey("todo.notes.placeholder"), text: $todo.notes, axis: .vertical)
+                    .font(.caption)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .foregroundColor(.secondary)
+                    .padding(.top, 2)
+                    .padding(.leading, leadingPadding)
+                    .submitLabel(.done)
+                    .focused($isNotesFieldFocused)
+                    .onSubmit {
+                        isNotesFieldFocused = false
+                    }
+            }
+
+            // Minimal horizontal category selection below notes, indented to align with todo title
+            let categories: [String] = [
+                "todo.category.work",
+                "todo.category.school",
+                "todo.category.shopping",
+                "todo.category.personal",
+                "todo.category.other"
+            ]
+            // Show category list only when editing (either field focused)
+            if todo.category.isEmpty && (isTextFieldFocused || isNotesFieldFocused) {
+                // Wrap categories using a flexible grid
+                FlexibleView(data: categories, spacing: 6, alignment: .leading) { cat in
+                    Text(LocalizedStringKey(cat))
+                        .font(.caption2)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.primary.opacity(0.1))
+                        .foregroundColor(.secondary)
+                        .cornerRadius(8)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.center)
+                        .onTapGesture {
+                            todo.category = cat
                         }
+                }
+                .padding(.top, 2)
+                .padding(.leading, leadingPadding)
+            } else if !todo.category.isEmpty {
+                HStack(spacing: 4) {
+                    Text(LocalizedStringKey(todo.category))
+                        .font(.caption2)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.primary.opacity(0.25))
+                        .foregroundColor(.primary)
+                        .cornerRadius(8)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.center)
+                    if isTextFieldFocused || isNotesFieldFocused {
+                        Button(action: {
+                            todo.category = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
+                .padding(.top, 2)
+                .padding(.leading, leadingPadding)
+            }
         }
         .padding(.vertical, 4)
     }

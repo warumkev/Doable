@@ -1,7 +1,5 @@
 import SwiftUI
 
-import SwiftUI
-
 struct Achievement {
     let id: String
     let titleKey: LocalizedStringKey

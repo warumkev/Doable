@@ -24,13 +24,19 @@ final class Todo {
     var timerDurationSeconds: Int? = nil
     // Whether this todo was completed with a timer
     var completedWithTimer: Bool = false
+    // Optional notes/description for the todo
+    var notes: String = ""
+    // Category for the todo (e.g., Work, School, Shopping)
+    var category: String = ""
 
-    init(title: String) {
+    init(title: String, category: String = "") {
         self.title = title
         self.isCompleted = false
         self.createdAt = Date()
         self.completedAt = nil
         self.timerDurationSeconds = nil
         self.completedWithTimer = false
+        self.notes = ""
+        self.category = category
     }
 }

@@ -36,6 +36,8 @@ struct ContentView: View {
     @State private var isSettingsPresented: Bool = false
     @State private var isMenuPresented: Bool = false
     @State private var isHistoryPresented: Bool = false
+    // Track if any todo is currently being edited
+    @State private var isAnyTodoEditing: Bool = false
 
     // Snackbar / undo state
     @State private var snackbarVisible: Bool = false
@@ -65,7 +67,7 @@ struct ContentView: View {
     }
 
     var body: some View {
-    ZStack {
+        ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
                 // Header with title left and optional icons on the right
                 VStack {
@@ -166,11 +168,16 @@ struct ContentView: View {
                         ScrollView {
                             LazyVStack(alignment: .leading, spacing: 12) {
                                 ForEach(incompleteTodos) { todo in
-                                    TodoView(todo: todo, onRequestComplete: {
-                                        // Parent will show the timer sheet for the selected todo
-                                        pendingCompletionTodo = todo
-                                        isTimerSheetPresented = true
-                                    })
+                                    TodoView(
+                                        todo: todo,
+                                        onRequestComplete: {
+                                            pendingCompletionTodo = todo
+                                            isTimerSheetPresented = true
+                                        },
+                                        onEditingChanged: { editing in
+                                            isAnyTodoEditing = editing
+                                        }
+                                    )
                                     .contextMenu {
                                         Button(LocalizedStringKey("actions.delete"), role: .destructive) {
                                             performDelete(todo)
@@ -178,10 +185,8 @@ struct ContentView: View {
                                     }
                                 }
                             }
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 0)
                         }
-
-                        Spacer()
 
                         // Done section: collapsible list of completed todos
                         if !completedTodos.isEmpty {
@@ -222,21 +227,15 @@ struct ContentView: View {
                             }
                             .cornerRadius(12)
                             .padding(.horizontal, 16)
-                            .padding(.bottom, 100) // Space above the + button
-                        } else {
-                            Spacer()
-                                .frame(height: 100) // Space for + button when no done items
+                            .padding(.bottom, 0)
                         }
                     }
                 }
             }
             .padding(.horizontal, 20)
 
-            // Floating area containing snackbar and the Add (+) button
-            VStack {
-                Spacer()
-
-                // Snackbar placed here so it sits above the + button and doesn't overlap it
+            // Overlay: snackbar and + button at the bottom
+            VStack(spacing: 8) {
                 if snackbarVisible {
                     HStack {
                         Text(snackbarMessage)
@@ -256,32 +255,30 @@ struct ContentView: View {
                     .cornerRadius(12)
                     .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 12)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
-
-                // + button with press bounce
-                // Disabled while there's an unfinished (empty) todo so users don't create multiple blank entries
                 let hasEmptyTodo = incompleteTodos.contains { $0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-                Button(action: addTodo) {
-                    Image(systemName: "plus")
-                        .font(.title2)
-                        .foregroundColor(.gray)
-                        .frame(width: 56, height: 56)
-                        .background(Circle().fill(Color.primary))
-                        .scaleEffect(isAdding ? 0.9 : 1.0)
-                        .shadow(color: .black.opacity(isAdding ? 0.15 : 0.25), radius: isAdding ? 2 : 6, x: 0, y: 4)
-                        .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isAdding)
+                if !isAnyTodoEditing {
+                    Button(action: addTodo) {
+                        Image(systemName: "plus")
+                            .font(.title2)
+                            .foregroundColor(.gray)
+                            .frame(width: 56, height: 56)
+                            .background(Circle().fill(Color.primary))
+                            .scaleEffect(isAdding ? 0.9 : 1.0)
+                            .shadow(color: Color.black.opacity(0.85), radius: 12, x: 0, y: 4)
+                            .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isAdding)
+                    }
+                    .disabled(hasEmptyTodo)
+                    .opacity(hasEmptyTodo ? 0.3 : 1.0)
+                    .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged({ _ in
+                        isAdding = true
+                    }).onEnded({ _ in
+                        isAdding = false
+                    }))
                 }
-                .disabled(hasEmptyTodo)
-                .opacity(hasEmptyTodo ? 0.3 : 1.0)
-                .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged({ _ in
-                    isAdding = true
-                }).onEnded({ _ in
-                    isAdding = false
-                }))
-                .padding(.bottom, 20)
             }
+            .padding(.bottom, 20)
         }
         .onAppear {
             // Schedule/cancel streak notification for 6pm based on today's completion status
