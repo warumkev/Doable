@@ -1,3 +1,5 @@
+"menu.history" = "Show History";
+"history.title" = "History";
 "statistics.streak_encouragement_active" = "You are doing really great!";
 "statistics.streak_encouragement_inactive" = "Ready to start a new streak?";
 /* Achievements */

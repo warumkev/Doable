@@ -35,6 +35,7 @@ struct ContentView: View {
     @State private var isStatisticsPresented: Bool = false
     @State private var isSettingsPresented: Bool = false
     @State private var isMenuPresented: Bool = false
+    @State private var isHistoryPresented: Bool = false
 
     // Snackbar / undo state
     @State private var snackbarVisible: Bool = false
@@ -54,7 +55,13 @@ struct ContentView: View {
     }
 
     private var completedTodos: [Todo] {
-        todos.filter { $0.isCompleted }.sorted { $0.createdAt > $1.createdAt }
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        return todos.filter {
+            $0.isCompleted &&
+            ($0.completedAt != nil) &&
+            calendar.isDate($0.completedAt!, inSameDayAs: today)
+        }.sorted { ($0.completedAt ?? .distantPast) > ($1.completedAt ?? .distantPast) }
     }
 
     var body: some View {
@@ -110,6 +117,12 @@ struct ContentView: View {
                             isMenuPresented = false
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                                 isSettingsPresented = true
+                            }
+                        }
+                        Button(LocalizedStringKey("menu.history")) {
+                            isMenuPresented = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                                isHistoryPresented = true
                             }
                         }
                     }
@@ -351,6 +364,9 @@ struct ContentView: View {
                 shouldPresentFullscreenAfterSheet = false
                 isFullscreenTimerPresented = true
             }
+        }
+        .sheet(isPresented: $isHistoryPresented) {
+            HistoryView(todos: todos)
         }
 
     }
