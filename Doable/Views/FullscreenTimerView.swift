@@ -15,6 +15,12 @@ import AudioToolbox
 ///   user to rotate back to portrait to confirm completion; once portrait is detected the `onComplete`
 ///   callback is invoked.
 struct FullscreenTimerView: View {
+    // Prevent Standby Mode (iOS 17+) while timer is running
+    private func setIdleTimerDisabled(_ disabled: Bool) {
+        #if os(iOS)
+        UIApplication.shared.isIdleTimerDisabled = disabled
+        #endif
+    }
     @Environment(\.dismiss) private var dismiss
     @Environment(\.scenePhase) private var scenePhase
 
@@ -79,6 +85,7 @@ struct FullscreenTimerView: View {
                     onConfirm: {
                         onCancel()
                         dismiss()
+                        setIdleTimerDisabled(false)
                     }
                 )
                 .zIndex(3)
@@ -348,6 +355,21 @@ struct FullscreenTimerView: View {
                 appDidLeaveWhileRunning()
             }
         }
+    }
+    // Manage idle timer state based on timer activity
+    private func updateIdleTimer() {
+        setIdleTimerDisabled(timerActive)
+    }
+    // ...existing code...
+    // Add onChange modifier to timerActive
+    var bodyWithIdleTimer: some View {
+        body
+            .onChange(of: timerActive) { _, active in
+                setIdleTimerDisabled(active)
+            }
+            .onDisappear {
+                setIdleTimerDisabled(false)
+            }
     }
 
     // MARK: - Orientation observation
