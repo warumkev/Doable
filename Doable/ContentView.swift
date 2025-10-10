@@ -65,7 +65,7 @@ struct ContentView: View {
     }
 
     var body: some View {
-        ZStack {
+    ZStack {
             VStack(spacing: 0) {
                 // Header with title left and optional icons on the right
                 VStack {
@@ -76,17 +76,6 @@ struct ContentView: View {
                             .scaledToFit()
                             .frame(height: 48)
                             .foregroundColor(.primary)
-                            .gesture(
-                                DragGesture(minimumDistance: 50)
-                                    .onChanged { _ in
-                                        isLogoRubbed = true
-                                    }
-                                    .onEnded { _ in
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                            isLogoRubbed = false
-                                        }
-                                    }
-                            )
                     }
                     // Replace `Menu` with a simple Button + confirmationDialog to avoid
                     // UIKit context-menu reparenting warnings on some iOS versions.
@@ -294,6 +283,27 @@ struct ContentView: View {
                 .padding(.bottom, 20)
             }
         }
+        .onAppear {
+            // Schedule/cancel streak notification for 6pm based on today's completion status
+            let calendar = Calendar.current
+            let today = calendar.startOfDay(for: Date())
+            let completedToday = todos.contains { $0.isCompleted && $0.completedAt != nil && calendar.isDate($0.completedAt!, inSameDayAs: today) }
+            let center = UNUserNotificationCenter.current()
+            let identifier = "streakReminder"
+            center.removePendingNotificationRequests(withIdentifiers: [identifier])
+            if !completedToday {
+                let content = UNMutableNotificationContent()
+                content.title = NSLocalizedString("streak.notification.title", comment: "Streak reminder title")
+                content.body = NSLocalizedString("streak.notification.body", comment: "Streak reminder body")
+                content.sound = .default
+                var dateComponents = DateComponents()
+                dateComponents.hour = 18
+                dateComponents.minute = 0
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+                center.add(request)
+            }
+        }
         // Timer setup sheet -> fullscreen timer presentation flow
         .sheet(isPresented: $isTimerSheetPresented) {
             TimerSetupSheet(
@@ -364,6 +374,9 @@ struct ContentView: View {
                 shouldPresentFullscreenAfterSheet = false
                 isFullscreenTimerPresented = true
             }
+        }
+        .onChange(of: todos) { _, _ in
+            StreakNotificationManager.shared.scheduleStreakNotificationIfNeeded(modelContext: modelContext)
         }
         .sheet(isPresented: $isHistoryPresented) {
             HistoryView(todos: todos)

@@ -1,3 +1,5 @@
+"streak.notification.title" = "Keep your streak alive!";
+"streak.notification.body" = "Complete a todo today to continue your streak.";
 "menu.history" = "Show History";
 "history.title" = "History";
 "statistics.streak_encouragement_active" = "You are doing really great!";
