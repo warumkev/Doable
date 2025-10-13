@@ -71,14 +71,6 @@ struct ContentView: View {
             VStack(spacing: 0) {
                 // Header with title left and optional icons on the right
                 VStack {
-                    ZStack {
-                        Image("doableLogo")
-                            .renderingMode(.template)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 48)
-                            .foregroundColor(.primary)
-                    }
                     // Replace `Menu` with a simple Button + confirmationDialog to avoid
                     // UIKit context-menu reparenting warnings on some iOS versions.
                     Button {
@@ -165,28 +157,28 @@ struct ContentView: View {
                 } else {
                     VStack(spacing: 0) {
                         // Main todos list (incomplete first)
-                        ScrollView {
-                            LazyVStack(alignment: .leading, spacing: 12) {
-                                ForEach(incompleteTodos) { todo in
-                                    TodoView(
-                                        todo: todo,
-                                        onRequestComplete: {
-                                            pendingCompletionTodo = todo
-                                            isTimerSheetPresented = true
-                                        },
-                                        onEditingChanged: { editing in
-                                            isAnyTodoEditing = editing
-                                        }
-                                    )
-                                    .contextMenu {
-                                        Button(LocalizedStringKey("actions.delete"), role: .destructive) {
-                                            performDelete(todo)
-                                        }
+                        List {
+                            ForEach(incompleteTodos) { todo in
+                                TodoView(
+                                    todo: todo,
+                                    onRequestComplete: {
+                                        pendingCompletionTodo = todo
+                                        isTimerSheetPresented = true
+                                    },
+                                    onEditingChanged: { editing in
+                                        isAnyTodoEditing = editing
+                                    }
+                                )
+                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                    Button(role: .destructive) {
+                                        performDelete(todo)
+                                    } label: {
+                                        Image(systemName: "trash")
                                     }
                                 }
                             }
-                            .padding(.bottom, 0)
                         }
+                        .listStyle(PlainListStyle())
 
                         // Done section: collapsible list of completed todos
                         if !completedTodos.isEmpty {
