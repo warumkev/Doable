@@ -1,3 +1,16 @@
+/* Mensaje motivacional de notificación */
+"notification.todo.body" = "Ve y completa \"%@\" ahora.";
+/* Títulos motivacionales de notificación */
+"notification.todo.title.1" = "¡Hazlo ahora—tu yo del futuro te lo agradecerá!";
+"notification.todo.title.2" = "Este es tu momento. ¡Empieza ya!";
+"notification.todo.title.3" = "Un toque, una victoria. ¡Vamos!";
+"notification.todo.title.4" = "No esperes—avanza ahora!";
+"notification.todo.title.5" = "La acción supera la intención. ¡Comienza!";
+"notification.todo.title.6" = "El mejor momento es ahora. ¡Muévete!";
+"notification.todo.title.7" = "Tu tarea te espera—¡hazla ya!";
+"notification.todo.title.8" = "El impulso empieza con esta tarea!";
+"notification.todo.title.9" = "Pequeña acción, gran impacto. ¡Hazlo!";
+"notification.todo.title.10" = "Eres imparable—¡demuéstralo ahora!";
 /* Planificación Sheet */
 "todo.select_date_time" = "Selecciona fecha y hora";
 "todo.select_date" = "Fecha";
