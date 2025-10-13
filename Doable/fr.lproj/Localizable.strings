@@ -1,3 +1,8 @@
+/* Feuille de planification */
+"todo.select_date_time" = "Sélectionner date et heure";
+"todo.select_date" = "Date";
+"todo.select_time" = "Heure";
+"todo.set_time" = "Définir l'heure";
 /* Catégories */
 "todo.category.work" = "Travail";
 "todo.category.school" = "École";

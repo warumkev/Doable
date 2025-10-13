@@ -28,6 +28,8 @@ final class Todo {
     var notes: String = ""
     // Category for the todo (e.g., Work, School, Shopping)
     var category: String = ""
+    // Optional time for the todo
+    var time: Date? = nil
 
     init(title: String, category: String = "") {
         self.title = title

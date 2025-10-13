@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct TodoView: View {
+    @State private var isDateTimePickerPresented: Bool = false
     @Bindable var todo: Todo
     @FocusState private var isTextFieldFocused: Bool
     @FocusState private var isNotesFieldFocused: Bool
@@ -21,17 +22,20 @@ struct TodoView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            // Row: Checkbox and todo title
+            // Row: Checkbox, todo title, and time picker
             HStack(alignment: .center) {
                 Button(action: {
+                    let leadingPadding: CGFloat = 34 // Checkbox width + spacing
                     if todo.isCompleted {
                         todo.isCompleted.toggle()
                     } else {
                         onRequestComplete?()
                     }
                 }) {
+                    let now = Date()
+                    let isPast = (todo.time ?? todo.createdAt) < now
                     Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
-                        .foregroundColor(todo.isCompleted ? .green : .gray)
+                        .foregroundColor(todo.isCompleted ? .green : (isPast ? .red : .gray))
                         .font(.title2)
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -94,6 +98,56 @@ struct TodoView: View {
                             }
                         }
                     }
+
+                Spacer(minLength: 8)
+                Button(action: { isDateTimePickerPresented = true }) {
+                    HStack(spacing: 4) {
+                        if let time = todo.time {
+                            Text(DateFormatter.localizedString(from: time, dateStyle: .short, timeStyle: .short))
+                                .font(.caption2)
+                                .foregroundColor(.primary)
+                        } else {
+                            Text(LocalizedStringKey("todo.set_time"))
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 4)
+                    .background(Color.primary.opacity(0.05))
+                    .cornerRadius(8)
+                }
+                .buttonStyle(.plain)
+                .sheet(isPresented: $isDateTimePickerPresented) {
+                    VStack(spacing: 16) {
+                        Text(LocalizedStringKey("todo.select_date_time"))
+                            .font(.headline)
+                            .padding(.top)
+                        DatePicker(
+                            LocalizedStringKey("todo.select_date"),
+                            selection: Binding(
+                                get: { todo.time ?? Date() },
+                                set: { newValue in
+                                    let calendar = Calendar.current
+                                    let currentTime = todo.time ?? Date()
+                                    let newDate = calendar.date(bySettingHour: calendar.component(.hour, from: currentTime), minute: calendar.component(.minute, from: currentTime), second: 0, of: newValue) ?? newValue
+                                    todo.time = newDate
+                                }
+                            ),
+                            displayedComponents: .date
+                        )
+                        DatePicker(
+                            LocalizedStringKey("todo.select_time"),
+                            selection: Binding(
+                                get: { todo.time ?? Date() },
+                                set: { newValue in todo.time = newValue }
+                            ),
+                            displayedComponents: .hourAndMinute
+                        )
+                    }
+                    .padding()
+                    .presentationDetents([.height(220)])
+                }
             }
 
             // Notes field below the row, indented to align with todo title

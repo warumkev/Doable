@@ -1,3 +1,8 @@
+/* Folha de agendamento */
+"todo.select_date_time" = "Selecionar data e hora";
+"todo.select_date" = "Data";
+"todo.select_time" = "Hora";
+"todo.set_time" = "Definir hora";
 /* Categorias */
 "todo.category.work" = "Trabalho";
 "todo.category.school" = "Escola";

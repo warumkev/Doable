@@ -1,3 +1,8 @@
+/* スケジュールシート */
+"todo.select_date_time" = "日付と時間を選択";
+"todo.select_date" = "日付";
+"todo.select_time" = "時間";
+"todo.set_time" = "時間を設定";
 /* カテゴリー */
 "todo.category.work" = "仕事";
 "todo.category.school" = "学校";

@@ -1,3 +1,8 @@
+/* Planungs-Sheet */
+"todo.select_date_time" = "Datum & Uhrzeit wählen";
+"todo.select_date" = "Datum";
+"todo.select_time" = "Uhrzeit";
+"todo.set_time" = "Uhrzeit festlegen";
 /* Kategorien */
 "todo.category.work" = "Arbeit";
 "todo.category.school" = "Schule";

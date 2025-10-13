@@ -53,7 +53,12 @@ struct ContentView: View {
 
     // Derived lists for convenience and ordering
     private var incompleteTodos: [Todo] {
-        todos.filter { !$0.isCompleted }.sorted { $0.createdAt > $1.createdAt }
+        todos.filter { !$0.isCompleted }
+            .sorted {
+                let lhsTime = $0.time ?? $0.createdAt
+                let rhsTime = $1.time ?? $1.createdAt
+                return lhsTime < rhsTime
+            }
     }
 
     private var completedTodos: [Todo] {
@@ -386,7 +391,15 @@ struct ContentView: View {
     /// Create a new, empty Todo and focus the text field (handled by `TodoView`).
     private func addTodo() {
         withAnimation {
+            let now = Date()
+            let calendar = Calendar.current
+            var components = calendar.dateComponents([.year, .month, .day, .hour], from: now)
+            components.hour = (components.hour ?? 0) + 1
+            components.minute = 0
+            components.second = 0
+            let nextHour = calendar.date(from: components) ?? now.addingTimeInterval(3600)
             let newTodo = Todo(title: "")
+            newTodo.time = nextHour
             modelContext.insert(newTodo)
         }
         // Accessibility announcement for adding a todo

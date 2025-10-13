@@ -1,3 +1,8 @@
+/* Planificación Sheet */
+"todo.select_date_time" = "Selecciona fecha y hora";
+"todo.select_date" = "Fecha";
+"todo.select_time" = "Hora";
+"todo.set_time" = "Establecer hora";
 /* Categorías */
 "todo.category.work" = "Trabajo";
 "todo.category.school" = "Escuela";

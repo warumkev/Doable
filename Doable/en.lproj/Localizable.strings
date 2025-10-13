@@ -1,3 +1,8 @@
+/* Scheduling Sheet */
+"todo.select_date_time" = "Select date & time";
+"todo.select_date" = "Date";
+"todo.select_time" = "Time";
+"todo.set_time" = "Set time";
 /* Categories */
 "todo.category.work" = "Work";
 "todo.category.school" = "School";
