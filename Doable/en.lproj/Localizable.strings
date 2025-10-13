@@ -1,3 +1,16 @@
+/* Motivational Notification Body */
+"notification.todo.body" = "Go and complete \"%@\" now.";
+/* Motivational Notification Titles */
+"notification.todo.title.1" = "Do it now—future you will thank you!";
+"notification.todo.title.2" = "This is your moment. Start now!";
+"notification.todo.title.3" = "One tap, one win. Go!";
+"notification.todo.title.4" = "Don’t wait—make progress now!";
+"notification.todo.title.5" = "Action beats intention. Begin!";
+"notification.todo.title.6" = "The best time is now. Get moving!";
+"notification.todo.title.7" = "Your todo is waiting—crush it!";
+"notification.todo.title.8" = "Momentum starts with this task!";
+"notification.todo.title.9" = "Small action, big impact. Do it!";
+"notification.todo.title.10" = "You’re unstoppable—prove it now!";
 /* Scheduling Sheet */
 "todo.select_date_time" = "Select date & time";
 "todo.select_date" = "Date";

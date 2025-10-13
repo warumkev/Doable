@@ -118,6 +118,13 @@ struct TodoView: View {
                     .cornerRadius(8)
                 }
                 .buttonStyle(.plain)
+                .onChange(of: todo.time) { _, newTime in
+                    if let newTime = newTime, !todo.isCompleted {
+                        TodoNotificationManager.shared.scheduleNotification(for: todo)
+                    } else {
+                        TodoNotificationManager.shared.removeNotification(for: todo)
+                    }
+                }
                 .sheet(isPresented: $isDateTimePickerPresented) {
                     VStack(spacing: 16) {
                         Text(LocalizedStringKey("todo.select_date_time"))

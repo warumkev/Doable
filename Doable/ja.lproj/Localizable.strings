@@ -1,3 +1,16 @@
+/* モチベーション通知メッセージ */
+"notification.todo.body" = "今すぐ『%@』を完了しよう。";
+/* モチベーション通知タイトル */
+"notification.todo.title.1" = "今すぐやろう—未来の自分が感謝する！";
+"notification.todo.title.2" = "今がその瞬間。始めよう！";
+"notification.todo.title.3" = "ワンタップ、一勝利。行こう！";
+"notification.todo.title.4" = "待たずに—今すぐ進もう！";
+"notification.todo.title.5" = "行動は意志に勝る。始めよう！";
+"notification.todo.title.6" = "ベストなタイミングは今。動こう！";
+"notification.todo.title.7" = "あなたのタスクが待っている—今こそ完了！";
+"notification.todo.title.8" = "勢いはこのタスクから始まる！";
+"notification.todo.title.9" = "小さな行動、大きな成果。やろう！";
+"notification.todo.title.10" = "あなたは止まらない—今証明しよう！";
 /* スケジュールシート */
 "todo.select_date_time" = "日付と時間を選択";
 "todo.select_date" = "日付";

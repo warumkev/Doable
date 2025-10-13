@@ -1,3 +1,16 @@
+/* Motivierende Benachrichtigungsnachricht */
+"notification.todo.body" = "Geh und erledige \"%@\" jetzt.";
+/* Motivierende Benachrichtigungstitel */
+"notification.todo.title.1" = "Mach es jetzt—dein zukünftiges Ich wird es dir danken!";
+"notification.todo.title.2" = "Das ist dein Moment. Fang jetzt an!";
+"notification.todo.title.3" = "Ein Tap, ein Erfolg. Los!";
+"notification.todo.title.4" = "Nicht warten — jetzt Fortschritt machen!";
+"notification.todo.title.5" = "Aktion schlägt Absicht. Leg los!";
+"notification.todo.title.6" = "Die beste Zeit ist jetzt. Komm in Bewegung!";
+"notification.todo.title.7" = "Dein Todo wartet — erledige es!";
+"notification.todo.title.8" = "Schwung beginnt mit dieser Aufgabe!";
+"notification.todo.title.9" = "Kleine Aktion, große Wirkung. Mach es!";
+"notification.todo.title.10" = "Du bist nicht zu stoppen — zeig es jetzt!";
 /* Planungs-Sheet */
 "todo.select_date_time" = "Datum & Uhrzeit wählen";
 "todo.select_date" = "Datum";

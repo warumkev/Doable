@@ -1,3 +1,16 @@
+/* 激励通知正文 */
+"notification.todo.body" = "现在去完成“%@”吧。";
+/* 激励通知标题 */
+"notification.todo.title.1" = "现在就做——未来的你会感谢你！";
+"notification.todo.title.2" = "这是你的时刻。现在开始！";
+"notification.todo.title.3" = "一点即成，一步即胜。加油！";
+"notification.todo.title.4" = "别等了——现在就行动！";
+"notification.todo.title.5" = "行动胜于意愿。开始吧！";
+"notification.todo.title.6" = "最佳时机就是现在。动起来！";
+"notification.todo.title.7" = "你的待办在等你——快去完成！";
+"notification.todo.title.8" = "动力从这项任务开始！";
+"notification.todo.title.9" = "小行动，大影响。做吧！";
+"notification.todo.title.10" = "你势不可挡——现在证明！";
 /* 计划表 */
 "todo.select_date_time" = "选择日期和时间";
 "todo.select_date" = "日期";

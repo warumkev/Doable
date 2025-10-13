@@ -1,3 +1,16 @@
+/* Message motivant de notification */
+"notification.todo.body" = "Va compléter \"%@\" maintenant.";
+/* Titres de notification motivants */
+"notification.todo.title.1" = "Fais-le maintenant—ton futur te remerciera !";
+"notification.todo.title.2" = "C'est ton moment. Commence maintenant !";
+"notification.todo.title.3" = "Un clic, une victoire. Vas-y !";
+"notification.todo.title.4" = "N'attends pas—avance maintenant !";
+"notification.todo.title.5" = "L'action bat l'intention. Commence !";
+"notification.todo.title.6" = "Le meilleur moment, c'est maintenant. Bouge !";
+"notification.todo.title.7" = "Ta tâche t'attend—réalise-la !";
+"notification.todo.title.8" = "L'élan commence avec cette tâche !";
+"notification.todo.title.9" = "Petite action, grand impact. Fais-le !";
+"notification.todo.title.10" = "Tu es inarrêtable—prouve-le maintenant !";
 /* Feuille de planification */
 "todo.select_date_time" = "Sélectionner date et heure";
 "todo.select_date" = "Date";

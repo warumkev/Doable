@@ -1,3 +1,16 @@
+/* Mensagem motivacional de notificação */
+"notification.todo.body" = "Vá e conclua \"%@\" agora.";
+/* Títulos motivacionais de notificação */
+"notification.todo.title.1" = "Faça agora—seu eu do futuro vai agradecer!";
+"notification.todo.title.2" = "Este é o seu momento. Comece já!";
+"notification.todo.title.3" = "Um toque, uma vitória. Vai!";
+"notification.todo.title.4" = "Não espere—avance agora!";
+"notification.todo.title.5" = "Ação supera intenção. Comece!";
+"notification.todo.title.6" = "A melhor hora é agora. Mexa-se!";
+"notification.todo.title.7" = "Sua tarefa está esperando—conclua!";
+"notification.todo.title.8" = "O impulso começa com esta tarefa!";
+"notification.todo.title.9" = "Pequena ação, grande impacto. Faça!";
+"notification.todo.title.10" = "Você é imparável—prove agora!";
 /* Folha de agendamento */
 "todo.select_date_time" = "Selecionar data e hora";
 "todo.select_date" = "Data";
