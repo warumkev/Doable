@@ -375,6 +375,7 @@ struct ContentView: View {
         }
         .onChange(of: todos) { _, _ in
             StreakNotificationManager.shared.scheduleStreakNotificationIfNeeded(modelContext: modelContext)
+            UIApplication.shared.applicationIconBadgeNumber = overdueTodos.count
         }
         .sheet(isPresented: $isHistoryPresented) {
             HistoryView(todos: todos)
@@ -431,6 +432,7 @@ struct ContentView: View {
             // Record completion timestamp
             todo.completedAt = Date()
         }
+        UIApplication.shared.applicationIconBadgeNumber = overdueTodos.count
         showSnackbar(message: String(format: NSLocalizedString("snackbar.completed", comment: "Completed message with title"), todo.title))
     }
 
