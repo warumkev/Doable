@@ -169,6 +169,10 @@ struct FullscreenTimerView: View {
                                             // Stop timer and cancel
                                             stopTimerIfNeeded()
                                             disappointedMessageKey = DisappointmentText.randomMessageKey()
+                                            if hapticsEnabled {
+                                                let generator = UINotificationFeedbackGenerator()
+                                                generator.notificationOccurred(.error)
+                                            }
                                             disappointed = true
                                         }) {
                                             Text(LocalizedStringKey("timer.controls.stop"))
@@ -266,6 +270,11 @@ struct FullscreenTimerView: View {
                                         // Confirm completion (rotate to portrait also triggers)
                                         didComplete = true
                                         onComplete()
+                                        if hapticsEnabled && !didPlaySuccess {
+                                            let generator = UINotificationFeedbackGenerator()
+                                            generator.notificationOccurred(.success)
+                                            didPlaySuccess = true
+                                        }
                                         dismiss()
                                     }) {
                                         Text(LocalizedStringKey("finished.confirm"))

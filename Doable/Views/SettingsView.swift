@@ -78,28 +78,11 @@ struct SettingsView: View {
                     Toggle(LocalizedStringKey("settings.push_notifications"), isOn: $notificationsEnabled)
                         .onChange(of: notificationsEnabled) { _, newValue in
                             if newValue {
-                                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-                                    DispatchQueue.main.async {
-                                        notificationsEnabled = granted
-                                        hasAskedNotificationPermission = true
-                                        // Check system-level notification status
-                                        UNUserNotificationCenter.current().getNotificationSettings { settings in
-                                            DispatchQueue.main.async {
-                                                systemNotificationsDenied = (settings.authorizationStatus == .denied)
-                                            }
-                                        }
-                                    }
+                                if !hasAskedNotificationPermission {
+                                    requestNotificationPermission()
                                 }
                             } else {
                                 hasAskedNotificationPermission = true
-                            }
-                        }
-                        .onAppear {
-                            // Check system-level notification status on appear
-                            UNUserNotificationCenter.current().getNotificationSettings { settings in
-                                DispatchQueue.main.async {
-                                    systemNotificationsDenied = (settings.authorizationStatus == .denied)
-                                }
                             }
                         }
 
@@ -320,6 +303,21 @@ private extension SettingsView {
             isExporting = true
         } catch {
             exportError = error.localizedDescription
+        }
+    }
+
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+            DispatchQueue.main.async {
+                notificationsEnabled = granted
+                hasAskedNotificationPermission = true
+                // Check system-level notification status
+                UNUserNotificationCenter.current().getNotificationSettings { settings in
+                    DispatchQueue.main.async {
+                        systemNotificationsDenied = (settings.authorizationStatus == .denied)
+                    }
+                }
+            }
         }
     }
 }

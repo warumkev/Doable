@@ -19,6 +19,7 @@ struct TodoView: View {
     var onEditingChanged: ((Bool) -> Void)? = nil
     @Environment(\.modelContext) private var modelContext
     @AppStorage("settings.prefillSuggestions") private var prefillSuggestions: Bool = false
+    @AppStorage("settings.hapticsEnabled") private var hapticsEnabled: Bool = true
     
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -100,7 +101,13 @@ struct TodoView: View {
                     }
 
                 Spacer(minLength: 8)
-                Button(action: { isDateTimePickerPresented = true }) {
+                Button(action: { 
+                    isDateTimePickerPresented = true 
+                    if hapticsEnabled {
+                        let generator = UIImpactFeedbackGenerator(style: .soft)
+                        generator.impactOccurred()
+                    }
+                    }) {
                     HStack(spacing: 4) {
                         if let time = todo.time {
                             Text(DateFormatter.localizedString(from: time, dateStyle: .short, timeStyle: .short))
@@ -196,6 +203,10 @@ struct TodoView: View {
                         .multilineTextAlignment(.center)
                         .onTapGesture {
                             todo.category = cat
+                            if hapticsEnabled {
+                                let generator = UIImpactFeedbackGenerator(style: .soft)
+                                generator.impactOccurred()
+                            }
                         }
                 }
                 .padding(.top, 2)
@@ -214,11 +225,16 @@ struct TodoView: View {
                     if isTextFieldFocused || isNotesFieldFocused {
                         Button(action: {
                             todo.category = ""
+                            if hapticsEnabled {
+                                let generator = UIImpactFeedbackGenerator(style: .soft)
+                                generator.impactOccurred()
+                            }                            
                         }) {
                             Image(systemName: "xmark.circle.fill")
                                 .font(.caption2)
                                 .foregroundColor(.secondary)
                         }
+                        
                         .buttonStyle(.plain)
                     }
                 }

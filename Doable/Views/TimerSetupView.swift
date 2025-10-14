@@ -12,6 +12,7 @@ struct TimerSetupSheet: View {
 
     // Read the user's preferred default timer minutes from settings
     @AppStorage("settings.defaultTimerMinutes") private var defaultTimerMinutes: Int = 5
+    @AppStorage("settings.hapticsEnabled") private var hapticsEnabled: Bool = true
     
     var body: some View {
         VStack(spacing: 16) {
@@ -88,6 +89,10 @@ struct TimerSetupSheet: View {
                 if isConfirmingCompleteWithoutTimer {
                     // second click: perform immediate completion
                     onCompleteWithoutTimer()
+                    if hapticsEnabled {
+                        let generator = UINotificationFeedbackGenerator()
+                        generator.notificationOccurred(.success)
+                    }
                 } else {
                     // first click: ask for confirmation
                     withAnimation {
@@ -126,6 +131,10 @@ struct TimerSetupSheet: View {
                 
                 Button {
                     onConfirm(minutes * 60 + seconds)
+                    if hapticsEnabled {
+                        let generator = UIImpactFeedbackGenerator(style: .medium)
+                        generator.impactOccurred()
+                    }
                 } label: {
                     Text(LocalizedStringKey("timer_setup.confirm"))
                         .fontWeight(.semibold)

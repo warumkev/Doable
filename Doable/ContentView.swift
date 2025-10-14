@@ -21,6 +21,8 @@ struct ContentView: View {
     // Query property wrapper to fetch all Todo objects
     @Query private var todos: [Todo]
 
+    @AppStorage("settings.hapticsEnabled") private var hapticsEnabled: Bool = true
+
     // UI state
     @State private var isLogoRubbed: Bool = false
     @State private var isDoneSectionExpanded = false
@@ -68,13 +70,16 @@ struct ContentView: View {
             $0.isCompleted &&
             ($0.completedAt != nil) &&
             calendar.isDate($0.completedAt!, inSameDayAs: today)
-        }.sorted { ($0.completedAt ?? .distantPast) > ($1.completedAt ?? .distantPast) }
+        }.sorted {
+            ($0.completedAt ?? .distantPast) > ($1.completedAt ?? .distantPast)
+        }
     }
 
     /// Overdue todos: not completed and (time ?? createdAt) < now
     private var overdueTodos: [Todo] {
         let now = Date()
-        return todos.filter { !$0.isCompleted && (($0.time ?? $0.createdAt) < now) }
+        return todos
+            .filter { !$0.isCompleted && (($0.time ?? $0.createdAt) < now) }
     }
 
     var body: some View {
@@ -86,6 +91,10 @@ struct ContentView: View {
                     // UIKit context-menu reparenting warnings on some iOS versions.
                     Button {
                         isMenuPresented = true
+                        if hapticsEnabled {
+                            let generator = UIImpactFeedbackGenerator(style: .soft)
+                            generator.impactOccurred()
+                        }
                     } label: {
                         HStack(spacing: 6) {
                             Text(LocalizedStringKey("app.title"))
@@ -97,25 +106,25 @@ struct ContentView: View {
                                 .foregroundColor(.primary)
                         }
                     }
-                    .confirmationDialog("Title", isPresented: $isMenuPresented, titleVisibility: .hidden) {
+                    .confirmationDialog(
+                        "Title",
+                        isPresented: $isMenuPresented,
+                        titleVisibility: .hidden
+                    ) {
                         Button(LocalizedStringKey("menu.statistics")) {
                             isMenuPresented = false
-                            // Present the sheet after the dialog dismisses
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                isStatisticsPresented = true
-                            }
+                            isStatisticsPresented = true
+                            
                         }
                         Button(LocalizedStringKey("menu.settings")) {
                             isMenuPresented = false
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                isSettingsPresented = true
-                            }
+                            isSettingsPresented = true
+                            
                         }
                         Button(LocalizedStringKey("menu.history")) {
                             isMenuPresented = false
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                                isHistoryPresented = true
-                            }
+                            isHistoryPresented = true
+                            
                         }
                     }
 
@@ -173,14 +182,25 @@ struct ContentView: View {
                                     onRequestComplete: {
                                         pendingCompletionTodo = todo
                                         isTimerSheetPresented = true
+                                        if hapticsEnabled {
+                                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                                            generator.impactOccurred()
+                                        }
                                     },
                                     onEditingChanged: { editing in
                                         isAnyTodoEditing = editing
                                     }
                                 )
-                                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                .swipeActions(
+                                    edge: .trailing,
+                                    allowsFullSwipe: true
+                                ) {
                                     Button(role: .destructive) {
                                         performDelete(todo)
+                                        if hapticsEnabled {
+                                            let generator = UIImpactFeedbackGenerator(style: .medium)
+                                            generator.impactOccurred()
+                                        }
                                     } label: {
                                         Image(systemName: "trash")
                                     }
@@ -198,9 +218,11 @@ struct ContentView: View {
                                     }
                                 }) {
                                     HStack {
-                                        Image(systemName: isDoneSectionExpanded ? "chevron.down" : "chevron.right")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
+                                        Image(
+                                            systemName: isDoneSectionExpanded ? "chevron.down" : "chevron.right"
+                                        )
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
 
                                         Text(LocalizedStringKey("section.done"))
                                             .font(.headline)
@@ -215,15 +237,23 @@ struct ContentView: View {
 
                                 if isDoneSectionExpanded {
                                     ScrollView {
-                                        LazyVStack(alignment: .leading, spacing: 12) {
+                                        LazyVStack(
+                                            alignment: .leading,
+                                            spacing: 12
+                                        ) {
                                             ForEach(completedTodos) { todo in
                                                 TodoView(todo: todo)
                                             }
                                         }
                                         // Match main todos list: remove extra horizontal padding
                                     }
-                                    .frame(maxHeight: 200) // Limit height of expanded done section
-                                    .transition(.opacity.combined(with: .move(edge: .top)))
+                                    .frame(
+                                        maxHeight: 200
+                                    ) // Limit height of expanded done section
+                                    .transition(
+                                        .opacity
+                                            .combined(with: .move(edge: .top))
+                                    )
                                 }
                             }
                             .cornerRadius(12)
@@ -244,40 +274,73 @@ struct ContentView: View {
                             .lineLimit(1)
                             .truncationMode(.tail)
                         Spacer()
-                        Button(action: undoLastAction) {
-                            Text(NSLocalizedString("snackbar.undo", comment: "Undo"))
-                                .bold()
-                                .foregroundColor(.white)
+                        Button(action: {
+                            undoLastAction()
+                            if hapticsEnabled {
+                                let generator = UIImpactFeedbackGenerator(style: .soft)
+                                generator.impactOccurred()
+                            }
+                        }) {
+                            Text(
+                                NSLocalizedString(
+                                    "snackbar.undo",
+                                    comment: "Undo"
+                                )
+                            )
+                            .bold()
+                            .foregroundColor(.white)
                         }
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
                     .background(BlurView(style: .systemThinMaterialDark))
                     .cornerRadius(12)
-                    .shadow(color: Color.black.opacity(0.25), radius: 8, x: 0, y: 4)
+                    .shadow(
+                        color: Color.black.opacity(0.25),
+                        radius: 8,
+                        x: 0,
+                        y: 4
+                    )
                     .padding(.horizontal, 20)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
-                let hasEmptyTodo = incompleteTodos.contains { $0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-                if !isAnyTodoEditing {
-                    Button(action: addTodo) {
-                        Image(systemName: "plus")
-                            .font(.title2)
-                            .foregroundColor(.gray)
-                            .frame(width: 56, height: 56)
-                            .background(Circle().fill(Color.primary))
-                            .scaleEffect(isAdding ? 0.9 : 1.0)
-                            .shadow(color: Color.black.opacity(0.85), radius: 12, x: 0, y: 4)
-                            .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isAdding)
+                let hasEmptyTodo = incompleteTodos.contains {
+                    $0.title
+                        .trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                }
+                
+                Button(action: {
+                    addTodo()
+                    if hapticsEnabled {
+                        let generator = UIImpactFeedbackGenerator(style: .medium)
+                        generator.impactOccurred()
                     }
-                    .disabled(hasEmptyTodo)
-                    .opacity(hasEmptyTodo ? 0.3 : 1.0)
-                    .simultaneousGesture(DragGesture(minimumDistance: 0).onChanged({ _ in
+                }) {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                        .frame(width: 56, height: 56)
+                        .background(Circle().fill(Color.primary))
+                        .scaleEffect(isAdding ? 0.9 : 1.0)
+                        .shadow(
+                            color: Color.black.opacity(0.85),
+                            radius: 12,
+                            x: 0,
+                            y: 4
+                        )
+                }
+                .disabled(hasEmptyTodo)
+                .opacity(hasEmptyTodo ? 0.0 : 1.0)
+                .simultaneousGesture(
+                    DragGesture(
+                        minimumDistance: 0
+                    ).onChanged({ _ in
                         isAdding = true
                     }).onEnded({ _ in
                         isAdding = false
-                    }))
-                }
+                    })
+                )
+                
             }
             .padding(.bottom, 20)
         }
@@ -285,20 +348,39 @@ struct ContentView: View {
             // Schedule/cancel streak notification for 6pm based on today's completion status
             let calendar = Calendar.current
             let today = calendar.startOfDay(for: Date())
-            let completedToday = todos.contains { $0.isCompleted && $0.completedAt != nil && calendar.isDate($0.completedAt!, inSameDayAs: today) }
+            let completedToday = todos.contains {
+                $0.isCompleted && $0.completedAt != nil && calendar
+                    .isDate($0.completedAt!, inSameDayAs: today)
+            }
             let center = UNUserNotificationCenter.current()
             let identifier = "streakReminder"
-            center.removePendingNotificationRequests(withIdentifiers: [identifier])
+            center
+                .removePendingNotificationRequests(
+                    withIdentifiers: [identifier]
+                )
             if !completedToday {
                 let content = UNMutableNotificationContent()
-                content.title = NSLocalizedString("streak.notification.title", comment: "Streak reminder title")
-                content.body = NSLocalizedString("streak.notification.body", comment: "Streak reminder body")
+                content.title = NSLocalizedString(
+                    "streak.notification.title",
+                    comment: "Streak reminder title"
+                )
+                content.body = NSLocalizedString(
+                    "streak.notification.body",
+                    comment: "Streak reminder body"
+                )
                 content.sound = .default
                 var dateComponents = DateComponents()
                 dateComponents.hour = 18
                 dateComponents.minute = 0
-                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-                let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+                let trigger = UNCalendarNotificationTrigger(
+                    dateMatching: dateComponents,
+                    repeats: true
+                )
+                let request = UNNotificationRequest(
+                    identifier: identifier,
+                    content: content,
+                    trigger: trigger
+                )
                 center.add(request)
             }
         }
@@ -336,7 +418,10 @@ struct ContentView: View {
         }
         .fullScreenCover(isPresented: $isFullscreenTimerPresented) {
             if let todo = pendingCompletionTodo {
-                FullscreenTimerView(todo: todo, totalSeconds: timerSecondsToRun) {
+                FullscreenTimerView(
+                    todo: todo,
+                    totalSeconds: timerSecondsToRun
+                ) {
                     // completion callback from fullscreen view: mark todo completed and clear pending
                     withAnimation {
                         todo.isCompleted = true
@@ -374,13 +459,16 @@ struct ContentView: View {
             }
         }
         .onChange(of: todos) { _, _ in
-            StreakNotificationManager.shared.scheduleStreakNotificationIfNeeded(modelContext: modelContext)
+            StreakNotificationManager.shared
+                .scheduleStreakNotificationIfNeeded(modelContext: modelContext)
             let badgeCount = overdueTodos.count
-            UNUserNotificationCenter.current().setBadgeCount(badgeCount) { error in
-                if let error = error {
-                    print("Failed to set badge count: \(error)")
+            UNUserNotificationCenter
+                .current()
+                .setBadgeCount(badgeCount) { error in
+                    if let error = error {
+                        print("Failed to set badge count: \(error)")
+                    }
                 }
-            }
         }
         .sheet(isPresented: $isHistoryPresented) {
             HistoryView(todos: todos)
@@ -403,18 +491,26 @@ struct ContentView: View {
         withAnimation {
             let now = Date()
             let calendar = Calendar.current
-            var components = calendar.dateComponents([.year, .month, .day, .hour], from: now)
+            var components = calendar.dateComponents(
+                [.year, .month, .day, .hour],
+                from: now
+            )
             components.hour = (components.hour ?? 0) + 1
             components.minute = 0
             components.second = 0
-            let nextHour = calendar.date(from: components) ?? now.addingTimeInterval(3600)
+            let nextHour = calendar.date(from: components) ?? now.addingTimeInterval(
+                3600
+            )
             let newTodo = Todo(title: "")
             newTodo.time = nextHour
             modelContext.insert(newTodo)
         }
         // Accessibility announcement for adding a todo
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            let s = NSLocalizedString("accessibility.added_todo", comment: "Accessibility announcement when a new todo is added")
+            let s = NSLocalizedString(
+                "accessibility.added_todo",
+                comment: "Accessibility announcement when a new todo is added"
+            )
             UIAccessibility.post(notification: .announcement, argument: s)
         }
     }
@@ -426,7 +522,15 @@ struct ContentView: View {
             lastAction = .deleted
             modelContext.delete(todo)
         }
-        showSnackbar(message: String(format: NSLocalizedString("snackbar.deleted", comment: "Deleted message with title"), todo.title))
+        showSnackbar(
+            message: String(
+                format: NSLocalizedString(
+                    "snackbar.deleted",
+                    comment: "Deleted message with title"
+                ),
+                todo.title
+            )
+        )
     }
 
     /// Called when a todo is completed via the fullscreen timer flow. Shows the snackbar for undo.
@@ -443,7 +547,15 @@ struct ContentView: View {
                 print("Failed to set badge count: \(error)")
             }
         }
-        showSnackbar(message: String(format: NSLocalizedString("snackbar.completed", comment: "Completed message with title"), todo.title))
+        showSnackbar(
+            message: String(
+                format: NSLocalizedString(
+                    "snackbar.completed",
+                    comment: "Completed message with title"
+                ),
+                todo.title
+            )
+        )
     }
 
     /// Undo the last deletion or completion if possible.
@@ -478,12 +590,14 @@ struct ContentView: View {
         }
         // auto-dismiss after duration
         snackbarTimerCancellable?.cancel()
-        snackbarTimerCancellable = Just(()).delay(for: .seconds(snackbarDuration), scheduler: RunLoop.main).sink { _ in
-            withAnimation {
-                self.snackbarVisible = false
+        snackbarTimerCancellable = Just(())
+            .delay(for: .seconds(snackbarDuration), scheduler: RunLoop.main)
+            .sink { _ in
+                withAnimation {
+                    self.snackbarVisible = false
+                }
+                self.lastAction = .none
             }
-            self.lastAction = .none
-        }
     }
 
     private func clearSnackbar() {

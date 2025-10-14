@@ -104,6 +104,17 @@
 "onboarding.letsgo" = "始める";
 "onboarding.skip" = "スキップ";
 "onboarding.progress" = "%d/%d";
+/* Onboarding Slides */
+"onboarding.welcome.title" = "Doableへようこそ！";
+"onboarding.welcome.desc" = "ここに来てくれて嬉しいです。";
+"onboarding.setup.title" = "セットアップを始めましょう！";
+"onboarding.setup.desc" = "基本を案内します。";
+"onboarding.notifications.title" = "通知を有効にする";
+"onboarding.notifications.desc" = "リマインダーでタスクを把握しましょう。";
+"onboarding.icloud.title" = "iCloud同期を有効にする";
+"onboarding.icloud.desc" = "すべてのデバイスでタスクにアクセスできます。";
+"onboarding.ready.title" = "準備完了です！";
+"onboarding.ready.desc" = "今日から目標を達成しましょう。";
 
 /* Fullscreen timer */
 "timer.paused.rotate_to_resume" = "一時停止中 — 再開するには回転してください";

@@ -104,6 +104,17 @@
 "onboarding.letsgo" = "开始吧";
 "onboarding.skip" = "跳过";
 "onboarding.progress" = "%d/%d";
+/* Onboarding Slides */
+"onboarding.welcome.title" = "欢迎使用Doable！";
+"onboarding.welcome.desc" = "我们很高兴您能加入我们。";
+"onboarding.setup.title" = "让我们为您设置！";
+"onboarding.setup.desc" = "我们将引导您完成基础设置。";
+"onboarding.notifications.title" = "启用通知";
+"onboarding.notifications.desc" = "通过提醒随时掌握任务进度。";
+"onboarding.icloud.title" = "启用iCloud同步";
+"onboarding.icloud.desc" = "在所有设备上访问您的任务。";
+"onboarding.ready.title" = "您已准备就绪！";
+"onboarding.ready.desc" = "今天就开始实现您的目标吧。";
 
 /* Fullscreen timer */
 "timer.paused.rotate_to_resume" = "已暂停——旋转设备以恢复";

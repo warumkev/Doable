@@ -1,5 +1,5 @@
 /* Mensagem motivacional de notificação */
-"notification.todo.body" = "Vá e conclua \"%@\" agora.";
+"notification.todo.body" = "Vá e conclua %@ agora.";
 /* Títulos motivacionais de notificação */
 "notification.todo.title.1" = "Faça agora—seu eu do futuro vai agradecer!";
 "notification.todo.title.2" = "Este é o seu momento. Comece já!";
@@ -104,6 +104,17 @@
 "onboarding.letsgo" = "Vamos lá";
 "onboarding.skip" = "Pular";
 "onboarding.progress" = "%d/%d";
+/* Onboarding Slides */
+"onboarding.welcome.title" = "Bem-vindo ao Doable!";
+"onboarding.welcome.desc" = "Estamos animados por tê-lo aqui.";
+"onboarding.setup.title" = "Vamos configurá-lo!";
+"onboarding.setup.desc" = "Vamos guiá-lo pelo básico.";
+"onboarding.notifications.title" = "Ativar notificações";
+"onboarding.notifications.desc" = "Fique por dentro de suas tarefas com lembretes.";
+"onboarding.icloud.title" = "Ativar sincronização com iCloud";
+"onboarding.icloud.desc" = "Acesse suas tarefas em todos os seus dispositivos.";
+"onboarding.ready.title" = "Você está pronto para começar!";
+"onboarding.ready.desc" = "Comece a alcançar seus objetivos hoje mesmo.";
 
 /* Fullscreen timer */
 "timer.paused.rotate_to_resume" = "Pausado — gire para retomar";

@@ -104,6 +104,17 @@
 "onboarding.letsgo" = "Los geht’s";
 "onboarding.skip" = "Überspringen";
 "onboarding.progress" = "%d/%d";
+/* Onboarding Slides */
+"onboarding.welcome.title" = "Willkommen bei Doable!";
+"onboarding.welcome.desc" = "Wir freuen uns, dass du hier bist.";
+"onboarding.setup.title" = "Lass uns dich einrichten!";
+"onboarding.setup.desc" = "Wir führen dich durch die Grundlagen.";
+"onboarding.notifications.title" = "Benachrichtigungen aktivieren";
+"onboarding.notifications.desc" = "Bleib mit Erinnerungen auf dem Laufenden.";
+"onboarding.icloud.title" = "iCloud-Synchronisierung aktivieren";
+"onboarding.icloud.desc" = "Greife auf deine Aufgaben auf allen Geräten zu.";
+"onboarding.ready.title" = "Du bist startklar!";
+"onboarding.ready.desc" = "Beginne noch heute, deine Ziele zu erreichen.";
 
 /* Fullscreen timer */
 "timer.paused.rotate_to_resume" = "Pausiert – zum Fortsetzen drehen";

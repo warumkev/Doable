@@ -104,6 +104,17 @@
 "onboarding.letsgo" = "Let's go";
 "onboarding.skip" = "Skip";
 "onboarding.progress" = "%d/%d";
+/* Onboarding Slides */
+"onboarding.welcome.title" = "Welcome to Doable!";
+"onboarding.welcome.desc" = "We're excited to have you here.";
+"onboarding.setup.title" = "Let's set you up!";
+"onboarding.setup.desc" = "We'll guide you through the basics.";
+"onboarding.notifications.title" = "Enable Notifications";
+"onboarding.notifications.desc" = "Stay on top of your tasks with reminders.";
+"onboarding.icloud.title" = "Enable iCloud Sync";
+"onboarding.icloud.desc" = "Access your tasks across all your devices.";
+"onboarding.ready.title" = "You're Ready to Go!";
+"onboarding.ready.desc" = "Start achieving your goals today.";
 
 /* Fullscreen timer */
 "timer.paused.rotate_to_resume" = "Paused — rotate to resume";

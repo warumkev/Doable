@@ -52,28 +52,17 @@ struct DoableApp: App {
             ContentView()
                 // Inject the model container as before
                 .modelContainer(sharedModelContainer)
-                // Request notification permission once on first launch
-                .onAppear {
-                    // Only ask once
-                    if !hasAskedNotificationPermission {
-                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-                            DispatchQueue.main.async {
-                                notificationsEnabled = granted
-                                hasAskedNotificationPermission = true
-                            }
-                        }
-                    }
-                }
                 // Present onboarding on first launch using AppStorage flag
-                .fullScreenCover(isPresented: Binding(get: {
+                .sheet(isPresented: Binding(get: {
                     !hasSeenOnboarding
                 }, set: { newValue in
-                    // When the cover is dismissed (set false) mark onboarding seen.
                     if !newValue {
                         hasSeenOnboarding = true
                     }
                 })) {
                     OnboardingView()
+                        .presentationDetents([.medium]) // Optimize for medium sheet size
+                        .presentationDragIndicator(.visible) // Add drag indicator for better UX
                 }
         }
         // modelContainer already set on the ContentView above

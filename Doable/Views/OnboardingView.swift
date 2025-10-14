@@ -11,158 +11,135 @@ struct OnboardingView: View {
 	@Environment(\.dismiss) private var dismiss
 	@State private var selection: Int = 0
 
+    @AppStorage("settings.hapticsEnabled") private var hapticsEnabled: Bool = true
+
 	@AppStorage("settings.iCloudSyncEnabled") private var iCloudSyncEnabled: Bool = false // opt-in
 	@AppStorage("settings.notificationsEnabled") private var notificationsEnabled: Bool = false
 	@AppStorage("settings.hasAskedNotificationPermission") private var hasAskedNotificationPermission: Bool = false
 
 	private let slides: [OnboardingSlide] = [
-		OnboardingSlide(titleKey: "onboarding.chooseTodo.title", descKey: "onboarding.chooseTodo.desc"),
-		OnboardingSlide(titleKey: "onboarding.setTimer.title", descKey: "onboarding.setTimer.desc"),
-		OnboardingSlide(titleKey: "onboarding.keepRunning.title", descKey: "onboarding.keepRunning.desc"),
-		OnboardingSlide(titleKey: "onboarding.final.title", descKey: "onboarding.final.desc"),
+		OnboardingSlide(titleKey: "onboarding.welcome.title", descKey: "onboarding.welcome.desc"),
+		OnboardingSlide(titleKey: "onboarding.setup.title", descKey: "onboarding.setup.desc"),
+		OnboardingSlide(titleKey: "onboarding.notifications.title", descKey: "onboarding.notifications.desc"),
+		OnboardingSlide(titleKey: "onboarding.icloud.title", descKey: "onboarding.icloud.desc"),
+		OnboardingSlide(titleKey: "onboarding.ready.title", descKey: "onboarding.ready.desc")
 	]
 
 	var body: some View {
 		VStack {
-			HStack {
-                VStack {
-                    ZStack {
-                        Image("doableLogo")
-                            .renderingMode(.template)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 48)
-                            .foregroundColor(.primary)
-                    }
-					Text(LocalizedStringKey("app.title"))
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    HStack(spacing: 14) {
-                        // Statistics / settings buttons are currently commented out.
-                    }
-                    Divider()
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-				}
-
-			}
 
 		TabView(selection: $selection) {
-					ForEach(Array(slides.enumerated()), id: \.element.id) { pair in
-						let index = pair.offset
-						let slide = pair.element
-
-					VStack(spacing: 20) {
-						Spacer()
-						Text(String(format: NSLocalizedString("onboarding.progress", comment: "Progress indicator"), index + 1, slides.count))
-							.environment(\.locale, .current)
-							.font(.caption)
-							.foregroundStyle(.secondary)
-						Text(slide.titleKey)
-							.font(.title)
-							.fontWeight(.semibold)
-							.multilineTextAlignment(.center)
-							.padding(.horizontal)
-
-						Text(slide.descKey)
-							.foregroundStyle(.secondary)
-							.frame(maxWidth: .infinity, alignment: .leading)
-							.lineLimit(nil)
-							.fixedSize(horizontal: false, vertical: true)
-							.multilineTextAlignment(.leading)
-							.padding(.horizontal)
-
-						// On last slide, show toggles for Cloud Sync and Notifications
-						if index == slides.count - 1 {
+					ForEach(slides.indices, id: \ .self) { index in
+						VStack(spacing: 16) {
 							Spacer()
-							VStack(spacing: 16) {
-								Toggle(isOn: $iCloudSyncEnabled) {
-									Text(LocalizedStringKey("settings.iCloud_sync"))
-								}
-								.padding(.horizontal)
-								Text(LocalizedStringKey("settings.iCloud_sync_desc"))
-									.font(.caption)
-									.foregroundColor(.secondary)
-									.frame(maxWidth: .infinity, alignment: .leading)
-									.lineLimit(nil)
-									.fixedSize(horizontal: false, vertical: true)
-									.multilineTextAlignment(.leading)
-									.padding(.horizontal)
 
+							if index == 0 {
+								Image("doableLogo")
+									.renderingMode(.template)
+									.resizable()
+									.scaledToFit()
+									.frame(width: 120, height: 120)
+									.foregroundColor(Color.primary)
+									.padding(.bottom, 16)
+							}
+
+							Text(slides[index].titleKey)
+								.font(.largeTitle)
+								.fontWeight(.bold)
+								.multilineTextAlignment(.center)
+								.padding(.horizontal)
+
+							Text(slides[index].descKey)
+								.font(.body)
+								.foregroundStyle(.secondary)
+								.multilineTextAlignment(.center)
+								.padding(.horizontal)
+
+							if index == 2 {
 								Toggle(isOn: $notificationsEnabled) {
 									Text(LocalizedStringKey("settings.push_notifications"))
+										.font(.headline)
 								}
 								.padding(.horizontal)
 								.onChange(of: notificationsEnabled) { _, newValue in
-									if newValue && !hasAskedNotificationPermission {
-										// Request permission only if not already asked
-										UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
-											DispatchQueue.main.async {
+									if newValue {
+										if !hasAskedNotificationPermission {
+											NotificationPermissionManager.requestNotificationPermission { granted in
 												notificationsEnabled = granted
 												hasAskedNotificationPermission = true
 											}
 										}
+									} else {
+										notificationsEnabled = false
 									}
 								}
-								Text(LocalizedStringKey("settings.push_notifications_open_settings"))
-									.font(.caption)
-									.foregroundColor(.secondary)
-									.frame(maxWidth: .infinity, alignment: .leading)
-									.lineLimit(nil)
-									.fixedSize(horizontal: false, vertical: true)
-									.multilineTextAlignment(.leading)
-									.padding(.horizontal)
 							}
+
+							if index == 3 {
+								Toggle(isOn: $iCloudSyncEnabled) {
+									Text(LocalizedStringKey("settings.iCloud_sync"))
+										.font(.headline)
+								}
+								.padding(.horizontal)
+							}
+
+							Spacer()
 						}
-						Spacer()
+						.tag(index)
 					}
-					.tag(index)
 				}
-			}
-			.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+				.tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
 
-			// Page indicator
-			HStack(spacing: 8) {
-				ForEach(0..<slides.count, id: \.self) { idx in
-					Circle()
-						.frame(width: 8, height: 8)
-						.foregroundColor(idx == selection ? Color.primary : Color(UIColor.tertiaryLabel))
-						.scaleEffect(idx == selection ? 1.1 : 1.0)
-						.animation(.easeInOut(duration: 0.18), value: selection)
+				// Page indicator
+				HStack(spacing: 8) {
+					ForEach(0..<slides.count, id: \ .self) { idx in
+						Circle()
+							.frame(width: 8, height: 8)
+							.foregroundColor(idx == selection ? Color.primary : Color(UIColor.tertiaryLabel))
+							.scaleEffect(idx == selection ? 1.1 : 1.0)
+							.animation(.easeInOut(duration: 0.18), value: selection)
+					}
 				}
-			}
-			.padding(.top, 8)
+				.padding(.top, 8)
 
-			// Navigation
-			HStack {
-				Spacer()
+				// Navigation
+				HStack {
+					Spacer()
 
-				if selection < slides.count - 1 {
-					Button(action: {
-						withAnimation {
-							selection += 1
+					if selection < slides.count - 1 {
+						Button(action: {
+							withAnimation {
+								selection += 1
+							}
+							if hapticsEnabled {
+								let generator = UIImpactFeedbackGenerator(style: .medium)
+								generator.impactOccurred()
+							}
+						}) {
+							Text(LocalizedStringKey("onboarding.next"))
+								.frame(minWidth: 100)
 						}
-					}) {
-						Text(LocalizedStringKey("onboarding.next"))
-							.frame(minWidth: 100)
+						.buttonStyle(.borderedProminent)
+						.tint(Color.primary)
+						.foregroundColor(Color(UIColor.systemBackground))
+						.padding()
+					} else {
+						Button(action: {
+							dismiss()
+							if hapticsEnabled {
+								let generator = UIImpactFeedbackGenerator(style: .medium)
+								generator.impactOccurred()
+							}
+						}) {
+							Text(LocalizedStringKey("onboarding.letsgo"))
+								.frame(minWidth: 120)
+						}
+						.buttonStyle(.borderedProminent)
+						.tint(Color.primary)
+						.foregroundColor(Color(UIColor.systemBackground))
+						.padding()
 					}
-					.buttonStyle(.borderedProminent)
-					.tint(Color.primary)
-					.foregroundColor(Color(UIColor.systemBackground))
-					.padding()
-				} else {
-					Button(action: {
-						dismiss()
-					}) {
-						Text(LocalizedStringKey("onboarding.letsgo"))
-							.frame(minWidth: 120)
-					}
-					.buttonStyle(.borderedProminent)
-					.tint(Color.primary)
-					.foregroundColor(Color(UIColor.systemBackground))
-					.padding()
 				}
-			}
 		}
 		.background(Color(UIColor.systemBackground))
 		.ignoresSafeArea(edges: .bottom)
