@@ -25,7 +25,7 @@ struct TodoView: View {
             // Row: Checkbox, todo title, and time picker
             HStack(alignment: .center) {
                 Button(action: {
-                    let leadingPadding: CGFloat = 34 // Checkbox width + spacing
+
                     if todo.isCompleted {
                         todo.isCompleted.toggle()
                     } else {
@@ -118,8 +118,8 @@ struct TodoView: View {
                     .cornerRadius(8)
                 }
                 .buttonStyle(.plain)
-                .onChange(of: todo.time) { _, newTime in
-                    if let newTime = newTime, !todo.isCompleted {
+                .onChange(of: todo.time) { _, _ in
+                    if !todo.isCompleted {
                         TodoNotificationManager.shared.scheduleNotification(for: todo)
                     } else {
                         TodoNotificationManager.shared.removeNotification(for: todo)

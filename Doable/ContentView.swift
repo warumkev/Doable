@@ -375,7 +375,12 @@ struct ContentView: View {
         }
         .onChange(of: todos) { _, _ in
             StreakNotificationManager.shared.scheduleStreakNotificationIfNeeded(modelContext: modelContext)
-            UIApplication.shared.applicationIconBadgeNumber = overdueTodos.count
+            let badgeCount = overdueTodos.count
+            UNUserNotificationCenter.current().setBadgeCount(badgeCount) { error in
+                if let error = error {
+                    print("Failed to set badge count: \(error)")
+                }
+            }
         }
         .sheet(isPresented: $isHistoryPresented) {
             HistoryView(todos: todos)
@@ -432,7 +437,12 @@ struct ContentView: View {
             // Record completion timestamp
             todo.completedAt = Date()
         }
-        UIApplication.shared.applicationIconBadgeNumber = overdueTodos.count
+        let badgeCount = overdueTodos.count
+        UNUserNotificationCenter.current().setBadgeCount(badgeCount) { error in
+            if let error = error {
+                print("Failed to set badge count: \(error)")
+            }
+        }
         showSnackbar(message: String(format: NSLocalizedString("snackbar.completed", comment: "Completed message with title"), todo.title))
     }
 
