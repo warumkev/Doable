@@ -71,6 +71,12 @@ struct ContentView: View {
         }.sorted { ($0.completedAt ?? .distantPast) > ($1.completedAt ?? .distantPast) }
     }
 
+    /// Overdue todos: not completed and (time ?? createdAt) < now
+    private var overdueTodos: [Todo] {
+        let now = Date()
+        return todos.filter { !$0.isCompleted && (($0.time ?? $0.createdAt) < now) }
+    }
+
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
@@ -91,9 +97,7 @@ struct ContentView: View {
                                 .foregroundColor(.primary)
                         }
                     }
-                    // Attach the confirmation dialog to the Button so it anchors under
-                    // the "Doable" text instead of the logo image.
-                    .confirmationDialog("Title",isPresented: $isMenuPresented, titleVisibility: .hidden) {
+                    .confirmationDialog("Title", isPresented: $isMenuPresented, titleVisibility: .hidden) {
                         Button(LocalizedStringKey("menu.statistics")) {
                             isMenuPresented = false
                             // Present the sheet after the dialog dismisses
